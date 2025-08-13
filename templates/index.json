@@ -16,11 +16,10 @@
     "main": {
       "type": "prueba",
       "settings": {}
-    },
-    "seccionPrueba": {
-      "type": "hello-world",
-      "settings": {}
     }
   },
-  "order": ["video", "main", "seccionPrueba"]
+  "order": [
+    "video",
+    "main"
+  ]
 }
