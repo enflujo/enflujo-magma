@@ -1,11 +1,9 @@
 [
   {
-    "name": "theme_info",
-    "theme_name": "Skeleton",
+    "name": "magma",
+    "theme_name": "Magma",
     "theme_version": "0.1.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
-    "theme_support_url": "https://support.shopify.com/"
+    "theme_author": "Laboratorio EnFlujo"
   },
   {
     "name": "t:general.typography",
@@ -87,6 +85,12 @@
         "type": "video",
         "id": "video_inicio",
         "label": "t:labels.video_inicio",
+        "default": ""
+      },
+      {
+        "type": "text",
+        "id": "un-texto",
+        "label": "Un texto largo",
         "default": ""
       }
     ]
