@@ -1,0 +1,14 @@
+{
+  "name": "enflujo-magma",
+  "packageManager": "yarn@4.9.2",
+  "version": "1.0.0",
+  "repository": "https://github.com/enflujo/enflujo-magma.git",
+  "author": "Laboratorio EnFlujo <j.gonzalezj@uniandes.edu.co>",
+  "scripts": {
+    "dev": "shopify theme dev --store desarrollo-magma"
+  },
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.9.3",
+    "prettier": "^3.6.2"
+  }
+}
