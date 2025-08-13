@@ -13,13 +13,17 @@
       "type": "video",
       "settings": {}
     },
-    "main": {
-      "type": "prueba",
-      "settings": {}
+    "collections_RtbVda": {
+      "type": "collections",
+      "name": "t:general.collections_grid",
+      "settings": {
+        "grid_item_width": "collections--full",
+        "grid_gap": 0
+      }
     }
   },
   "order": [
     "video",
-    "main"
+    "collections_RtbVda"
   ]
 }
