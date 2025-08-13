@@ -79,5 +79,16 @@
         "default": 4
       }
     ]
+  },
+  {
+    "name": "t:general.video",
+    "settings": [
+      {
+        "type": "video",
+        "id": "video_inicio",
+        "label": "t:labels.video_inicio",
+        "default": ""
+      }
+    ]
   }
 ]
