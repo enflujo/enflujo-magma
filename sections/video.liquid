@@ -1,7 +1,7 @@
-{% assign url_video = settings.video_inicio.sources | where: 'format', 'mp4' | last %}
+{% assign video = settings.video_inicio.sources | where: 'format', 'mp4' | last %}
 
 <video id='videoInicio' class='full-width' loop autoplay muted playsinline>
-  <source src='{{ url_video.url }}' type='video/mp4'>
+  <source src='{{ video.url }}' type='video/mp4'>
 </video>
 
 {% schema %}
