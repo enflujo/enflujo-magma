@@ -1,5 +1,27 @@
 {% assign url_video = settings.video_inicio.sources | where: 'format', 'mp4' | last %}
 
-<video id='videoInicio' loop autoplay muted playsinline>
+<video id='videoInicio' class='full-width' loop autoplay muted playsinline>
   <source src='{{ url_video.url }}' type='video/mp4'>
 </video>
+
+{% schema %}
+{
+  "name": "Video",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Homepage video",
+      "category": "Home"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  #videoInicio {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    object-fit: cover;
+  }
+{% endstylesheet %}
