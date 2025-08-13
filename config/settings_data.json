@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "background_color": "#e72222",
+    "background_color": "{{ shop.brand.colors.primary[0].background }}",
     "video_inicio": "shopify://files/videos/01 HERO_STRINGOUT_1.mp4",
     "content_for_index": []
   }
