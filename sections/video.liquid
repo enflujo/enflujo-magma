@@ -1,8 +1,18 @@
 {% assign video = settings.video_inicio.sources | where: 'format', 'mp4' | last %}
 
-<video id='videoInicio' class='full-width' loop autoplay muted playsinline>
-  <source src='{{ video.url }}' type='video/mp4'>
-</video>
+<div class='contenedorVideo full-width'>
+  {% if video %}
+    <video class='videoPantallaCompleta' loop autoplay muted playsinline>
+      <source src='{{ video.url }}' type='video/mp4'>
+    </video>
+  {% else %}
+    <p></p>
+  {% endif %}
+
+  <div class='video-text'>
+    <p>{{ settings.video_texto }}</p>
+  </div>
+</div>
 
 {% schema %}
 {
@@ -10,15 +20,15 @@
   "settings": [],
   "presets": [
     {
-      "name": "Homepage video",
-      "category": "Home"
+      "name": "Full width Video",
+      "category": "t:general:row"
     }
   ]
 }
 {% endschema %}
 
 {% stylesheet %}
-  #videoInicio {
+  .videoPantallaCompleta {
     width: 100%;
     height: 100%;
     min-height: 600px;
