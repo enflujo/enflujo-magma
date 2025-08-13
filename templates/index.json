@@ -9,10 +9,18 @@
  */
 {
   "sections": {
+    "video": {
+      "type": "video",
+      "settings": {}
+    },
     "main": {
+      "type": "prueba",
+      "settings": {}
+    },
+    "seccionPrueba": {
       "type": "hello-world",
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": ["video", "main", "seccionPrueba"]
 }
