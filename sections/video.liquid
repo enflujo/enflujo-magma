@@ -9,7 +9,7 @@
     <p></p>
   {% endif %}
 
-  <div class='video-text'>
+  <div class='textoVideo'>
     <p>{{ settings.video_texto }}</p>
   </div>
 </div>
@@ -33,5 +33,29 @@
     height: 100%;
     min-height: 600px;
     object-fit: cover;
+  }
+
+  .contenedorVideo {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .textoVideo {
+    position: absolute;
+    top: 80px;
+    right: 100px;
+    width: 40vw;
+    color: black;
+    padding: 10px;
+    font-size: 1.4em;
+  }
+
+  .textoVideo h1,
+  .textoVideo h2,
+  .textoVideo h3 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
   }
 {% endstylesheet %}
