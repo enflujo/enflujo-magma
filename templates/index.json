@@ -20,10 +20,16 @@
         "grid_item_width": "collections--full",
         "grid_gap": 0
       }
+    },
+    "video_ebbdzc": {
+      "type": "video",
+      "name": "Full width Video",
+      "settings": {}
     }
   },
   "order": [
     "video",
-    "collections_RtbVda"
+    "collections_RtbVda",
+    "video_ebbdzc"
   ]
 }
