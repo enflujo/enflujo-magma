@@ -1,6 +1,9 @@
 {% assign video = section.settings.video_inicio.sources | where: 'format', 'mp4' | last %}
 
 <div class='contenedorVideo full-width'>
+  {%- comment -%}
+    El video se sube a Shopify y ya tiene una URL, no usar {{ video.url | asset_url }}
+  {%- endcomment -%}
   {% if video %}
     <video class='videoPantallaCompleta' loop autoplay muted playsinline>
       <source src='{{ video.url }}' type='video/mp4'>
