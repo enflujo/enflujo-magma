@@ -1,4 +1,4 @@
-{% assign video = settings.video_inicio.sources | where: 'format', 'mp4' | last %}
+{% assign video = section.settings.video_inicio.sources | where: 'format', 'mp4' | last %}
 
 <div class='contenedorVideo full-width'>
   {% if video %}
