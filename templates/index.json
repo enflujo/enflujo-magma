@@ -9,22 +9,16 @@
  */
 {
   "sections": {
-    "collections_RtbVda": {
-      "type": "collections",
-      "name": "t:general.collections_grid",
-      "settings": {
-        "grid_item_width": "collections--full",
-        "grid_gap": 0
-      }
-    },
     "video_ebbdzc": {
       "type": "video",
       "name": "Full width Video",
-      "settings": {}
+      "settings": {
+        "video_inicio": "shopify://files/videos/01 HERO_STRINGOUT_1.mp4",
+        "video_texto": "<h2>Handcarved Sculptural</h2><h3>Jewelry to Wear Your Story</h3><p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.</p>"
+      }
     }
   },
   "order": [
-    "video_ebbdzc",
-    "collections_RtbVda"
+    "video_ebbdzc"
   ]
 }
