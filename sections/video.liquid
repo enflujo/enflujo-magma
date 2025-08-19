@@ -17,11 +17,22 @@
 {% schema %}
 {
   "name": "Video",
-  "settings": [],
+  "settings": [
+    {
+      "type": "video",
+      "id": "video_inicio",
+      "label": "Archivo de video"
+    },
+    {
+      "type": "richtext",
+      "id": "video_texto",
+      "label": "Texto sobre el video"
+    }
+  ],
   "presets": [
     {
       "name": "Full width Video",
-      "category": "t:general:row"
+      "category": "Decoraciones"
     }
   ]
 }

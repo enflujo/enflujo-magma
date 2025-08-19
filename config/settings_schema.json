@@ -79,20 +79,5 @@
         "default": 4
       }
     ]
-  },
-  {
-    "name": "Video Background",
-    "settings": [
-      {
-        "type": "video",
-        "id": "video_inicio",
-        "label": "Archivo de video"
-      },
-      {
-        "type": "richtext",
-        "id": "video_texto",
-        "label": "Texto sobre el video"
-      }
-    ]
   }
 ]
