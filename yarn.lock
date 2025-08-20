@@ -533,15 +533,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shopify/prettier-plugin-liquid@npm:^1.9.3":
-  version: 1.9.3
-  resolution: "@shopify/prettier-plugin-liquid@npm:1.9.3"
+"@shopify/prettier-plugin-liquid@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "@shopify/prettier-plugin-liquid@npm:1.9.4"
   dependencies:
     "@shopify/liquid-html-parser": "npm:^2.8.2"
     html-styles: "npm:^1.0.0"
   peerDependencies:
     prettier: ^2.0.0 || ^3.0.0
-  checksum: 10c0/8c7fd290dacf3138bfa4477c185cf43e15113c576a70c6bda312ce754a4b9d8560a07016cbe7c633002279faa8f39b601c01fd0be270ce903645bc1de15a8121
+  checksum: 10c0/00c7116b6bed30055b484f51bed173206769d3e7eacd6d48ec2bdba9cabad6be3514911320cff615d80553fcf44e54766c2680ec382b54657d4d90c40a10b1bb
   languageName: node
   linkType: hard
 
@@ -984,7 +984,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "enflujo-magma@workspace:."
   dependencies:
-    "@shopify/prettier-plugin-liquid": "npm:^1.9.3"
+    "@shopify/prettier-plugin-liquid": "npm:^1.9.4"
     autoprefixer: "npm:^10.4.21"
     cssnano: "npm:^7.1.0"
     postcss: "npm:^8.5.6"

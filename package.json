@@ -1,6 +1,6 @@
 {
   "name": "enflujo-magma",
-  "packageManager": "yarn@4.9.2",
+  "packageManager": "yarn@4.9.3",
   "version": "1.0.0",
   "repository": "https://github.com/enflujo/enflujo-magma.git",
   "author": "Laboratorio EnFlujo <j.gonzalezj@uniandes.edu.co>",
@@ -13,7 +13,7 @@
     "lint:fix": "prettier --write --list-different ."
   },
   "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.9.3",
+    "@shopify/prettier-plugin-liquid": "^1.9.4",
     "prettier": "^3.6.2"
   },
   "dependencies": {

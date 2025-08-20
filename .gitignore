@@ -24,7 +24,7 @@ release
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-docs
+publico
 
 sections/*.json
 templates/*.json
