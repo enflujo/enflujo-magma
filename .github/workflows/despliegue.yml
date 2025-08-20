@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 env:
-  RUTA: './aplicaciones/www'
+  RUTA: '.'
 
 jobs:
   build:
