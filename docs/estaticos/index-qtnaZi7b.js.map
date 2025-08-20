@@ -1,1 +1,0 @@
-{"version":3,"file":"index-qtnaZi7b.js","sources":["../../src/programa.ts"],"sourcesContent":["import './scss/estilos.scss';\r\n\r\nconsole.log('..:: EnFlujo ::..');\r\n"],"names":[],"mappings":"ssBAEA,QAAQ,IAAI,mBAAmB"}

@@ -15,3 +15,16 @@ node_modules/
 ## Release files
 release
 *.zip
+
+# Ver documentación de Yarn moderno (> v2): https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+docs
+
+sections/*.json
+templates/*.json
