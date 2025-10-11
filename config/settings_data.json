@@ -7,4 +7,10 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{}
+{
+  "current": {
+    "type_primary_font": "roboto_n4",
+    "type_headers_font": "roboto_n4",
+    "content_for_index": []
+  }
+}
