@@ -5,10 +5,20 @@
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
 
+  {{ settings.type_headers_font | font_face: font_display: 'swap' }}
+  {{ settings.type_headers_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+  {{ settings.type_headers_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {{ settings.type_headers_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+
   :root {
     --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
     --font-primary--style: {{ settings.type_primary_font.style }};
     --font-primary--weight: {{ settings.type_primary_font.weight }};
+
+    --font-headers--family: {{ settings.type_headers_font.family }}, {{ settings.type_headers_font.fallback_families }};
+    --font-headers--style: {{ settings.type_headers_font.style }};
+    --font-headers--weight: {{ settings.type_headers_font.weight }};
+
     --page-width: {{ settings.max_page_width }};
     --page-margin: {{ settings.min_page_margin }}px;
     --color-background: {{ settings.background_color }};

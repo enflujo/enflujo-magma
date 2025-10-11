@@ -19,9 +19,16 @@
         "id": "type_primary_font",
         "default": "work_sans_n4",
         "label": "t:general.primary"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_headers_font",
+        "default": "work_sans_n4",
+        "label": "t:general.headers"
       }
     ]
   },
+
   {
     "name": "t:general.layout",
     "settings": [
