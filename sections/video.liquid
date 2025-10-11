@@ -12,9 +12,7 @@
     <p></p>
   {% endif %}
 
-  <div class='textoVideo'>
-    <p>{{ section.settings.video_texto }}</p>
-  </div>
+  <div class='textoVideo'>{{ section.settings.video_texto }}</div>
 </div>
 
 {% schema %}
@@ -71,5 +69,10 @@
     margin: 0;
     padding: 0;
     text-align: center;
+  }
+
+  .textoVideo p {
+    margin-top: 1em;
+    font-size: 0.9em;
   }
 {% endstylesheet %}
