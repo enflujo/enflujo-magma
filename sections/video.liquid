@@ -1,4 +1,4 @@
-{% assign video = section.settings.video_inicio.sources | where: 'format', 'mp4' | last %}
+{% assign video = section.settings.video_seccion.sources | where: 'format', 'mp4' | last %}
 
 <div class='contenedorVideo full-width'>
   {%- comment -%}
@@ -30,7 +30,7 @@
   "settings": [
     {
       "type": "video",
-      "id": "video_inicio",
+      "id": "video_seccion",
       "label": "Archivo de video"
     },
     {
@@ -52,7 +52,7 @@
   ],
   "presets": [
     {
-      "name": "Full width Video",
+      "name": "Video",
       "category": "Decoraciones"
     }
   ]

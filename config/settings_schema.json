@@ -24,7 +24,7 @@
         "type": "font_picker",
         "id": "type_headers_font",
         "default": "work_sans_n4",
-        "label": "t:general.headers"
+        "label": "Headers"
       }
     ]
   },
