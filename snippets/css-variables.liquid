@@ -1,14 +1,24 @@
 {% style %}
-  {% # Loads all font variantions with display: swap %}
-  {{ settings.type_primary_font | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {%- assign primary_family = settings.type_primary_font.family -%}
+  {%- assign headers_family = settings.type_headers_font.family -%}
 
-  {{ settings.type_headers_font | font_face: font_display: 'swap' }}
-  {{ settings.type_headers_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
-  {{ settings.type_headers_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
-  {{ settings.type_headers_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {%- if primary_family == headers_family -%}
+    {# If both settings use the same family, only load the primary font once #}
+    {{ settings.type_primary_font | font_face: font_display: 'swap' }}
+    {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+    {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+    {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {%- else -%}
+    {{ settings.type_primary_font | font_face: font_display: 'swap' }}
+    {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+    {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+    {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+
+    {{ settings.type_headers_font | font_face: font_display: 'swap' }}
+    {{ settings.type_headers_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+    {{ settings.type_headers_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+    {{ settings.type_headers_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+  {%- endif -%}
 
   :root {
     --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};

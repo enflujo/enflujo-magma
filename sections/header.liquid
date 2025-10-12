@@ -1,35 +1,12 @@
+{% assign instagram = section.settings.instagram %}
+
 <header id='encabezado'>
-  {% assign instagram = section.settings.instagram %}
-
-  {% if instagram != blank %}
-    {% assign entrada_instagram = instagram | strip %}
-
-    {%- comment -%}
-      Si el usuario pega una URL completa (contiene 'instagram.com' o '://'), la usamos tal cual
-      (añadiendo https:// si el esquema falta). Si es solo un nombre de usuario, eliminamos
-      una posible @ inicial y construimos la URL: https://instagram.com/<usuario>
-    {%- endcomment -%}
-
-    {% if entrada_instagram contains 'instagram.com' or entrada_instagram contains '://' %}
-      {% assign url_instagram = entrada_instagram %}
-      {%- unless url_instagram contains '://' -%}
-        {% assign url_instagram = 'https://' | append: url_instagram %}
-      {%- endunless -%}
-    {% else %}
-      {% assign usuario_instagram = entrada_instagram %}
-      {% assign primer_caracter = usuario_instagram | slice: 0, 1 %}
-      {%- if primer_caracter == '@' -%}
-        {% assign usuario_instagram = usuario_instagram | remove: '@' %}
-      {%- endif -%}
-      {% assign url_instagram = 'https://instagram.com/' | append: usuario_instagram %}
-    {% endif %}
-
-    <div class='encabezadoSocial'>
-      <a href='{{ url_instagram }}' target='_blank' rel='noopener noreferrer'>
-        <img src='{{ 'icono-instagram.svg' | asset_url }}' alt='Instagram' width='20px' height='20px'>
-      </a>
-    </div>
-  {% endif %}
+  <!-- Botón hamburguesa visible en móvil -->
+  <div id='hamburguesa' class='hamburguesa' aria-expanded='false' aria-label='Abrir menú'>
+    <span class='pan'></span>
+    <span class='pan'></span>
+    <span class='pan'></span>
+  </div>
 
   <h2 class='encabezadoTitulo'>
     {{ shop.name | link_to: routes.root_url }}
@@ -42,6 +19,36 @@
   </div>
 
   <div class='encabezadoIconos'>
+    {% if instagram != blank %}
+      {% assign entrada_instagram = instagram | strip %}
+
+      {%- comment -%}
+        Si el usuario pega una URL completa (contiene 'instagram.com' o '://'), la usamos tal cual
+        (añadiendo https:// si el esquema falta). Si es solo un nombre de usuario, eliminamos
+        una posible @ inicial y construimos la URL: https://instagram.com/<usuario>
+      {%- endcomment -%}
+
+      {% if entrada_instagram contains 'instagram.com' or entrada_instagram contains '://' %}
+        {% assign url_instagram = entrada_instagram %}
+        {%- unless url_instagram contains '://' -%}
+          {% assign url_instagram = 'https://' | append: url_instagram %}
+        {%- endunless -%}
+      {% else %}
+        {% assign usuario_instagram = entrada_instagram %}
+        {% assign primer_caracter = usuario_instagram | slice: 0, 1 %}
+        {%- if primer_caracter == '@' -%}
+          {% assign usuario_instagram = usuario_instagram | remove: '@' %}
+        {%- endif -%}
+        {% assign url_instagram = 'https://instagram.com/' | append: usuario_instagram %}
+      {% endif %}
+
+      <div class='encabezadoSocial'>
+        <a href='{{ url_instagram }}' target='_blank' rel='noopener noreferrer'>
+          <img src='{{ 'icono-instagram.svg' | asset_url }}' alt='Instagram' width='30px' height='30px'>
+        </a>
+      </div>
+    {% endif %}
+
     {% if shop.customer_accounts_enabled %}
       {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
     {% endif %}
@@ -98,7 +105,7 @@
     position: absolute;
     left: 100%;
     overflow: hidden;
-    max-width: var(--page-margin);
+    max-width: 90vw;
   }
 
   header svg {
@@ -110,4 +117,82 @@
     display: flex;
     gap: 1rem;
   }
+
+  .encabezadoTitulo {
+    text-align: center;
+  }
+
+  .hamburguesa {
+    display: none;
+    background: transparent;
+    border: 0;
+    padding: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-direction: column;
+  }
+
+  .pan {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #130808;
+    margin: 4px 0;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      padding: 0 1rem;
+    }
+
+    header .encabezadoMenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.98);
+      flex-direction: column;
+      padding: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      z-index: 998;
+      gap: 0;
+    }
+
+    header .encabezadoMenu a {
+      padding: 1rem;
+      display: block;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      text-align: center;
+    }
+
+    header .hamburguesa {
+      display: flex;
+    }
+
+    header.abierto .encabezadoMenu {
+      display: flex;
+    }
+  }
 {% endstylesheet %}
+
+{% javascript %}
+  var botonMenu = document.getElementById('hamburguesa');
+  var encabezado = document.getElementById('encabezado');
+  if (!botonMenu || !encabezado) return;
+
+  botonMenu.addEventListener('click', function () {
+    var abierto = encabezado.classList.toggle('abierto');
+    botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!encabezado.classList.contains('abierto')) return;
+    var within = encabezado.contains(e.target);
+    if (!within) {
+      encabezado.classList.remove('abierto');
+      botonMenu.setAttribute('aria-expanded', 'false');
+    }
+  });
+{% endjavascript %}
