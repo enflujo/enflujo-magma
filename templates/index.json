@@ -18,6 +18,15 @@
         "video_enlace_boton": "shopify://collections/all"
       }
     },
+    "texto_pNEEUG": {
+      "type": "texto",
+      "name": "Bloque de texto",
+      "settings": {
+        "texto": "<p>Inspired by nature, dark folk, and shared memory. Each piece is a singular, tactile story with emotional resonance. You'll recognize yourself in their language - gritty yet refined, experimental in process, and precise in execution.</p>",
+        "texto_boton": "Explore the collections",
+        "enlace_boton": "shopify://collections"
+      }
+    },
     "collections_GY3CkR": {
       "type": "collections",
       "name": "t:general.collections_grid",
@@ -29,6 +38,7 @@
   },
   "order": [
     "video_f6aDQa",
+    "texto_pNEEUG",
     "collections_GY3CkR"
   ]
 }
