@@ -1,0 +1,26 @@
+.botonDestacado {
+  border: 1px solid;
+  display: block;
+  width: fit-content;
+  padding: 0.4rem 0.6rem;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin: 0 auto;
+}
+
+.botonDestacado:hover,
+.botonDestacado:focus {
+  background: var(--color-foreground);
+  color: var(--color-background);
+  border-color: var(--color-foreground);
+}
+
+.botonDestacado a:hover {
+  text-decoration: none;
+}
+
+.tituloSeccion {
+  font-size: 1.8em;
+  margin: 1em 0 1em 0;
+}

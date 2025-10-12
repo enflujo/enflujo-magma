@@ -62,9 +62,17 @@ p:empty {
   display: none;
 }
 
-:is(p, h1, h2, h3, h4, h5, h6):first-child,
-:empty:first-child + :where(p, h1, h2, h3, h4, h5, h6) {
-  margin-block-start: 0;
+a,
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+  font-weight: normal;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 }
 
 :is(p, h1, h2, h3, h4, h5, h6):last-child,

@@ -1,8 +1,8 @@
-<div class='contenedorTexto full-width'>
+<div class='contenedorTexto'>
   <div class='textoTexto'>
     {{ section.settings.texto }}
     {% if section.settings.enlace_boton != blank %}
-      <div class='enlaceTexto'>
+      <div class='enlaceTexto botonDestacado'>
         <a href='{{ section.settings.enlace_boton }}' class='textoBoton'>
           {{ section.settings.texto_boton | default: 'Ver más' }}
         </a>
@@ -61,16 +61,6 @@
   }
 
   .enlaceTexto {
-    margin-top: 1em;
-  }
-
-  .textoBoton {
-    display: inline-block;
-    background: var(--color-foreground);
-    color: var(--color-background);
-    padding: 0.6rem 1rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
+    margin-top: 2em;
   }
 {% endstylesheet %}

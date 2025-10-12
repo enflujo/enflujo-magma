@@ -15,7 +15,7 @@
   <div class='textoVideo'>
     {{ section.settings.video_texto }}
     {% if section.settings.video_enlace_boton != blank %}
-      <div class='enlaceVideo'>
+      <div class='enlaceVideo botonDestacado'>
         <a href='{{ section.settings.video_enlace_boton }}' class='videoBoton'>
           {{ section.settings.video_texto_boton | default: 'Ver más' }}
         </a>
@@ -94,19 +94,5 @@
   .textoVideo p {
     margin-top: 1em;
     font-size: 0.9em;
-  }
-
-  .enlaceVideo {
-    margin-top: 1em;
-  }
-
-  .videoBoton {
-    display: inline-block;
-    background: var(--color-foreground);
-    color: var(--color-background);
-    padding: 0.6rem 1rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
   }
 {% endstylesheet %}
