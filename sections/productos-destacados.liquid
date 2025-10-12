@@ -1,0 +1,346 @@
+<div class='contenedorProductosDestacados full-width'>
+  <h2>{{ section.settings.titulo_seccion }}</h2>
+  <div class='productosGrid cols-{{ section.settings.columns }}'>
+    {% for block in section.blocks %}
+      {% assign prod = all_products[block.settings.product] %}
+      {% if prod %}
+        <article class='productoTarjeta'>
+          <a class='productoImagen' href='{{ prod.url }}'>
+            {% if prod.featured_image %}
+              <img
+                src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: 'center' }}'
+                alt='{{ prod.title }}'
+                width='400'
+                height='400'
+              >
+            {% endif %}
+          </a>
+          <div class='productoContenido'>
+            <h3 class='productoTitulo'>
+              <a href='{{ prod.url }}'>{{ prod.title }}</a>
+            </h3>
+            <div class='productoPrecio'>{{ prod.price | money }}</div>
+            <div class='productoDescripcion'>{{ prod.description | strip_html | truncate: 120 }}</div>
+            {% comment %} If product has exactly one variant, allow quick add-to-cart; otherwise link to product page {% endcomment %}
+            {% if prod.variants.size == 1 %}
+              {% assign v = prod.variants.first %}
+              {% if v.available %}
+                <form method='post' action='{{ routes.cart_add_url }}' class='form-agregar-carrito'>
+                  <input type='hidden' name='id' value='{{ v.id }}'>
+                  <button type='submit' class='boton-agregar'>Agregar</button>
+                </form>
+              {% else %}
+                <button class='agotado' disabled>Agotado</button>
+              {% endif %}
+            {% else %}
+              <a class='ver-producto' href='{{ prod.url }}'>Ver producto</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endif %}
+    {% else %}
+      <p>No hay productos destacados. Añade productos desde la sección.</p>
+    {% endfor %}
+  </div>
+
+  {% if section.settings.enlace_boton != blank %}
+    <div class='enlaceTexto'>
+      <a href='{{ section.settings.enlace_boton }}' class='textoBoton'>
+        {{ section.settings.texto_boton | default: 'Ver más' }}
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Productos destacados",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titulo_seccion",
+      "label": "Título"
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Columnas",
+      "default": "3",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "texto_boton",
+      "label": "Texto del botón"
+    },
+    {
+      "type": "url",
+      "id": "enlace_boton",
+      "label": "Enlace del botón"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Producto",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Seleccionar producto"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Productos destacados",
+      "category": "Decoraciones"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .contenedorTexto {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .textoTexto {
+    color: black;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.4em;
+  }
+
+  .textoTexto p {
+    margin-top: 1em;
+    font-size: 0.9em;
+  }
+
+  .enlaceTexto {
+    margin-top: 1em;
+  }
+
+  .textoBoton {
+    display: inline-block;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Productos grid */
+  .productosGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .productosGrid.cols-1 {
+    grid-template-columns: 1fr;
+  }
+  .productosGrid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .productosGrid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .productosGrid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .productoTarjeta {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .productoImagen img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .productoContenido {
+    padding: 0.75rem;
+    flex: 1 1 auto;
+  }
+
+  .productoTitulo {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+  }
+
+  .productoPrecio {
+    color: var(--color-foreground);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .productoDescripcion {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .boton-agregar {
+    display: inline-block;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .ver-producto {
+    display: inline-block;
+    background: transparent;
+    color: var(--color-foreground);
+    padding: 0.5rem 0.75rem;
+    text-decoration: underline;
+  }
+
+  .agotado {
+    background: #ddd;
+    color: #666;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    border: 0;
+  }
+
+  /* Aviso (toast) */
+  .aviso-carrito {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    // Inicializa formularios de agregado rápido dentro de la sección
+    function inicializarProductosDestacados(root) {
+      root = root || document;
+      var forms = root.querySelectorAll('.form-agregar-carrito');
+      if (!forms.length) return;
+
+      forms.forEach(function (form) {
+        if (form.dataset.inicioAgregado) return;
+        form.dataset.inicioAgregado = '1';
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var fd = new FormData(form);
+          var submit = form.querySelector('button[type="submit"]');
+          if (submit) {
+            submit.disabled = true;
+            submit.setAttribute('aria-disabled', 'true');
+          }
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            body: fd,
+            credentials: 'same-origin',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          })
+            .then(function (res) {
+              if (!res.ok) throw res;
+              return res.json();
+            })
+            .then(function (data) {
+              mostrarAviso('Agregado: ' + (data.title || 'Producto'));
+              // Actualizar contador del carrito consultando /cart.js
+              fetch('/cart.js', { credentials: 'same-origin' })
+                .then(function (r) {
+                  return r.json();
+                })
+                .then(function (cart) {
+                  var count = cart.item_count;
+                  // actualizar elementos por selectores comunes (compatibilidad)
+                  document.querySelectorAll('[data-contador-carrito]').forEach(function (el) {
+                    el.textContent = count;
+                  });
+                  document.querySelectorAll('.contadorCarrito').forEach(function (el) {
+                    el.textContent = count;
+                  });
+                  // fallbacks para compatibilidad con temas antiguos
+                  document.querySelectorAll('[data-cart-count]').forEach(function (el) {
+                    el.textContent = count;
+                  });
+                  document.querySelectorAll('.cart-count').forEach(function (el) {
+                    el.textContent = count;
+                  });
+                  document.querySelectorAll('a[href$="/cart"] sup').forEach(function (el) {
+                    el.textContent = count;
+                  });
+                })
+                .catch(function () {
+                  /* ignore */
+                });
+            })
+            .catch(function () {
+              // Fallback: enviar el formulario clásicamente si falla el ajax
+              form.submit();
+            })
+            .finally(function () {
+              if (submit) {
+                submit.disabled = false;
+                submit.removeAttribute('aria-disabled');
+              }
+            });
+        });
+      });
+    }
+
+    // Muestra un aviso/toast temporal
+    function mostrarAviso(msg) {
+      var t = document.querySelector('.aviso-carrito');
+      if (!t) {
+        t = document.createElement('div');
+        t.className = 'aviso-carrito';
+        t.setAttribute('role', 'status');
+        t.setAttribute('aria-live', 'polite');
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.pointerEvents = 'auto';
+      t.style.opacity = '1';
+      clearTimeout(window._avisoCarritoTimeout);
+      window._avisoCarritoTimeout = setTimeout(function () {
+        t.style.opacity = '0';
+        t.style.pointerEvents = 'none';
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      inicializarProductosDestacados(document);
+    });
+    document.addEventListener('shopify:section:load', function (e) {
+      inicializarProductosDestacados(e.target);
+    });
+  })();
+{% endjavascript %}
