@@ -35,11 +35,22 @@
         "grid_item_width": "collections--full",
         "grid_gap": 10
       }
+    },
+    "productos_destacados_hVFyqh": {
+      "type": "productos-destacados",
+      "name": "Productos destacados",
+      "settings": {
+        "titulo_seccion": "Featured Treasures",
+        "columns": "3",
+        "texto_boton": "",
+        "enlace_boton": "shopify://products/boat"
+      }
     }
   },
   "order": [
     "video_f6aDQa",
     "texto_pNEEUG",
-    "collections_GY3CkR"
+    "collections_GY3CkR",
+    "productos_destacados_hVFyqh"
   ]
 }
