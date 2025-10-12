@@ -68,12 +68,20 @@
         "titulo_seccion": "Featured Treasures",
         "columns": "3"
       }
+    },
+    "titulo_QtceKq": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": ""
+      }
     }
   },
   "order": [
     "video_f6aDQa",
     "texto_pNEEUG",
     "collections_GY3CkR",
-    "productos_destacados_hVFyqh"
+    "productos_destacados_hVFyqh",
+    "titulo_QtceKq"
   ]
 }
