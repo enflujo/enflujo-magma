@@ -9,6 +9,15 @@
  */
 {
   "sections": {
+    "video_f6aDQa": {
+      "type": "video",
+      "name": "Video",
+      "settings": {
+        "video_texto": "<h2>Handcarved Sculptural</h2><h2>Jewelry to Wear Your Story</h2><p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.<br/><br/></p>",
+        "video_texto_boton": "Explore the archive",
+        "video_enlace_boton": "shopify://collections/all"
+      }
+    },
     "collections_GY3CkR": {
       "type": "collections",
       "name": "t:general.collections_grid",
@@ -19,6 +28,7 @@
     }
   },
   "order": [
+    "video_f6aDQa",
     "collections_GY3CkR"
   ]
 }
