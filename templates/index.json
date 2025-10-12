@@ -38,12 +38,35 @@
     },
     "productos_destacados_hVFyqh": {
       "type": "productos-destacados",
+      "blocks": {
+        "product_zDhyYc": {
+          "type": "product",
+          "settings": {
+            "product": "caballo"
+          }
+        },
+        "product_naVBND": {
+          "type": "product",
+          "settings": {
+            "product": "wave-1"
+          }
+        },
+        "product_MCigzz": {
+          "type": "product",
+          "settings": {
+            "product": "mini-mountain-rough"
+          }
+        }
+      },
+      "block_order": [
+        "product_zDhyYc",
+        "product_naVBND",
+        "product_MCigzz"
+      ],
       "name": "Productos destacados",
       "settings": {
         "titulo_seccion": "Featured Treasures",
-        "columns": "3",
-        "texto_boton": "",
-        "enlace_boton": ""
+        "columns": "3"
       }
     }
   },
