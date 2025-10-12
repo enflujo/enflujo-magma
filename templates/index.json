@@ -18,19 +18,9 @@
         "video_texto_boton": "Explore the archive",
         "video_enlace_boton": "shopify://collections/all"
       }
-    },
-    "texto_bHaLVA": {
-      "type": "texto",
-      "name": "Texto",
-      "settings": {
-        "texto": "<p>Inspired by nature, dark folk, and shared memory. Each piece is a singular, tactile story with emotional resonance. You'll recognize yourself in their language - gritty yet refined, experimental in process, and precise in execution.</p>",
-        "texto_boton": "Explore the collections",
-        "enlace_boton": "shopify://collections"
-      }
     }
   },
   "order": [
-    "video_ebbdzc",
-    "texto_bHaLVA"
+    "video_ebbdzc"
   ]
 }
