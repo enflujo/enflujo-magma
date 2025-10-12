@@ -1,0 +1,76 @@
+<div class='contenedorTexto full-width'>
+  <div class='textoTexto'>
+    {{ section.settings.texto }}
+    {% if section.settings.enlace_boton != blank %}
+      <div class='enlaceTexto'>
+        <a href='{{ section.settings.enlace_boton }}' class='textoBoton'>
+          {{ section.settings.texto_boton | default: 'Ver más' }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Texto",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "texto",
+      "label": "Texto"
+    },
+    {
+      "type": "text",
+      "id": "texto_boton",
+      "label": "Texto del botón",
+      "default": "Ver más"
+    },
+    {
+      "type": "url",
+      "id": "enlace_boton",
+      "label": "Enlace del botón"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texto",
+      "category": "Decoraciones"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .contenedorTexto {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .textoTexto {
+    color: black;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.4em;
+  }
+
+  .textoTexto p {
+    margin-top: 1em;
+    font-size: 0.9em;
+  }
+
+  .enlaceTexto {
+    margin-top: 1em;
+  }
+
+  .textoBoton {
+    display: inline-block;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+{% endstylesheet %}
