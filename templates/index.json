@@ -75,6 +75,24 @@
       "settings": {
         "titulo_seccion": "Shop the Collections"
       }
+    },
+    "imagen_grande_rcYX6X": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
+      "settings": {
+        "imagen_seccion": "shopify://shop_images/pajaros1.jpg",
+        "texto_seccion": "",
+        "alt_texto": "",
+        "posicion_texto": "centro",
+        "enlace_producto": "",
+        "enlace_coleccion": "",
+        "color_texto": "#ffffff",
+        "color_fondo": "rgba(0,0,0,0.5)",
+        "mostrar_fondo": true,
+        "max_ancho_ch": 60,
+        "tamano_fuente": 18,
+        "alineacion_texto": "center"
+      }
     }
   },
   "order": [
@@ -82,6 +100,7 @@
     "texto_pNEEUG",
     "collections_GY3CkR",
     "productos_destacados_hVFyqh",
-    "titulo_QtceKq"
+    "titulo_QtceKq",
+    "imagen_grande_rcYX6X"
   ]
 }
