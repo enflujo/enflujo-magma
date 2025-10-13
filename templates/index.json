@@ -74,17 +74,16 @@
       "name": "Imágen grande",
       "settings": {
         "imagen_seccion": "shopify://shop_images/pajaros1.jpg",
-        "texto_seccion": "",
         "alt_texto": "",
+        "texto_seccion": "<p>hola</p>",
         "posicion_texto": "centro",
-        "enlace_producto": "",
-        "enlace_coleccion": "",
+        "enlace_destino": "shopify://products/birds",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#ffffff80",
         "mostrar_fondo": true,
         "max_ancho_ch": 60,
         "tamano_fuente": 18,
-        "alineacion_texto": "center"
+        "alineacion_texto": "right"
       }
     },
     "titulo_QtceKq": {
