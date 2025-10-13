@@ -12,13 +12,26 @@
         }}
         {% if section.settings.texto_seccion != blank %}
           <div
-            class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% endcase %}'
+            class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
             style='
               color: {{ section.settings.color_texto | default: "#ffffff" }};
               {% if section.settings.mostrar_fondo %} background: {{ section.settings.color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
               max-width: {% if section.settings.max_ancho_ch %}{{ section.settings.max_ancho_ch }}ch{% else %}60ch{% endif %};
               font-size: {% if section.settings.tamano_fuente %}{{ section.settings.tamano_fuente }}px{% else %}18px{% endif %};
               text-align: {{ section.settings.alineacion_texto | default: 'center' }};
+              {% assign offx = section.settings.offset_x | default: 16 %}
+              {% assign offy = section.settings.offset_y | default: 16 %}
+              {% case section.settings.posicion_texto | default: 'centro' %}
+                {% when 'supIzq' %} top: {{ offy }}px; left: {{ offx }}px; transform: none;
+                {% when 'supDer' %} top: {{ offy }}px; right: {{ offx }}px; transform: none;
+                {% when 'infIzq' %} bottom: {{ offy }}px; left: {{ offx }}px; transform: none;
+                {% when 'infDer' %} bottom: {{ offy }}px; right: {{ offx }}px; transform: none;
+                {% when 'supCentro' %} top: {{ offy }}px; left: 50%; transform: translateX(-50%);
+                {% when 'infCentro' %} bottom: {{ offy }}px; left: 50%; transform: translateX(-50%);
+                {% when 'centroDer' %} top: 50%; right: {{ offx }}px; transform: translateY(-50%);
+                {% when 'centroIzq' %} top: 50%; left: {{ offx }}px; transform: translateY(-50%);
+                {% else %} top: 50%; left: 50%; transform: translate(-50%, -50%);
+              {% endcase %}
             '
           >
             {{ section.settings.texto_seccion }}
@@ -35,13 +48,25 @@
         }}
         {% if section.settings.texto_seccion != blank %}
           <div
-            class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% endcase %}'
+            class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
             style='
-              color: {{ section.settings.color_texto | default: "#ffffff" }};
               {% if section.settings.mostrar_fondo %} background: {{ section.settings.color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
               max-width: {% if section.settings.max_ancho_ch %}{{ section.settings.max_ancho_ch }}ch{% else %}60ch{% endif %};
               font-size: {% if section.settings.tamano_fuente %}{{ section.settings.tamano_fuente }}px{% else %}18px{% endif %};
               text-align: {{ section.settings.alineacion_texto | default: 'center' }};
+              {% assign offx = section.settings.offset_x | default: 16 %}
+              {% assign offy = section.settings.offset_y | default: 16 %}
+              {% case section.settings.posicion_texto | default: 'centro' %}
+                {% when 'supIzq' %} top: {{ offy }}px; left: {{ offx }}px; transform: none;
+                {% when 'supDer' %} top: {{ offy }}px; right: {{ offx }}px; transform: none;
+                {% when 'infIzq' %} bottom: {{ offy }}px; left: {{ offx }}px; transform: none;
+                {% when 'infDer' %} bottom: {{ offy }}px; right: {{ offx }}px; transform: none;
+                {% when 'supCentro' %} top: {{ offy }}px; left: 50%; transform: translateX(-50%);
+                {% when 'infCentro' %} bottom: {{ offy }}px; left: 50%; transform: translateX(-50%);
+                {% when 'centroDer' %} top: 50%; right: {{ offx }}px; transform: translateY(-50%);
+                {% when 'centroIzq' %} top: 50%; left: {{ offx }}px; transform: translateY(-50%);
+                {% else %} top: 50%; left: 50%; transform: translate(-50%, -50%);
+              {% endcase %}
             '
           >
             {{ section.settings.texto_seccion }}
@@ -82,7 +107,11 @@
         { "value": "supIzq", "label": "Superior izquierda" },
         { "value": "supDer", "label": "Superior derecha" },
         { "value": "infIzq", "label": "Inferior izquierda" },
-        { "value": "infDer", "label": "Inferior derecha" }
+        { "value": "infDer", "label": "Inferior derecha" },
+        { "value": "supCentro", "label": "Superior centro" },
+        { "value": "infCentro", "label": "Inferior centro" },
+        { "value": "centroDer", "label": "Centro derecha" },
+        { "value": "centroIzq", "label": "Centro izquierda" }
       ]
     },
     {
@@ -117,6 +146,24 @@
       "max": 80,
       "step": 1,
       "default": 60
+    },
+    {
+      "type": "range",
+      "id": "offset_x",
+      "label": "Separación horizontal (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "offset_y",
+      "label": "Separación vertical (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 16
     },
     {
       "type": "range",
@@ -188,6 +235,30 @@
   .textoFlotante.posSupDer {
     top: 1rem;
     right: 1rem;
+  }
+  .textoFlotante.posSupCentro {
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .textoFlotante.posInfCentro {
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .textoFlotante.posCentroDer {
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    text-align: right;
+  }
+  .textoFlotante.posCentroIzq {
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    text-align: left;
   }
   .textoFlotante.posInfIzq {
     bottom: 1rem;
