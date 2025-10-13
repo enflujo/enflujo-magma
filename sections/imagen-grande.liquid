@@ -1,10 +1,9 @@
 {% if section.settings.imagen_seccion %}
   <div class='contenedorImagenGrande full-width'>
-    {% assign prod = all_products[section.settings.enlace_producto] %}
-    {% assign coll = collections[section.settings.enlace_coleccion] %}
+    {% assign url_destino = section.settings.enlace_destino %}
 
-    {% if prod or coll %}
-      <a class='imagenEnvoltura' href='{{ prod.url | default: coll.url }}'>
+    {% if url_destino != blank %}
+      <a class='imagenEnvoltura' href='{{ url_destino }}'>
         {{
           section.settings.imagen_seccion
           | image_url: width: 2000
@@ -87,14 +86,10 @@
       ]
     },
     {
-      "type": "product",
-      "id": "enlace_producto",
-      "label": "Enlace a producto (opcional)"
-    },
-    {
-      "type": "collection",
-      "id": "enlace_coleccion",
-      "label": "Enlace a colección (opcional)"
+      "type": "url",
+      "id": "enlace_destino",
+      "label": "Enlace (opcional)",
+      "info": "Selecciona cualquier enlace de la tienda o pega una URL"
     },
     {
       "type": "color",
