@@ -15,7 +15,7 @@
     {% for collection in collections %}
       <a class='collection-card' href='{{ collection.url }}'>
         {% if collection.featured_image %}
-          {% render 'image',
+          {% render 'imagen',
             class: 'collection-card__image',
             image: collection.featured_image,
             width: 600,

@@ -12,7 +12,7 @@
     {% for product in collection.products %}
       <div class='collection-product'>
         {% if product.featured_image %}
-          {% render 'image',
+          {% render 'imagen',
             class: 'collection-product__image',
             image: product.featured_image,
             url: product.url,
