@@ -1,0 +1,206 @@
+{% if section.settings.imagen_seccion %}
+  <div class='contenedorImagenGrande full-width'>
+    {% assign prod = all_products[section.settings.enlace_producto] %}
+    {% assign coll = collections[section.settings.enlace_coleccion] %}
+
+    {% if prod or coll %}
+      <a class='imagenEnvoltura' href='{{ prod.url | default: coll.url }}'>
+        {{
+          section.settings.imagen_seccion
+          | image_url: width: 2000
+          | image_tag: alt: section.settings.alt_texto
+          | default: section.settings.imagen_seccion.alt
+        }}
+        {% if section.settings.texto_seccion != blank %}
+          <div
+            class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% endcase %}'
+            style='
+              color: {{ section.settings.color_texto | default: "#ffffff" }};
+              {% if section.settings.mostrar_fondo %} background: {{ section.settings.color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
+              max-width: {% if section.settings.max_ancho_ch %}{{ section.settings.max_ancho_ch }}ch{% else %}60ch{% endif %};
+              font-size: {% if section.settings.tamano_fuente %}{{ section.settings.tamano_fuente }}px{% else %}18px{% endif %};
+              text-align: {{ section.settings.alineacion_texto | default: 'center' }};
+            '
+          >
+            {{ section.settings.texto_seccion }}
+          </div>
+        {% endif %}
+      </a>
+    {% else %}
+      <div class='imagenEnvoltura'>
+        {{
+          section.settings.imagen_seccion
+          | image_url: width: 2000
+          | image_tag: alt: section.settings.alt_texto
+          | default: section.settings.imagen_seccion.alt
+        }}
+        {% if section.settings.texto_seccion != blank %}
+          <div
+            class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% endcase %}'
+            style='
+              color: {{ section.settings.color_texto | default: "#ffffff" }};
+              {% if section.settings.mostrar_fondo %} background: {{ section.settings.color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
+              max-width: {% if section.settings.max_ancho_ch %}{{ section.settings.max_ancho_ch }}ch{% else %}60ch{% endif %};
+              font-size: {% if section.settings.tamano_fuente %}{{ section.settings.tamano_fuente }}px{% else %}18px{% endif %};
+              text-align: {{ section.settings.alineacion_texto | default: 'center' }};
+            '
+          >
+            {{ section.settings.texto_seccion }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Imágen grande",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "imagen_seccion",
+      "label": "Archivo de imagen"
+    },
+    {
+      "type": "richtext",
+      "id": "texto_seccion",
+      "label": "Texto sobre imagen"
+    },
+    {
+      "type": "text",
+      "id": "alt_texto",
+      "label": "Texto alternativo (accesibilidad)",
+      "info": "Si se deja vacío, se usa el alt de la imagen."
+    },
+    {
+      "type": "select",
+      "id": "posicion_texto",
+      "label": "Posición del texto",
+      "default": "centro",
+      "options": [
+        { "value": "centro", "label": "Centrado" },
+        { "value": "supIzq", "label": "Superior izquierda" },
+        { "value": "supDer", "label": "Superior derecha" },
+        { "value": "infIzq", "label": "Inferior izquierda" },
+        { "value": "infDer", "label": "Inferior derecha" }
+      ]
+    },
+    {
+      "type": "product",
+      "id": "enlace_producto",
+      "label": "Enlace a producto (opcional)"
+    },
+    {
+      "type": "collection",
+      "id": "enlace_coleccion",
+      "label": "Enlace a colección (opcional)"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto (opcional)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Color de fondo del overlay (opcional)",
+      "default": "rgba(0,0,0,0.5)"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_fondo",
+      "label": "Mostrar fondo detrás del texto",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_ancho_ch",
+      "label": "Ancho máximo del texto (ch)",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "tamano_fuente",
+      "label": "Tamaño de fuente (px)",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "alineacion_texto",
+      "label": "Alineación del texto",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Imágen grande",
+      "category": "Decoraciones"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .contenedorImagenGrande {
+    position: relative;
+  }
+
+  .imagenEnvoltura {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .imagenEnvoltura img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .textoFlotante {
+    position: absolute;
+    max-width: min(90%, 60ch);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+  }
+
+  /* Posiciones */
+  .textoFlotante.posCentro {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .textoFlotante.posSupIzq {
+    top: 1rem;
+    left: 1rem;
+  }
+  .textoFlotante.posSupDer {
+    top: 1rem;
+    right: 1rem;
+  }
+  .textoFlotante.posInfIzq {
+    bottom: 1rem;
+    left: 1rem;
+  }
+  .textoFlotante.posInfDer {
+    bottom: 1rem;
+    right: 1rem;
+  }
+{% endstylesheet %}
