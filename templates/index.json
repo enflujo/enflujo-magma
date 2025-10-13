@@ -89,7 +89,7 @@
         "enlace_destino": "shopify://products/birds",
         "color_texto": "#ffffff",
         "color_fondo": "#ffffff80",
-        "mostrar_fondo": true,
+        "mostrar_fondo": false,
         "max_ancho_ch": 60,
         "offset_x": 16,
         "offset_y": 16,
