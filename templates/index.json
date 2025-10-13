@@ -15,6 +15,15 @@
       "settings": {
         "video_seccion": "shopify://files/videos/01 HERO_STRINGOUT_1.mp4",
         "video_texto": "<h2>Handcarved Sculptural</h2><h2>Jewelry to Wear Your Story</h2><p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.</p>",
+        "posicion_texto": "supDer",
+        "color_texto": "#333333",
+        "color_fondo": "#00000080",
+        "mostrar_fondo": false,
+        "max_ancho_ch": 48,
+        "offset_x": 16,
+        "offset_y": 91,
+        "tamano_fuente": 18,
+        "alineacion_texto": "center",
         "video_texto_boton": "Explore the archive",
         "video_enlace_boton": "shopify://collections/all"
       }
