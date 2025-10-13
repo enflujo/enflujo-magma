@@ -1,5 +1,7 @@
 <div class='contenedorProductosDestacados'>
-  <h2 class='tituloSeccion'>{{ section.settings.titulo_seccion }}</h2>
+  {% if section.settings.titulo_seccion != blank %}
+    <h2 class='tituloSeccion'>{{ section.settings.titulo_seccion }}</h2>
+  {% endif %}
 
   <div class='productosGrid cols-{{ section.settings.columns }}'>
     {% for block in section.blocks %}
@@ -22,7 +24,7 @@
             </h3>
             <div class='productoPrecio'>{{ prod.price | money }}</div>
             <div class='productoDescripcion'>{{ prod.description | strip_html | truncate: 120 }}</div>
-            {% comment %} If product has exactly one variant, allow quick add-to-cart; otherwise link to product page {% endcomment %}
+            {% comment %} Si el producto tiene exactamente una variante, permitir agregar rápido al carrito; de lo contrario, enlazar a la página del producto {% endcomment %}
             {% if prod.variants.size == 1 %}
               {% assign v = prod.variants.first %}
               {% if v.available %}
@@ -39,8 +41,6 @@
           </div>
         </article>
       {% endif %}
-    {% else %}
-      <p>No hay productos destacados. Añade productos desde la sección.</p>
     {% endfor %}
   </div>
 </div>
