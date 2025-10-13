@@ -1,0 +1,61 @@
+{% doc %}
+  Renderiza una imagen responsiva que opcionalmente puede estar envuelta en un enlace.
+
+  Cuando se proporcionan `width`, `height` y `crop`, la imagen se renderiza con
+  una relación de aspecto fija.
+
+  @param {image} image - La imagen a renderizar
+  @param {string} [url] - URL de destino opcional
+  @param {string} [class] - Clase(s) opcionales para el contenedor
+  @param {number} [width] - Ancho máximo de la imagen
+  @param {number} [height] - Alto máximo de la imagen
+  @param {string} [crop] - Posición del recorte
+
+  @example
+  {% render 'image', image: product.featured_image %}
+  {% render 'image', image: product.featured_image, url: product.url %}
+  {% render 'image',
+    class: 'productoImagen',
+    image: product.featured_image,
+    url: product.url,
+    width: 1200,
+    height: 800,
+    crop: 'center',
+  %}
+{% enddoc %}
+
+{% liquid
+  unless height
+    assign width = width | default: image.width
+  endunless
+
+  if url
+    assign contenedor = 'a'
+  else
+    assign contenedor = 'div'
+  endif
+%}
+
+<{{ contenedor }}
+  class='imagen{% if class %} {{ class }}{% endif %}'
+  {% if url %}
+    href='{{ url }}'
+  {% endif %}
+>
+  {{ image | image_url: width: width, height: height, crop: crop | image_tag }}
+</{{ contenedor }}>
+
+{% stylesheet %}
+  .imagen {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+  }
+
+  .imagen > img {
+    width: 100%;
+    height: auto;
+  }
+{% endstylesheet %}
