@@ -268,4 +268,19 @@
     bottom: 1rem;
     right: 1rem;
   }
+  /* Breakpoints */
+  @media (max-width: 768px) {
+    .textoFlotante {
+      max-width: min(92%, 50ch) !important;
+      font-size: clamp(14px, 2.8vw, 16px) !important;
+      padding: 0.6rem 0.8rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .textoFlotante {
+      max-width: min(95%, 38ch) !important;
+      font-size: clamp(13px, 3.6vw, 15px) !important;
+      padding: 0.5rem 0.75rem;
+    }
+  }
 {% endstylesheet %}

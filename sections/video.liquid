@@ -238,9 +238,26 @@
   .enlaceVideo {
     margin-top: 1em;
   }
+  /* Breakpoints */
   @media (max-width: 768px) {
-    .textoVideo {
-      font-size: 1em;
+    .videoPantallaCompleta {
+      min-height: 360px;
+    }
+    .textoFlotante {
+      max-width: min(92%, 50ch) !important;
+      font-size: clamp(14px, 2.8vw, 16px) !important;
+      padding: 0.6rem 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .videoPantallaCompleta {
+      min-height: 280px;
+    }
+    .textoFlotante {
+      max-width: min(95%, 38ch) !important;
+      font-size: clamp(13px, 3.6vw, 15px) !important;
+      padding: 0.5rem 0.75rem;
     }
   }
 {% endstylesheet %}
