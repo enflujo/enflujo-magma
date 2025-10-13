@@ -8,16 +8,44 @@
     <p></p>
   {% endif %}
 
-  <div class='textoVideo'>
-    {{ section.settings.video_texto }}
-    {% if section.settings.video_enlace_boton != blank %}
-      <div class='enlaceVideo botonDestacado'>
-        <a href='{{ section.settings.video_enlace_boton }}' class='videoBoton'>
-          {{ section.settings.video_texto_boton | default: 'Ver más' }}
-        </a>
-      </div>
-    {% endif %}
-  </div>
+  {% assign hay_texto = section.settings.video_texto %}
+  {% assign hay_boton = section.settings.video_enlace_boton %}
+  {% if hay_texto != blank or hay_boton != blank %}
+    <div
+      class='textoFlotante textoVideo {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
+      style='
+        color: {{ section.settings.color_texto | default: "#ffffff" }};
+        {% if section.settings.mostrar_fondo %} background: {{ section.settings.color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
+        max-width: {% if section.settings.max_ancho_ch %}{{ section.settings.max_ancho_ch }}ch{% else %}60ch{% endif %};
+        font-size: {% if section.settings.tamano_fuente %}{{ section.settings.tamano_fuente }}px{% else %}18px{% endif %};
+        text-align: {{ section.settings.alineacion_texto | default: 'center' }};
+        {% assign offx = section.settings.offset_x | default: 16 %}
+        {% assign offy = section.settings.offset_y | default: 16 %}
+        {% case section.settings.posicion_texto | default: 'centro' %}
+          {% when 'supIzq' %} top: {{ offy }}px; left: {{ offx }}px; transform: none;
+          {% when 'supDer' %} top: {{ offy }}px; right: {{ offx }}px; transform: none;
+          {% when 'infIzq' %} bottom: {{ offy }}px; left: {{ offx }}px; transform: none;
+          {% when 'infDer' %} bottom: {{ offy }}px; right: {{ offx }}px; transform: none;
+          {% when 'supCentro' %} top: {{ offy }}px; left: 50%; transform: translateX(-50%);
+          {% when 'infCentro' %} bottom: {{ offy }}px; left: 50%; transform: translateX(-50%);
+          {% when 'centroDer' %} top: 50%; right: {{ offx }}px; transform: translateY(-50%);
+          {% when 'centroIzq' %} top: 50%; left: {{ offx }}px; transform: translateY(-50%);
+          {% else %} top: 50%; left: 50%; transform: translate(-50%, -50%);
+        {% endcase %}
+      '
+    >
+      {% if section.settings.video_texto != blank %}
+        {{ section.settings.video_texto }}
+      {% endif %}
+      {% if section.settings.video_enlace_boton != blank %}
+        <div class='enlaceVideo botonDestacado'>
+          <a href='{{ section.settings.video_enlace_boton }}' class='videoBoton'>
+            {{ section.settings.video_texto_boton | default: 'Ver más' }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
 </div>
 
 {% schema %}
@@ -33,6 +61,88 @@
       "type": "richtext",
       "id": "video_texto",
       "label": "Texto sobre el video"
+    },
+    {
+      "type": "select",
+      "id": "posicion_texto",
+      "label": "Posición del texto",
+      "default": "centro",
+      "options": [
+        { "value": "centro", "label": "Centrado" },
+        { "value": "centroDer", "label": "Centro derecha" },
+        { "value": "centroIzq", "label": "Centro izquierda" },
+        { "value": "supIzq", "label": "Superior izquierda" },
+        { "value": "supDer", "label": "Superior derecha" },
+        { "value": "supCentro", "label": "Superior centro" },
+        { "value": "infIzq", "label": "Inferior izquierda" },
+        { "value": "infDer", "label": "Inferior derecha" },
+        { "value": "infCentro", "label": "Inferior centro" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto (opcional)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Color de fondo del overlay (opcional)",
+      "default": "rgba(0,0,0,0.5)"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_fondo",
+      "label": "Mostrar fondo detrás del texto",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "max_ancho_ch",
+      "label": "Ancho máximo del texto (ch)",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "offset_x",
+      "label": "Separación horizontal (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "offset_y",
+      "label": "Separación vertical (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "tamano_fuente",
+      "label": "Tamaño de fuente (px)",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "alineacion_texto",
+      "label": "Alineación del texto",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" }
+      ]
     },
     {
       "type": "text",
@@ -68,38 +178,68 @@
     width: 100%;
     height: 100%;
   }
-
-  .textoVideo {
+  /* Overlay base similar a imagen-grande */
+  .textoFlotante {
     position: absolute;
-    top: 80px;
-    right: 100px;
-    width: 40vw;
-    color: black;
-    padding: 10px;
-    font-size: 1.4em;
+    max-width: min(90%, 60ch);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.75rem 1rem;
   }
 
-  .textoVideo h1,
-  .textoVideo h2,
-  .textoVideo h3 {
-    margin: 0;
-    padding: 0;
+  /* Posiciones reutilizables */
+  .textoFlotante.posCentro {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
   }
-
-  .textoVideo p {
-    margin-top: 1em;
-    font-size: 0.9em;
+  .textoFlotante.posSupIzq {
+    top: 1rem;
+    left: 1rem;
+  }
+  .textoFlotante.posSupDer {
+    top: 1rem;
+    right: 1rem;
+  }
+  .textoFlotante.posSupCentro {
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .textoFlotante.posInfCentro {
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .textoFlotante.posCentroDer {
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    text-align: right;
+  }
+  .textoFlotante.posCentroIzq {
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    text-align: left;
+  }
+  .textoFlotante.posInfIzq {
+    bottom: 1rem;
+    left: 1rem;
+  }
+  .textoFlotante.posInfDer {
+    bottom: 1rem;
+    right: 1rem;
   }
 
   .enlaceVideo {
     margin-top: 1em;
   }
-
   @media (max-width: 768px) {
     .textoVideo {
-      width: 70vw;
-      right: 10px;
       font-size: 1em;
     }
   }
