@@ -1,4 +1,20 @@
 {% assign instagram = section.settings.instagram %}
+{% if instagram != blank %}
+  {% assign entrada_instagram = instagram | strip %}
+  {% if entrada_instagram contains 'instagram.com' or entrada_instagram contains '://' %}
+    {% assign url_instagram = entrada_instagram %}
+    {% unless url_instagram contains '://' %}
+      {% assign url_instagram = 'https://' | append: url_instagram %}
+    {% endunless %}
+  {% else %}
+    {% assign usuario_instagram = entrada_instagram %}
+    {% assign primer_caracter = usuario_instagram | slice: 0, 1 %}
+    {% if primer_caracter == '@' %}
+      {% assign usuario_instagram = usuario_instagram | remove: '@' %}
+    {% endif %}
+    {% assign url_instagram = 'https://instagram.com/' | append: usuario_instagram %}
+  {% endif %}
+{% endif %}
 
 <header id='encabezado'>
   <!-- Botón hamburguesa visible en móvil -->
@@ -16,32 +32,31 @@
     {% for link in linklists['main-menu'].links %}
       <a href='{{ link.url }}'>{{ link.title }}</a>
     {% endfor %}
-  </div>
-
-  <div class='encabezadoIconos'>
-    {% if instagram != blank %}
-      {% assign entrada_instagram = instagram | strip %}
-
-      {%- comment -%}
-        Si el usuario pega una URL completa (contiene 'instagram.com' o '://'), la usamos tal cual
-        (añadiendo https:// si el esquema falta). Si es solo un nombre de usuario, eliminamos
-        una posible @ inicial y construimos la URL: https://instagram.com/<usuario>
-      {%- endcomment -%}
-
-      {% if entrada_instagram contains 'instagram.com' or entrada_instagram contains '://' %}
-        {% assign url_instagram = entrada_instagram %}
-        {%- unless url_instagram contains '://' -%}
-          {% assign url_instagram = 'https://' | append: url_instagram %}
-        {%- endunless -%}
-      {% else %}
-        {% assign usuario_instagram = entrada_instagram %}
-        {% assign primer_caracter = usuario_instagram | slice: 0, 1 %}
-        {%- if primer_caracter == '@' -%}
-          {% assign usuario_instagram = usuario_instagram | remove: '@' %}
-        {%- endif -%}
-        {% assign url_instagram = 'https://instagram.com/' | append: usuario_instagram %}
+    <!-- Iconos se mostrarán aquí en móvil -->
+    <div class='encabezadoIconos encabezadoIconos--menu'>
+      {% if instagram != blank %}
+        <div class='encabezadoSocial'>
+          <a href='{{ url_instagram }}' target='_blank' rel='noopener noreferrer'>
+            <img src='{{ 'icono-instagram.svg' | asset_url }}' alt='Instagram' width='30px' height='30px'>
+          </a>
+        </div>
       {% endif %}
 
+      {% if shop.customer_accounts_enabled %}
+        {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
+      {% endif %}
+
+      <a href='{{ routes.cart_url }}'>
+        {% if cart.item_count > 0 %}
+          <sup class='contadorCarrito' data-contador-carrito>{{ cart.item_count }}</sup>
+        {% endif %}
+        {{ 'icon-cart.svg' | inline_asset_content }}
+      </a>
+    </div>
+  </div>
+  <!-- Iconos duplicados removidos en desktop via CSS -->
+  <div class='encabezadoIconos'>
+    {% if instagram != blank %}
       <div class='encabezadoSocial'>
         <a href='{{ url_instagram }}' target='_blank' rel='noopener noreferrer'>
           <img src='{{ 'icono-instagram.svg' | asset_url }}' alt='Instagram' width='30px' height='30px'>
@@ -57,7 +72,6 @@
       {% if cart.item_count > 0 %}
         <sup class='contadorCarrito' data-contador-carrito>{{ cart.item_count }}</sup>
       {% endif %}
-
       {{ 'icon-cart.svg' | inline_asset_content }}
     </a>
   </div>
@@ -93,6 +107,10 @@
     width: 100vw;
     left: 0;
     padding: 0 100px;
+    transition:
+      background-color 220ms ease,
+      box-shadow 220ms ease,
+      backdrop-filter 220ms ease;
   }
 
   header a {
@@ -112,14 +130,23 @@
     width: 2rem;
   }
 
-  header .encabezadoMenu,
-  header .encabezadoIconos {
+  header .encabezadoMenu {
     display: flex;
     gap: 1rem;
   }
+  /* Solo el contenedor de iconos de primer nivel en escritorio */
+  header > .encabezadoIconos {
+    display: flex;
+    gap: 1rem;
+  }
+  /* Ocultar grupo de iconos anidado dentro del menú por defecto (escritorio) */
+  header .encabezadoMenu .encabezadoIconos {
+    display: none;
+  }
 
   .encabezadoTitulo {
-    text-align: center;
+    text-align: left;
+    font-weight: bold;
   }
 
   .botonHamburguesa {
@@ -141,9 +168,24 @@
     margin: 4px 0;
   }
 
+  header.conFondo {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: saturate(150%) blur(8px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  }
+
   @media (max-width: 768px) {
     header {
       padding: 0 1rem;
+    }
+
+    header .encabezadoTitulo {
+      order: 1;
+      flex: 1 1 auto;
+    }
+    header .botonHamburguesa {
+      order: 2;
+      margin-left: auto;
     }
 
     header .encabezadoMenu {
@@ -174,25 +216,18 @@
     header.abierto .encabezadoMenu {
       display: flex;
     }
+
+    header > .encabezadoIconos {
+      display: none;
+    }
+
+    header .encabezadoMenu .encabezadoIconos {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
   }
 {% endstylesheet %}
-
-{% javascript %}
-  var botonMenu = document.getElementById('botonHamburguesa');
-  var encabezado = document.getElementById('encabezado');
-  if (!botonMenu || !encabezado) return;
-
-  botonMenu.addEventListener('click', function () {
-    var abierto = encabezado.classList.toggle('abierto');
-    botonMenu.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-  });
-
-  document.addEventListener('click', function (e) {
-    if (!encabezado.classList.contains('abierto')) return;
-    var within = encabezado.contains(e.target);
-    if (!within) {
-      encabezado.classList.remove('abierto');
-      botonMenu.setAttribute('aria-expanded', 'false');
-    }
-  });
-{% endjavascript %}
