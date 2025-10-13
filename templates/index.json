@@ -76,12 +76,14 @@
         "imagen_seccion": "shopify://shop_images/pajaros1.jpg",
         "alt_texto": "",
         "texto_seccion": "<p>hola</p>",
-        "posicion_texto": "centro",
+        "posicion_texto": "supCentro",
         "enlace_destino": "shopify://products/birds",
         "color_texto": "#ffffff",
         "color_fondo": "#ffffff80",
         "mostrar_fondo": true,
         "max_ancho_ch": 60,
+        "offset_x": 16,
+        "offset_y": 16,
         "tamano_fuente": 18,
         "alineacion_texto": "right"
       }
