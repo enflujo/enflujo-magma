@@ -4,38 +4,249 @@
 
   https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
 {% endcomment %}
+<main>
+  <h1>{{ collection.title }}</h1>
 
-<h1>{{ collection.title }}</h1>
+  <div class='coleccionContenedor'>
+    <aside class='contenedorFiltros'>
+      <form id='formFiltros' action='{{ collection.url }}' method='get'>
+        {% for filter in collection.filters %}
+          {% case filter.type %}
+            {% when 'list' %}
+              <details
+                class='filtroGrupo'
+                {% if filter.active_values.size > 0 %}
+                  open
+                {% endif %}
+              >
+                <summary>{{ filter.label }}</summary>
+                <ul class='filtroLista'>
+                  {% for value in filter.values %}
+                    <li class='filtroValor'>
+                      <input
+                        type='checkbox'
+                        name='{{ value.param_name }}'
+                        value='{{ value.value }}'
+                        id='Filtro-{{ filter.param_name }}-{{ forloop.index }}'
+                        {% if value.active %}
+                          checked
+                        {% endif %}
+                        {% if value.count == 0 and value.active == false %}
+                          disabled
+                        {% endif %}
+                      >
+                      <label for='Filtro-{{ filter.param_name }}-{{ forloop.index }}'>
+                        {{ value.label }}
+                        {% unless value.active %}({{ value.count }}){% endunless %}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </details>
+            {% when 'price_range' %}
+              <details
+                class='filtroGrupo'
+                {% if filter.min_value.value or filter.max_value.value %}
+                  open
+                {% endif %}
+              >
+                <summary>{{ filter.label }}</summary>
+                <div class='filtroPrecio'>
+                  <div class='filtroPrecioCampo'>
+                    <label for='Filtro-{{ filter.min_value.param_name }}'>Mín</label>
+                    <input
+                      name='{{ filter.min_value.param_name }}'
+                      id='Filtro-{{ filter.min_value.param_name }}'
+                      type='number'
+                      inputmode='numeric'
+                      min='0'
+                      {% if filter.min_value.value %}
+                        value='{{ filter.min_value.value | money_without_currency | replace: ",", "" }}'
+                      {% endif %}
+                    >
+                  </div>
+                  <div class='filtroPrecioCampo'>
+                    <label for='Filtro-{{ filter.max_value.param_name }}'>Máx</label>
+                    <input
+                      name='{{ filter.max_value.param_name }}'
+                      id='Filtro-{{ filter.max_value.param_name }}'
+                      type='number'
+                      inputmode='numeric'
+                      min='0'
+                      {% if filter.max_value.value %}
+                        value='{{ filter.max_value.value | money_without_currency | replace: ",", "" }}'
+                      {% endif %}
+                    >
+                  </div>
+                </div>
+              </details>
+          {% endcase %}
+        {% endfor %}
 
-<div class='collection-products'>
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class='collection-product'>
-        {% if product.featured_image %}
-          {% render 'imagen',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class='collection-product__content'>
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
+        <div class='filtrosAcciones'>
+          <a href='{{ collection.url }}' class='botonSecundario'>Limpiar</a>
+          <button type='submit' class='botonPrimario'>Aplicar</button>
         </div>
-      </div>
-    {% endfor %}
+      </form>
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
+      {% assign hay_activos = false %}
+      {% for filter in collection.filters %}
+        {% if filter.active_values and filter.active_values.size > 0 %}
+          {% assign hay_activos = true %}
+        {% endif %}
+        {% if filter.type == 'price_range' %}
+          {% if filter.min_value.value or filter.max_value.value %}
+            {% assign hay_activos = true %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% if hay_activos %}
+        <div class='filtrosActivos'>
+          <p>Filtros activos:</p>
+          <ul>
+            {% for filter in collection.filters %}
+              {% for value in filter.active_values %}
+                <li>
+                  <a href='{{ value.url_to_remove }}'>{{ value.label }} ✕</a>
+                </li>
+              {% endfor %}
+              {% if filter.type == 'price_range' %}
+                {% if filter.min_value.value or filter.max_value.value %}
+                  <li>
+                    <a href='{{ filter.url_to_remove }}'>
+                      Precio:
+                      {% if filter.min_value.value %}{{ filter.min_value.value | money }}{% else %}0{% endif %}
+                      –
+                      {% if filter.max_value.value -%}
+                        {{- filter.max_value.value | money -}}
+                      {%- else -%}
+                        {{- filter.range_max | money -}}
+                      {%- endif %}
+                      ✕
+                    </a>
+                  </li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </aside>
+
+    <div class='collection-products'>
+      {% paginate collection.products by 20 %}
+        {% for product in collection.products %}
+          <div class='collection-product'>
+            {% if product.featured_image %}
+              {% render 'imagen',
+                class: 'collection-product__image',
+                image: product.featured_image,
+                url: product.url,
+                width: 400,
+                height: 400,
+                crop: 'center'
+              %}
+            {% endif %}
+            <div class='collection-product__content'>
+              <p>{{ product.title | escape | link_to: product.url }}</p>
+              <p>{{ product.price | money }}</p>
+            </div>
+          </div>
+        {% endfor %}
+
+        {{ paginate | default_pagination }}
+      {% endpaginate %}
+    </div>
+  </div>
+</main>
 
 {% stylesheet %}
+  .coleccionContenedor {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .contenedorFiltros {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .filtroGrupo {
+    margin-bottom: 0.75rem;
+  }
+  .filtroGrupo > summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .filtroLista {
+    list-style: none;
+    padding: 0.5rem 0 0;
+    margin: 0;
+  }
+  .filtroValor {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+  }
+
+  .filtroPrecio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .filtroPrecioCampo label {
+    display: block;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+  .filtroPrecioCampo input {
+    width: 100%;
+  }
+
+  .filtrosAcciones {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .filtrosActivos {
+    margin-top: 1rem;
+  }
+  .filtrosActivos ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0;
+  }
+  .filtrosActivos li a {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
   .collection-products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .coleccionContenedor {
+      grid-template-columns: 1fr;
+    }
+    .contenedorFiltros {
+      position: static;
+      top: auto;
+    }
   }
 {% endstylesheet %}
 
