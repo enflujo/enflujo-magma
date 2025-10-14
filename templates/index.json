@@ -37,14 +37,6 @@
         "enlace_boton": "shopify://collections"
       }
     },
-    "collections_GY3CkR": {
-      "type": "collections",
-      "name": "t:general.collections_grid",
-      "settings": {
-        "grid_item_width": "collections--full",
-        "grid_gap": 10
-      }
-    },
     "productos_destacados_hVFyqh": {
       "type": "productos-destacados",
       "blocks": {
@@ -86,7 +78,7 @@
         "alt_texto": "",
         "texto_seccion": "<p>hola</p>",
         "posicion_texto": "supCentro",
-        "enlace_destino": "shopify://products/birds",
+        "enlace_destino": "shopify://collections/frontpage",
         "color_texto": "#ffffff",
         "color_fondo": "#ffffff80",
         "mostrar_fondo": false,
@@ -108,7 +100,6 @@
   "order": [
     "video_f6aDQa",
     "texto_pNEEUG",
-    "collections_GY3CkR",
     "productos_destacados_hVFyqh",
     "imagen_grande_rcYX6X",
     "titulo_QtceKq"
