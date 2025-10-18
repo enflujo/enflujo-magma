@@ -81,7 +81,7 @@
       "settings": {
         "imagen_seccion": "shopify://shop_images/pajaros1.jpg",
         "alt_texto": "",
-        "texto_seccion": "<p>hola</p>",
+        "texto_seccion": "",
         "posicion_texto": "supCentro",
         "enlace_destino": "shopify://collections/frontpage",
         "color_texto": "#ffffff",
@@ -94,9 +94,9 @@
         "tamano_fuente": 18,
         "alineacion_texto": "right",
         "usar_desfase_escritorio_en_movil": true,
-        "desfase_vertical": 0,
-        "desfase_vertical_movil": 0,
-        "z_index": 0
+        "desfase_vertical": -28,
+        "desfase_vertical_movil": -2,
+        "z_index": -2
       }
     },
     "titulo_QtceKq": {
@@ -105,6 +105,51 @@
       "settings": {
         "titulo_seccion": "Shop the Collections"
       }
+    },
+    "collage_NtppLk": {
+      "type": "collage",
+      "blocks": {
+        "producto_LK9749": {
+          "type": "producto",
+          "settings": {
+            "producto": "anima",
+            "imagen_modo": "galeria",
+            "media_indice": "2",
+            "alt": ""
+          }
+        },
+        "producto_qhk3AU": {
+          "type": "producto",
+          "settings": {
+            "producto": "anima",
+            "imagen_modo": "destacada",
+            "media_indice": "1",
+            "alt": ""
+          }
+        },
+        "producto_ipWbfL": {
+          "type": "producto",
+          "settings": {
+            "producto": "anima",
+            "imagen_modo": "personalizada",
+            "media_indice": "2",
+            "imagen": "shopify://shop_images/pajaros1.jpg",
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "producto_LK9749",
+        "producto_qhk3AU",
+        "producto_ipWbfL"
+      ],
+      "name": "Collage",
+      "settings": {
+        "diseno": "tres_izq_grande",
+        "separacion": 0,
+        "radio": 0,
+        "ratio": "1:1"
+      }
     }
   },
   "order": [
@@ -112,6 +157,7 @@
     "texto_pNEEUG",
     "productos_destacados_hVFyqh",
     "imagen_grande_rcYX6X",
-    "titulo_QtceKq"
+    "titulo_QtceKq",
+    "collage_NtppLk"
   ]
 }
