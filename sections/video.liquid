@@ -3,6 +3,9 @@
   style='
     --desfaseY: {{ section.settings.desfase_vertical | default: 0 }}%;
     --desfaseYMovil: {% if section.settings.usar_desfase_escritorio_en_movil %}{{ section.settings.desfase_vertical | default: 0 }}{% else %}{{ section.settings.desfase_vertical_movil | default: 0 }}{% endif %}%;
+    --desfaseYFrac: {{ section.settings.desfase_vertical | default: 0 | times: 0.01 }};
+    --desfaseYMovilFrac: {% if section.settings.usar_desfase_escritorio_en_movil %}{{ section.settings.desfase_vertical | default: 0 | times: 0.01 }}{% else %}{{ section.settings.desfase_vertical_movil | default: 0 | times: 0.01 }}{% endif %};
+    --ratio: {% if section.settings.video_seccion and section.settings.video_seccion.aspect_ratio %}calc(1 / {{ section.settings.video_seccion.aspect_ratio }}){% else %}0.5625{% endif %};
     --nivelZ: {{ section.settings.z_index | default: 0 }};
   '
 >
@@ -182,7 +185,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Cada instancia de esta sección es independiente: los desfases y el nivel (z-index) se aplican solo a esta tarjeta. En móvil puedes heredar el desfase de escritorio (opción recomendada) o personalizarlo. El z-index controla el apilado entre secciones; valores más altos quedan por encima. Nota: si un contenedor padre tiene overflow oculto o crea un nuevo contexto de apilado (por ejemplo, con transform), puede afectar la superposición."
+      "content": "En móvil puedes heredar el desfase de escritorio (opción recomendada) o personalizarlo. El z-index controla el apilado entre secciones; valores más altos quedan por encima."
     },
     {
       "type": "checkbox",
@@ -245,8 +248,8 @@
     transform: translateY(var(--desfaseY, 0%));
     will-change: transform;
     z-index: var(--nivelZ, 0);
+    margin-bottom: calc(var(--desfaseYFrac, 0) * var(--ratio, 0.5625) * 100%);
   }
-  /* Overlay base similar a imagen-grande */
   .textoFlotante {
     position: absolute;
     max-width: min(90%, 60ch);
@@ -255,7 +258,6 @@
     padding: 0.75rem 1rem;
   }
 
-  /* Posiciones reutilizables */
   .textoFlotante.posCentro {
     top: 50%;
     left: 50%;
@@ -306,10 +308,10 @@
   .enlaceVideo {
     margin-top: 1em;
   }
-  /* Breakpoints */
   @media (max-width: 768px) {
     .contenedorVideo {
       transform: translateY(var(--desfaseYMovil, var(--desfaseY, 0%)));
+      margin-bottom: calc(var(--desfaseYMovilFrac, var(--desfaseYFrac, 0)) * var(--ratio, 0.5625) * 100%);
     }
     .videoPantallaCompleta {
       min-height: 360px;

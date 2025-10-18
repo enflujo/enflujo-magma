@@ -4,6 +4,9 @@
     style='
       --desfaseY: {{ section.settings.desfase_vertical | default: 0 }}%;
       --desfaseYMovil: {% if section.settings.usar_desfase_escritorio_en_movil %}{{ section.settings.desfase_vertical | default: 0 }}{% else %}{{ section.settings.desfase_vertical_movil | default: 0 }}{% endif %}%;
+      --desfaseYFrac: {{ section.settings.desfase_vertical | default: 0 | times: 0.01 }};
+      --desfaseYMovilFrac: {% if section.settings.usar_desfase_escritorio_en_movil %}{{ section.settings.desfase_vertical | default: 0 | times: 0.01 }}{% else %}{{ section.settings.desfase_vertical_movil | default: 0 | times: 0.01 }}{% endif %};
+      --ratio: calc({{ section.settings.imagen_seccion.height | default: 1 }} / {{ section.settings.imagen_seccion.width | default: 1 }});
       --nivelZ: {{ section.settings.z_index | default: 0 }};
     '
   >
@@ -127,11 +130,11 @@
       "type": "url",
       "id": "enlace_destino",
       "label": "Enlace (opcional)",
-      "info": "Si estableces un enlace, toda la imagen será clicable como un gran botón. Recomendación: evita incluir enlaces dentro del texto superpuesto para no anidar <a>. Asegura buen contraste de texto y define un alt adecuado para accesibilidad."
+      "info": "Si estableces un enlace, toda la imagen será clicable como un gran botón. Recomendación: evita incluir enlaces dentro del texto superpuesto para no anidar enlaces."
     },
     {
       "type": "paragraph",
-      "content": "Consejos de accesibilidad: usa un texto alternativo (alt) descriptivo si la imagen comunica información, o déjalo vacío si es decorativa y el CTA ya comunica el propósito. Procura que el color del texto y el fondo ofrezcan contraste suficiente."
+      "content": "Consejos de accesibilidad: usa un texto alternativo (alt) descriptivo si la imagen comunica información, o déjalo vacío si es decorativa."
     },
     {
       "type": "color",
@@ -217,7 +220,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Cada instancia de esta sección es independiente: los desfases y el nivel (z-index) se aplican solo a esta tarjeta. En móvil puedes heredar el desfase de escritorio (opción recomendada) o personalizarlo. El z-index controla el apilado entre secciones; valores más altos quedan por encima. Nota: si un contenedor padre tiene overflow oculto o crea un nuevo contexto de apilado (por ejemplo, con transform), puede afectar la superposición."
+      "content": "En móvil puedes heredar el desfase de escritorio (opción recomendada) o personalizarlo. El z-index controla el apilado entre secciones; valores más altos quedan por encima."
     },
     {
       "type": "checkbox",
@@ -271,6 +274,7 @@
     transform: translateY(var(--desfaseY, 0%));
     will-change: transform;
     z-index: var(--nivelZ, 0);
+    margin-bottom: calc(var(--desfaseYFrac, 0) * var(--ratio, 0) * 100%);
   }
 
   .imagenEnvoltura {
@@ -294,7 +298,6 @@
     padding: 0.75rem 1rem;
   }
 
-  /* Posiciones */
   .textoFlotante.posCentro {
     top: 50%;
     left: 50%;
@@ -341,10 +344,10 @@
     bottom: 1rem;
     right: 1rem;
   }
-  /* Breakpoints */
   @media (max-width: 768px) {
     .contenedorImagenGrande {
       transform: translateY(var(--desfaseYMovil, var(--desfaseY, 0%)));
+      margin-bottom: calc(var(--desfaseYMovilFrac, var(--desfaseYFrac, 0)) * var(--ratio, 0) * 100%);
     }
     .textoFlotante {
       max-width: min(92%, 50ch) !important;
