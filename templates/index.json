@@ -19,13 +19,18 @@
         "color_texto": "#333333",
         "color_fondo": "#00000080",
         "mostrar_fondo": false,
-        "max_ancho_ch": 48,
+        "max_ancho_ch": 43,
+        "unidad_offset": "px",
         "offset_x": 16,
         "offset_y": 71,
         "tamano_fuente": 18,
         "alineacion_texto": "center",
         "video_texto_boton": "Explore the archive",
-        "video_enlace_boton": "shopify://collections/all"
+        "video_enlace_boton": "shopify://collections/all",
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
       }
     },
     "texto_pNEEUG": {
@@ -40,12 +45,6 @@
     "productos_destacados_hVFyqh": {
       "type": "productos-destacados",
       "blocks": {
-        "product_zDhyYc": {
-          "type": "product",
-          "settings": {
-            "product": "caballo"
-          }
-        },
         "product_naVBND": {
           "type": "product",
           "settings": {
@@ -57,12 +56,18 @@
           "settings": {
             "product": "mini-mountain-rough"
           }
+        },
+        "product_HdkmPd": {
+          "type": "product",
+          "settings": {
+            "product": "boat"
+          }
         }
       },
       "block_order": [
-        "product_zDhyYc",
         "product_naVBND",
-        "product_MCigzz"
+        "product_MCigzz",
+        "product_HdkmPd"
       ],
       "name": "Productos destacados",
       "settings": {
@@ -83,10 +88,15 @@
         "color_fondo": "#ffffff80",
         "mostrar_fondo": false,
         "max_ancho_ch": 60,
+        "unidad_offset": "px",
         "offset_x": 16,
         "offset_y": 16,
         "tamano_fuente": 18,
-        "alineacion_texto": "right"
+        "alineacion_texto": "right",
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
       }
     },
     "titulo_QtceKq": {
