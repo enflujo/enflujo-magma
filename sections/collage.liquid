@@ -1,0 +1,291 @@
+{% assign layout_tipo = section.settings.diseno | default: 'cuatro' %}
+{% assign gap = section.settings.separacion | default: 12 %}
+{% assign radius = section.settings.radio | default: 8 %}
+{% assign ratio = section.settings.ratio | default: '4:3' %}
+
+{% capture ratio_val %}
+  {% case ratio %}
+    {% when '1:1' %}1
+    {% when '4:3' %}0.75
+    {% when '3:2' %}0.6667
+    {% when '16:9' %}0.5625
+    {% when '2:3' %}1.5
+    {% when '3:4' %}1.3333
+    {% when '9:16' %}1.7778
+    {% else %}0.75
+  {% endcase %}
+{% endcapture %}
+
+<div class='collageWrap' style='--gap: {{ gap }}px; --radius: {{ radius }}px; --ratio: {{ ratio_val | strip }};'>
+  <div class='collageGrid {{ layout_tipo }}'>
+    {% for block in section.blocks %}
+      {% assign tipo = block.settings.tipo | default: 'producto' %}
+      {% assign url = '' %}
+      {% assign imagen = blank %}
+      {% assign alt = '' %}
+
+      {% if tipo == 'producto' and block.settings.producto %}
+        {% assign p = block.settings.producto %}
+        {% assign url = p.url %}
+        {% assign imagen = p.featured_image %}
+        {% assign alt = p.title %}
+      {% elsif tipo == 'coleccion' and block.settings.coleccion %}
+        {% assign c = block.settings.coleccion %}
+        {% assign url = c.url %}
+        {% assign imagen = c.image %}
+        {% assign alt = c.title %}
+      {% elsif tipo == 'personalizado' %}
+        {% assign url = block.settings.enlace | default: '#' %}
+        {% assign imagen = block.settings.imagen %}
+        {% assign alt = block.settings.alt | default: '' %}
+      {% endif %}
+
+      {% if imagen %}
+        <a class='collageItem' href='{{ url }}' {{ block.shopify_attributes }}>
+          <span class='ratioBox'>
+            {{ imagen | image_url: width: 1500 | image_tag: alt: alt, class: 'collageImg', loading: 'lazy' }}
+          </span>
+        </a>
+      {% else %}
+        <div class='collageItem' {{ block.shopify_attributes }}>
+          <span class='ratioBox'></span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collage de imágenes",
+  "settings": [
+    {
+      "type": "select",
+      "id": "diseno",
+      "label": "Diseño",
+      "default": "cuatro",
+      "options": [
+        { "value": "cuatro", "label": "4 imágenes iguales" },
+        { "value": "tres_izq_grande", "label": "3 imágenes con grande a la izquierda" },
+        { "value": "tres_der_grande", "label": "3 imágenes con grande a la derecha" },
+        { "value": "dos", "label": "2 imágenes iguales" },
+        { "value": "cinco_T", "label": "5 en forma de T" },
+        { "value": "seis", "label": "6 imágenes (3x2)" },
+        { "value": "seis_grande", "label": "6 con una grande" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "separacion",
+      "label": "Separación (px)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "radio",
+      "label": "Radio de borde (px)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Relación de aspecto",
+      "default": "4:3",
+      "options": [
+        { "value": "1:1", "label": "1:1" },
+        { "value": "4:3", "label": "4:3" },
+        { "value": "3:2", "label": "3:2" },
+        { "value": "16:9", "label": "16:9" },
+        { "value": "2:3", "label": "2:3 (vertical)" },
+        { "value": "3:4", "label": "3:4 (vertical)" },
+        { "value": "9:16", "label": "9:16 (vertical)" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "tipo",
+          "label": "Tipo de contenido",
+          "default": "producto",
+          "options": [
+            { "value": "producto", "label": "Producto" },
+            { "value": "coleccion", "label": "Colección" },
+            { "value": "personalizado", "label": "Personalizado" }
+          ]
+        },
+        {
+          "type": "product",
+          "id": "producto",
+          "label": "Producto"
+        },
+        {
+          "type": "collection",
+          "id": "coleccion",
+          "label": "Colección"
+        },
+        {
+          "type": "image_picker",
+          "id": "imagen",
+          "label": "Imagen personalizada"
+        },
+        {
+          "type": "url",
+          "id": "enlace",
+          "label": "Enlace personalizado"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Texto alternativo (opcional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Collage simple (4 iguales)",
+      "settings": { "diseno": "cuatro" }
+    },
+    {
+      "name": "Collage 3 (izq grande)",
+      "settings": { "diseno": "tres_izq_grande" }
+    },
+    {
+      "name": "Collage 3 (der grande)",
+      "settings": { "diseno": "tres_der_grande" }
+    },
+    {
+      "name": "Collage 2 (iguales)",
+      "settings": { "diseno": "dos" }
+    },
+    {
+      "name": "Collage 5 (T)",
+      "settings": { "diseno": "cinco_T" }
+    },
+    {
+      "name": "Collage 6 (3x2)",
+      "settings": { "diseno": "seis" }
+    },
+    {
+      "name": "Collage 6 (con grande)",
+      "settings": { "diseno": "seis_grande" }
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .collageWrap {
+    width: 100%;
+  }
+  .collageGrid {
+    display: grid;
+    gap: var(--gap);
+  }
+
+  .collageItem {
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  .ratioBox {
+    display: block;
+    width: 100%;
+    aspect-ratio: calc(1 / var(--ratio));
+  }
+  .collageImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .collageGrid.cuatro {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .collageGrid.dos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .collageGrid.tres_izq_grande {
+    grid-template-columns: 2fr 1fr;
+  }
+  .collageGrid.tres_der_grande {
+    grid-template-columns: 1fr 2fr;
+  }
+  .collageGrid.tres_izq_grande .collageItem:nth-child(1),
+  .collageGrid.tres_der_grande .collageItem:nth-child(3) {
+    grid-row: span 2;
+  }
+  .collageGrid.tres_izq_grande .collageItem,
+  .collageGrid.tres_der_grande .collageItem {
+    min-height: 0;
+  }
+
+  .collageGrid.seis {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .collageGrid.seis_grande {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .collageGrid.seis_grande .collageItem:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  .collageGrid.cinco_T {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .collageGrid.cinco_T .collageItem:nth-child(1) {
+    grid-column: 1 / span 3;
+  }
+  .collageGrid.cinco_T .collageItem:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .collageGrid.cinco_T .collageItem:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .collageGrid.cinco_T .collageItem:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  .collageGrid.cinco_T .collageItem:nth-child(5) {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  @media (max-width: 900px) {
+    .collageGrid.cuatro {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .collageGrid.seis {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .collageGrid.seis_grande {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .collageGrid.cinco_T {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .collageGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
