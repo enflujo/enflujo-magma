@@ -1,4 +1,11 @@
-<div class='contenedorVideo full-width'>
+<div
+  class='contenedorVideo full-width'
+  style='
+    --desfaseY: {{ section.settings.desfase_vertical | default: 0 }}%;
+    --desfaseYMovil: {% if section.settings.usar_desfase_escritorio_en_movil %}{{ section.settings.desfase_vertical | default: 0 }}{% else %}{{ section.settings.desfase_vertical_movil | default: 0 }}{% endif %}%;
+    --nivelZ: {{ section.settings.z_index | default: 0 }};
+  '
+>
   {% if section.settings.video_seccion %}
     {{
       section.settings.video_seccion
@@ -21,15 +28,16 @@
         text-align: {{ section.settings.alineacion_texto | default: 'center' }};
         {% assign offx = section.settings.offset_x | default: 16 %}
         {% assign offy = section.settings.offset_y | default: 16 %}
+        {% assign unidad = section.settings.unidad_offset | default: 'px' %}
         {% case section.settings.posicion_texto | default: 'centro' %}
-          {% when 'supIzq' %} top: {{ offy }}px; left: {{ offx }}px; transform: none;
-          {% when 'supDer' %} top: {{ offy }}px; right: {{ offx }}px; transform: none;
-          {% when 'infIzq' %} bottom: {{ offy }}px; left: {{ offx }}px; transform: none;
-          {% when 'infDer' %} bottom: {{ offy }}px; right: {{ offx }}px; transform: none;
-          {% when 'supCentro' %} top: {{ offy }}px; left: 50%; transform: translateX(-50%);
-          {% when 'infCentro' %} bottom: {{ offy }}px; left: 50%; transform: translateX(-50%);
-          {% when 'centroDer' %} top: 50%; right: {{ offx }}px; transform: translateY(-50%);
-          {% when 'centroIzq' %} top: 50%; left: {{ offx }}px; transform: translateY(-50%);
+          {% when 'supIzq' %} top: {{ offy }}{{ unidad }}; left: {{ offx }}{{ unidad }}; transform: none;
+          {% when 'supDer' %} top: {{ offy }}{{ unidad }}; right: {{ offx }}{{ unidad }}; transform: none;
+          {% when 'infIzq' %} bottom: {{ offy }}{{ unidad }}; left: {{ offx }}{{ unidad }}; transform: none;
+          {% when 'infDer' %} bottom: {{ offy }}{{ unidad }}; right: {{ offx }}{{ unidad }}; transform: none;
+          {% when 'supCentro' %} top: {{ offy }}{{ unidad }}; left: 50%; transform: translateX(-50%);
+          {% when 'infCentro' %} bottom: {{ offy }}{{ unidad }}; left: 50%; transform: translateX(-50%);
+          {% when 'centroDer' %} top: 50%; right: {{ offx }}{{ unidad }}; transform: translateY(-50%);
+          {% when 'centroIzq' %} top: 50%; left: {{ offx }}{{ unidad }}; transform: translateY(-50%);
           {% else %} top: 50%; left: 50%; transform: translate(-50%, -50%);
         {% endcase %}
       '
@@ -107,22 +115,35 @@
       "default": 60
     },
     {
+      "type": "select",
+      "id": "unidad_offset",
+      "label": "Unidad de separación (px o %)",
+      "default": "px",
+      "options": [
+        { "value": "px", "label": "Pixeles (px)" },
+        { "value": "%", "label": "Porcentaje (%)" }
+      ],
+      "info": "Define la unidad para las separaciones horizontal/vertical del texto superpuesto."
+    },
+    {
       "type": "range",
       "id": "offset_x",
-      "label": "Separación horizontal (px)",
+      "label": "Separación horizontal",
       "min": 0,
       "max": 100,
       "step": 1,
-      "default": 16
+      "default": 16,
+      "info": "Usa la unidad seleccionada arriba (px o %)."
     },
     {
       "type": "range",
       "id": "offset_y",
-      "label": "Separación vertical (px)",
+      "label": "Separación vertical",
       "min": 0,
       "max": 100,
       "step": 1,
-      "default": 16
+      "default": 16,
+      "info": "Usa la unidad seleccionada arriba (px o %)."
     },
     {
       "type": "range",
@@ -154,6 +175,50 @@
       "type": "url",
       "id": "video_enlace_boton",
       "label": "Enlace del botón"
+    },
+    {
+      "type": "header",
+      "content": "Desplazamiento y niveles"
+    },
+    {
+      "type": "paragraph",
+      "content": "Cada instancia de esta sección es independiente: los desfases y el nivel (z-index) se aplican solo a esta tarjeta. En móvil puedes heredar el desfase de escritorio (opción recomendada) o personalizarlo. El z-index controla el apilado entre secciones; valores más altos quedan por encima. Nota: si un contenedor padre tiene overflow oculto o crea un nuevo contexto de apilado (por ejemplo, con transform), puede afectar la superposición."
+    },
+    {
+      "type": "checkbox",
+      "id": "usar_desfase_escritorio_en_movil",
+      "label": "Usar el desfase de escritorio en móvil",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "desfase_vertical",
+      "label": "Desfase vertical (%)",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "default": 0,
+      "info": "Desplaza la sección en porcentaje relativo a su altura. Negativo: sube; Positivo: baja."
+    },
+    {
+      "type": "range",
+      "id": "desfase_vertical_movil",
+      "label": "Desfase vertical en móvil (%)",
+      "min": -50,
+      "max": 50,
+      "step": 1,
+      "default": 0,
+      "info": "Valor específico para pantallas pequeñas (≤768px). Si activas \"Usar el desfase de escritorio en móvil\", este valor se ignora."
+    },
+    {
+      "type": "range",
+      "id": "z_index",
+      "label": "Nivel (z-index)",
+      "min": -5,
+      "max": 20,
+      "step": 1,
+      "default": 0,
+      "info": "Controla si esta sección queda por encima o por debajo de las vecinas cuando se solapan. Si no ves efecto, revisa si un contenedor padre crea un nuevo contexto de apilado (por ejemplo, con transform u opacity)."
     }
   ],
   "presets": [
@@ -177,6 +242,9 @@
     position: relative;
     width: 100%;
     height: 100%;
+    transform: translateY(var(--desfaseY, 0%));
+    will-change: transform;
+    z-index: var(--nivelZ, 0);
   }
   /* Overlay base similar a imagen-grande */
   .textoFlotante {
@@ -240,6 +308,9 @@
   }
   /* Breakpoints */
   @media (max-width: 768px) {
+    .contenedorVideo {
+      transform: translateY(var(--desfaseYMovil, var(--desfaseY, 0%)));
+    }
     .videoPantallaCompleta {
       min-height: 360px;
     }
