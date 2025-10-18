@@ -19,25 +19,72 @@
 <div class='collageWrap' style='--gap: {{ gap }}px; --radius: {{ radius }}px; --ratio: {{ ratio_val | strip }};'>
   <div class='collageGrid {{ layout_tipo }}'>
     {% for block in section.blocks %}
-      {% assign tipo = block.settings.tipo | default: 'producto' %}
       {% assign url = '' %}
       {% assign imagen = blank %}
       {% assign alt = '' %}
 
-      {% if tipo == 'producto' and block.settings.producto %}
+      {% if block.type == 'producto' and block.settings.producto %}
         {% assign p = block.settings.producto %}
         {% assign url = p.url %}
-        {% assign imagen = p.featured_image %}
-        {% assign alt = p.title %}
-      {% elsif tipo == 'coleccion' and block.settings.coleccion %}
+        {% assign modo_p = block.settings.imagen_modo | default: 'destacada' %}
+        {% if modo_p == 'personalizada' and block.settings.imagen %}
+          {% assign imagen = block.settings.imagen %}
+          {% assign alt = block.settings.alt | default: p.title %}
+        {% elsif modo_p == 'galeria' %}
+          {% assign idx = block.settings.media_indice | default: '1' %}
+          {% assign idx = idx | plus: 0 %}
+          {% assign target = idx | minus: 1 %}
+          {% assign cuenta = 0 %}
+          {% for m in p.media %}
+            {% if m.media_type == 'image' %}
+              {% if cuenta == target %}
+                {% assign imagen = m.preview_image %}
+                {% assign alt = m.preview_image.alt | default: p.title %}
+                {% break %}
+              {% endif %}
+              {% assign cuenta = cuenta | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+          {% if imagen == blank %}
+            {% assign imagen = p.featured_image %}
+            {% assign alt = imagen.alt | default: p.title %}
+          {% endif %}
+        {% else %}
+          {% assign imagen = p.featured_image %}
+          {% assign alt = imagen.alt | default: p.title %}
+        {% endif %}
+      {% elsif block.type == 'coleccion' and block.settings.coleccion %}
         {% assign c = block.settings.coleccion %}
         {% assign url = c.url %}
-        {% assign imagen = c.image %}
-        {% assign alt = c.title %}
-      {% elsif tipo == 'personalizado' %}
+        {% assign modo_c = block.settings.imagen_modo | default: 'destacada' %}
+        {% if modo_c == 'personalizada' and block.settings.imagen %}
+          {% assign imagen = block.settings.imagen %}
+          {% assign alt = block.settings.alt | default: c.title %}
+        {% else %}
+          {% assign imagen = c.image %}
+          {% assign alt = c.title %}
+        {% endif %}
+      {% elsif block.type == 'personalizado' %}
         {% assign url = block.settings.enlace | default: '#' %}
         {% assign imagen = block.settings.imagen %}
         {% assign alt = block.settings.alt | default: '' %}
+      {% else %}
+        {% assign tipo = block.settings.tipo | default: '' %}
+        {% if tipo == 'producto' and block.settings.producto %}
+          {% assign p = block.settings.producto %}
+          {% assign url = p.url %}
+          {% assign imagen = p.featured_image %}
+          {% assign alt = p.title %}
+        {% elsif tipo == 'coleccion' and block.settings.coleccion %}
+          {% assign c = block.settings.coleccion %}
+          {% assign url = c.url %}
+          {% assign imagen = c.image %}
+          {% assign alt = c.title %}
+        {% elsif tipo == 'personalizado' %}
+          {% assign url = block.settings.enlace | default: '#' %}
+          {% assign imagen = block.settings.imagen %}
+          {% assign alt = block.settings.alt | default: '' %}
+        {% endif %}
       {% endif %}
 
       {% if imagen %}
@@ -110,77 +157,80 @@
   ],
   "blocks": [
     {
-      "type": "item",
-      "name": "Item",
+      "type": "producto",
+      "name": "Producto",
       "settings": [
+        { "type": "product", "id": "producto", "label": "Producto" },
         {
           "type": "select",
-          "id": "tipo",
-          "label": "Tipo de contenido",
-          "default": "producto",
+          "id": "imagen_modo",
+          "label": "Imagen del producto",
+          "default": "destacada",
           "options": [
-            { "value": "producto", "label": "Producto" },
-            { "value": "coleccion", "label": "Colección" },
-            { "value": "personalizado", "label": "Personalizado" }
+            { "value": "destacada", "label": "Destacada" },
+            { "value": "galeria", "label": "De la galería (elige posición)" },
+            { "value": "personalizada", "label": "Personalizada (subir)" }
           ]
         },
         {
-          "type": "product",
-          "id": "producto",
-          "label": "Producto"
+          "type": "select",
+          "id": "media_indice",
+          "label": "Posición en la galería",
+          "default": "1",
+          "options": [
+            { "value": "1", "label": "1 (primera)" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" },
+            { "value": "9", "label": "9" },
+            { "value": "10", "label": "10" },
+            { "value": "11", "label": "11" },
+            { "value": "12", "label": "12" }
+          ],
+          "info": "Solo aplica cuando 'Imagen del producto' = De la galería."
         },
+        { "type": "image_picker", "id": "imagen", "label": "Imagen personalizada" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo (opcional)" }
+      ]
+    },
+    {
+      "type": "coleccion",
+      "name": "Colección",
+      "settings": [
+        { "type": "collection", "id": "coleccion", "label": "Colección" },
         {
-          "type": "collection",
-          "id": "coleccion",
-          "label": "Colección"
+          "type": "select",
+          "id": "imagen_modo",
+          "label": "Imagen de la colección",
+          "default": "destacada",
+          "options": [
+            { "value": "destacada", "label": "Destacada" },
+            { "value": "personalizada", "label": "Personalizada (subir)" }
+          ]
         },
-        {
-          "type": "image_picker",
-          "id": "imagen",
-          "label": "Imagen personalizada"
-        },
-        {
-          "type": "url",
-          "id": "enlace",
-          "label": "Enlace personalizado"
-        },
-        {
-          "type": "text",
-          "id": "alt",
-          "label": "Texto alternativo (opcional)"
-        }
+        { "type": "image_picker", "id": "imagen", "label": "Imagen personalizada" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo (opcional)" }
+      ]
+    },
+    {
+      "type": "personalizado",
+      "name": "Personalizado",
+      "settings": [
+        { "type": "image_picker", "id": "imagen", "label": "Imagen" },
+        { "type": "url", "id": "enlace", "label": "Enlace" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo (opcional)" }
       ]
     }
   ],
   "max_blocks": 6,
   "presets": [
     {
-      "name": "Collage simple (4 iguales)",
-      "settings": { "diseno": "cuatro" }
-    },
-    {
-      "name": "Collage 3 (izq grande)",
-      "settings": { "diseno": "tres_izq_grande" }
-    },
-    {
-      "name": "Collage 3 (der grande)",
-      "settings": { "diseno": "tres_der_grande" }
-    },
-    {
-      "name": "Collage 2 (iguales)",
-      "settings": { "diseno": "dos" }
-    },
-    {
-      "name": "Collage 5 (T)",
-      "settings": { "diseno": "cinco_T" }
-    },
-    {
-      "name": "Collage 6 (3x2)",
-      "settings": { "diseno": "seis" }
-    },
-    {
-      "name": "Collage 6 (con grande)",
-      "settings": { "diseno": "seis_grande" }
+      "name": "Collage",
+      "category": "Decoraciones"
     }
   ]
 }
@@ -193,6 +243,7 @@
   .collageGrid {
     display: grid;
     gap: var(--gap);
+    grid-auto-flow: dense;
   }
 
   .collageItem {
@@ -227,13 +278,31 @@
   .collageGrid.tres_der_grande {
     grid-template-columns: 1fr 2fr;
   }
-  .collageGrid.tres_izq_grande .collageItem:nth-child(1),
-  .collageGrid.tres_der_grande .collageItem:nth-child(3) {
-    grid-row: span 2;
+
+  .collageGrid.tres_izq_grande .collageItem:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
   }
-  .collageGrid.tres_izq_grande .collageItem,
-  .collageGrid.tres_der_grande .collageItem {
-    min-height: 0;
+  .collageGrid.tres_izq_grande .collageItem:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .collageGrid.tres_izq_grande .collageItem:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .collageGrid.tres_der_grande .collageItem:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .collageGrid.tres_der_grande .collageItem:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .collageGrid.tres_der_grande .collageItem:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .collageGrid.seis {

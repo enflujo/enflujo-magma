@@ -75,11 +75,6 @@ a:visited {
   }
 }
 
-:is(p, h1, h2, h3, h4, h5, h6):last-child,
-:where(p, h1, h2, h3, h4, h5, h6) + :has(+ :empty:last-child) {
-  margin-block-end: 0;
-}
-
 /** Theme styles below */
 body {
   font-family: var(--font-primary--family);
