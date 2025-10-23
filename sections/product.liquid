@@ -4,42 +4,178 @@
 
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
+<main class='contenedorProducto'>
+  <div class='imagenesProducto'>
+    {% for image in product.images %}
+      {% render 'imagen', class: 'imagenProducto', image: image %}
+    {% endfor %}
+  </div>
 
-<div class='product-images'>
-  {% for image in product.images %}
-    {% render 'imagen', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+  <div class='informacionProducto'>
+    <div class='encabezadoProducto'>
+      <h1>{{ product.title }}</h1>
+      {% assign current_variant = product.selected_or_first_available_variant %}
+      <p id='precioProducto'>{{ current_variant.price | money }}</p>
+      <p>{{ product.description }}</p>
+    </div>
 
-<div class='product-info'>
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+    <div class='opcionesProducto'>
+      {% form 'product', product %}
+        {% assign current_variant = product.selected_or_first_available_variant %}
 
-<div class='product-form'>
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+        <input type='hidden' name='id' id='variantId' value='{{ current_variant.id }}'>
 
-    <select name='id'>
-      {% for variant in product.variants %}
-        <option
-          value='{{ variant.id }}'
-          {% if variant == current_variant %}
-            selected='selected'
-          {% endif %}
+        {% if product.has_only_default_variant == false %}
+          {% for option in product.options_with_values %}
+            <div class='campoOpcion'>
+              <label for='opcion-{{ forloop.index }}'>{{ option.name }}</label>
+              <select
+                id='opcion-{{ forloop.index }}'
+                class='selectPersonalizado'
+                data-index='option{{ forloop.index }}'
+                aria-label='{{ option.name }}'
+              >
+                {% for value in option.values %}
+                  <option
+                    value='{{ value | escape }}'
+                    {% if option.selected_value == value %}
+                      selected
+                    {% endif %}
+                  >
+                    {{ value }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <input type='number' name='quantity' min='1' value='1'>
+
+        <input
+          type='submit'
+          value='{% if current_variant.available %}Add to cart{% else %}Out of Stock{% endif %}'
+          {% unless current_variant.available %}
+            disabled
+          {% endunless %}
         >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
 
-    <input type='text' name='quantity' min='1' value='1'>
+        {% assign tags_text = product.tags | join: ',' | downcase %}
+        {% assign tipo_text = product.type | downcase %}
+        {% if tags_text contains 'talla-anillo' or tipo_text contains 'anillo' %}
+          <div class='campoProp'>
+            <label for='prop-talla'>Talla de anillo</label>
+            <select id='prop-talla' name='properties[Talla]' class='selectPersonalizado' aria-label='Talla de anillo'>
+              {% for t in (5..10) %}
+                <option
+                  value='{{ t }}'
+                  {% if forloop.first %}
+                    selected
+                  {% endif %}
+                >
+                  {{ t }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
 
-    <input type='submit' value='Add to cart'>
-    {{ form | payment_button }}
-  {% endform %}
-</div>
+        {% if tags_text contains 'cadena' or tipo_text contains 'collar' or tipo_text contains 'cadena' %}
+          <div class='campoProp'>
+            <label for='prop-cadena'>Longitud de cadena</label>
+            <select
+              id='prop-cadena'
+              name='properties[Longitud de cadena]'
+              class='selectPersonalizado'
+              aria-label='Longitud de cadena'
+            >
+              <option value='40 cm'>40 cm</option>
+              <option value='45 cm' selected>45 cm</option>
+              <option value='50 cm'>50 cm</option>
+            </select>
+          </div>
+        {% endif %}
+
+        {% if tags_text contains 'grabado' or tipo_text contains 'joya' %}
+          <div class='campoProp'>
+            <label for='prop-grabado'>Grabado (opcional)</label>
+            <input
+              id='prop-grabado'
+              type='text'
+              name='properties[Grabado]'
+              maxlength='30'
+              placeholder='Texto para grabar'
+            >
+          </div>
+        {% endif %}
+
+        {% if tags_text contains 'tamaño'
+          or tags_text contains 'tamano'
+          or tipo_text contains 'ilustración'
+          or tipo_text contains 'ilustracion'
+          or tipo_text contains 'print'
+          or tipo_text contains 'lámina'
+          or tipo_text contains 'lamina'
+        %}
+          <div class='campoProp'>
+            <label for='prop-tamano'>Tamaño</label>
+            <select
+              id='prop-tamano'
+              name='properties[Tamaño]'
+              class='selectPersonalizado'
+              aria-label='Tamaño de impresión'
+            >
+              <option value='A4' selected>A4</option>
+              <option value='A3'>A3</option>
+              <option value='30x40 cm'>30x40 cm</option>
+            </select>
+          </div>
+        {% endif %}
+
+        {% if tags_text contains 'papel'
+          or tipo_text contains 'ilustración'
+          or tipo_text contains 'ilustracion'
+          or tipo_text contains 'print'
+          or tipo_text contains 'lámina'
+          or tipo_text contains 'lamina'
+        %}
+          <div class='campoProp'>
+            <label for='prop-papel'>Papel</label>
+            <select id='prop-papel' name='properties[Papel]' class='selectPersonalizado' aria-label='Tipo de papel'>
+              <option value='Mate' selected>Mate</option>
+              <option value='Satinado'>Satinado</option>
+              <option value='Algodón'>Algodón</option>
+            </select>
+          </div>
+        {% endif %}
+
+        {% if tags_text contains 'enmarcado'
+          or tipo_text contains 'ilustración'
+          or tipo_text contains 'ilustracion'
+          or tipo_text contains 'print'
+          or tipo_text contains 'lámina'
+          or tipo_text contains 'lamina'
+        %}
+          <div class='campoProp'>
+            <label for='prop-marco'>Enmarcado</label>
+            <select id='prop-marco' name='properties[Enmarcado]' class='selectPersonalizado' aria-label='Enmarcado'>
+              <option value='Sin marco' selected>Sin marco</option>
+              <option value='Negro'>Negro</option>
+              <option value='Blanco'>Blanco</option>
+              <option value='Natural'>Natural</option>
+            </select>
+          </div>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+</main>
+
+{% render 'debug-metadatos', objeto: product, titulo: 'Metafields de producto' %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% if current_variant %}
+  {% render 'debug-metadatos', objeto: current_variant, titulo: 'Metafields de variante' %}
+{% endif %}
 
 {% schema %}
 {
@@ -50,3 +186,111 @@
   }
 }
 {% endschema %}
+
+{% stylesheet %}
+  .contenedorProducto {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .imagenesProducto {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .imagenProducto {
+    width: 100%;
+    height: auto;
+  }
+
+  .informacionProducto {
+    flex: 1 1 50%;
+    font-size: 0.875rem;
+  }
+
+  .opcionesProducto {
+    margin-top: 1.5rem;
+  }
+
+  .opcionesProducto form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .opcionesProducto input,
+  .opcionesProducto select {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .opcionesProducto select,
+  .opcionesProducto input[type='text'] {
+    margin-right: 1rem;
+  }
+
+  .opcionesProducto input[type='submit'] {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+  }
+
+  .opcionesProducto input[type='submit']:hover {
+    background-color: #333;
+  }
+{% endstylesheet %}
+
+<script>
+  (function(){
+    var cont = document.currentScript && document.currentScript.closest ? document.currentScript.closest('.informacionProducto') : document.querySelector('.informacionProducto');
+    if (!cont) return;
+    var formWrap = cont.querySelector('.opcionesProducto');
+    if (!formWrap) return;
+    var form = formWrap.querySelector('form');
+    if (!form) return;
+    var selects = formWrap.querySelectorAll('select[data-index]');
+    var idInput = formWrap.querySelector('#variantId');
+    if (!idInput) return;
+    var variants = {{ product.variants | json }};
+    function encontrarVar() {
+      var sel = {};
+      selects.forEach(function(s){ sel[s.getAttribute('data-index')] = s.value; });
+      var v = variants.find(function(x){
+        if (sel.option1 && x.option1 !== sel.option1) return false;
+        if (sel.option2 && x.option2 !== sel.option2) return false;
+        if (sel.option3 && x.option3 !== sel.option3) return false;
+        return true;
+      });
+      return v;
+    }
+    function actualizar(){
+      var v = encontrarVar();
+      var submit = formWrap.querySelector("input[type='submit']");
+      if (v) {
+        idInput.value = v.id;
+        if (submit){
+          if (v.available) { submit.disabled = false; submit.value = 'Add to cart'; }
+          else { submit.disabled = true; submit.value = 'Agotado'; }
+        }
+        var precio = document.getElementById('precioProducto');
+        if (precio) {
+          if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+            try { precio.textContent = Shopify.formatMoney(v.price, "{{ shop.money_format | replace: '"', '\\"' }}"); } catch(e) {}
+          } else {
+            precio.textContent = (v.price/100).toFixed(2);
+          }
+        }
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', v.id);
+        window.history.replaceState({}, '', url);
+      }
+    }
+    selects.forEach(function(s){ s.addEventListener('change', actualizar); });
+  })();
+</script>

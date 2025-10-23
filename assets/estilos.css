@@ -4,9 +4,9 @@
   width: fit-content;
   padding: 0.4rem 0.6rem;
   text-align: center;
-  border-radius: 6px;
   font-size: 0.85rem;
   margin: 0 auto;
+  font-weight: bold;
 }
 
 .botonDestacado:hover,
@@ -23,4 +23,130 @@
 .tituloSeccion {
   font-size: 1.8em;
   margin: 1em 0 1em 0;
+}
+
+/* Controles de formulario: borde recto y línea de 1px */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+input[type='number'],
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'],
+select,
+textarea {
+  border: 1px solid var(--color-foreground, #111);
+  border-radius: 0;
+  background: var(--color-background, #fff);
+  color: var(--color-foreground, #111);
+  padding: 0.5rem 0.6rem;
+}
+
+/* Select accesible personalizado */
+.selectWrap {
+  position: relative;
+  width: 100%;
+}
+.selectWrap .selectNativo {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  width: 0;
+}
+.selectBtn {
+  width: 100%;
+  border: 1px solid var(--color-foreground, #111);
+  border-radius: 0;
+  background: var(--color-background, #fff);
+  color: var(--color-foreground, #111);
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+}
+.selectBtn:focus {
+  outline: 2px solid transparent;
+  box-shadow: none;
+}
+.selectBtn .caret {
+  margin-left: auto;
+  transition: transform 0.18s ease;
+}
+
+.selectList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 50;
+  border: 1px solid var(--color-foreground, #111);
+  border-top: none;
+  border-radius: 0;
+  background: var(--color-background, #fff);
+  color: var(--color-foreground, #111);
+  max-height: 240px;
+  overflow: auto;
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.36s ease,
+    transform 0.18s ease;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+.selectWrap.abierto .selectList {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.selectWrap.abierto .selectBtn {
+  border-bottom-color: transparent;
+}
+.selectWrap.abierto .selectBtn .caret {
+  transform: rotate(180deg);
+}
+.selectOption {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+}
+.selectOption[aria-selected='true'] {
+  background: #eee;
+}
+.selectOption.activa {
+  background: #f5f5f5;
+}
+
+button,
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
+  border: 1px solid var(--color-foreground, #111);
+  border-radius: 0;
+}
+
+/* Estados de foco accesibles */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid transparent;
+  box-shadow: none;
 }
