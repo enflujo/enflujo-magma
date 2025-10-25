@@ -48,10 +48,24 @@
             "texto_boton": "",
             "enlace_boton": ""
           }
+        },
+        "texto_jmJGmk": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.3,
+            "texto": "<p>Mariana La Rotta is a Brand that makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
         }
       },
       "block_order": [
-        "texto_rFwm9g"
+        "texto_rFwm9g",
+        "texto_jmJGmk"
       ],
       "name": "Fila de contenido",
       "settings": {}
