@@ -175,6 +175,17 @@
     },
     "productos_destacados_DeYHUF": {
       "type": "productos-destacados",
+      "blocks": {
+        "product_WWKwcJ": {
+          "type": "product",
+          "settings": {
+            "product": "caballo"
+          }
+        }
+      },
+      "block_order": [
+        "product_WWKwcJ"
+      ],
       "name": "Productos destacados",
       "settings": {
         "titulo_seccion": "FEATURED",
