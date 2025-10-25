@@ -33,15 +33,6 @@
         "z_index": 0
       }
     },
-    "texto_pNEEUG": {
-      "type": "texto",
-      "name": "Bloque de texto",
-      "settings": {
-        "texto": "<p>Inspired by nature, dark folk, and shared memory. Each piece is a singular, tactile story with emotional resonance. You'll recognize yourself in their language - gritty yet refined, experimental in process, and precise in execution.</p>",
-        "texto_boton": "Explore the collections",
-        "enlace_boton": "shopify://collections"
-      }
-    },
     "productos_destacados_hVFyqh": {
       "type": "productos-destacados",
       "blocks": {
@@ -154,7 +145,6 @@
   },
   "order": [
     "video_f6aDQa",
-    "texto_pNEEUG",
     "productos_destacados_hVFyqh",
     "imagen_grande_rcYX6X",
     "titulo_QtceKq",
