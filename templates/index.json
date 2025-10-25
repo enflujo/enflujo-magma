@@ -187,11 +187,18 @@
           "settings": {
             "product": "wave-1"
           }
+        },
+        "product_fkPV9j": {
+          "type": "product",
+          "settings": {
+            "product": "relics"
+          }
         }
       },
       "block_order": [
         "product_WWKwcJ",
-        "product_A4pfnt"
+        "product_A4pfnt",
+        "product_fkPV9j"
       ],
       "name": "Productos destacados",
       "settings": {
