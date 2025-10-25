@@ -12,7 +12,39 @@
     "main": {
       "type": "page",
       "settings": {}
+    },
+    "imagen_grande_LzgPiV": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
+      "settings": {
+        "imagen_seccion": "shopify://shop_images/lucky_bracelet_chain.jpg",
+        "alt_texto": "",
+        "titulo_superior": "JEWELRY",
+        "icono_superior": "shopify://shop_images/fire.png",
+        "tamano_icono": 35,
+        "texto_seccion": "",
+        "texto_boton": "Ver más",
+        "enlace_boton": "",
+        "posicion_texto": "centro",
+        "alineacion_texto": "center",
+        "enlace_destino": "",
+        "color_texto": "#ffffff",
+        "color_fondo": "rgba(0,0,0,0.5)",
+        "mostrar_fondo": true,
+        "max_ancho_ch": 60,
+        "unidad_offset": "px",
+        "offset_x": 16,
+        "offset_y": 16,
+        "tamano_fuente": 18,
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "imagen_grande_LzgPiV"
+  ]
 }
