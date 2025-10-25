@@ -18,6 +18,21 @@
     <p></p>
   {% endif %}
 
+  {% assign hay_titulo = section.settings.titulo_superior %}
+  {% assign hay_icono = section.settings.icono_superior %}
+  {% if hay_titulo != blank or hay_icono != blank %}
+    <div class='tituloSuperior' style='color: {{ section.settings.color_texto | default: "#ffffff" }};'>
+      {% if hay_icono != blank %}
+        <div class='iconoSuperior' style='--tamano-icono: {{ section.settings.tamano_icono | default: 60 }}px;'>
+          {{ hay_icono | image_url: width: 300 | image_tag: alt: 'Ícono' }}
+        </div>
+      {% endif %}
+      {% if hay_titulo != blank %}
+        <h2 class='textoTituloSuperior'>{{ hay_titulo }}</h2>
+      {% endif %}
+    </div>
+  {% endif %}
+
   {% assign hay_texto = section.settings.video_texto %}
   {% assign hay_boton = section.settings.video_enlace_boton %}
   {% if hay_texto != blank or hay_boton != blank %}
@@ -67,6 +82,32 @@
       "type": "video",
       "id": "video_seccion",
       "label": "Archivo de video"
+    },
+    {
+      "type": "header",
+      "content": "Título e ícono superior"
+    },
+    {
+      "type": "text",
+      "id": "titulo_superior",
+      "label": "Título superior (opcional)",
+      "info": "Se mostrará centrado en la parte superior del video"
+    },
+    {
+      "type": "image_picker",
+      "id": "icono_superior",
+      "label": "Ícono superior (opcional)",
+      "info": "Imagen que se mostrará encima del título."
+    },
+    {
+      "type": "range",
+      "id": "tamano_icono",
+      "label": "Tamaño del ícono (px)",
+      "min": 30,
+      "max": 150,
+      "step": 5,
+      "default": 60,
+      "info": "Controla el ancho del ícono"
     },
     {
       "type": "richtext",
@@ -250,6 +291,36 @@
     z-index: var(--nivelZ, 0);
     margin-bottom: calc(var(--desfaseYFrac, 0) * var(--ratio, 0.5625) * 100%);
   }
+
+  .tituloSuperior {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+  }
+
+  .iconoSuperior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .iconoSuperior img {
+    width: var(--tamano-icono, 60px);
+    height: auto;
+    display: block;
+  }
+
+  .textoTituloSuperior {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+  }
+
   .textoFlotante {
     position: absolute;
     max-width: min(90%, 60ch);
@@ -316,6 +387,12 @@
     .videoPantallaCompleta {
       min-height: 360px;
     }
+    .tituloSuperior {
+      top: 1rem;
+    }
+    .textoTituloSuperior {
+      font-size: 1.5rem;
+    }
     .textoFlotante {
       max-width: min(92%, 50ch) !important;
       font-size: clamp(14px, 2.8vw, 16px) !important;
@@ -326,6 +403,9 @@
   @media (max-width: 480px) {
     .videoPantallaCompleta {
       min-height: 280px;
+    }
+    .textoTituloSuperior {
+      font-size: 1.25rem;
     }
     .textoFlotante {
       max-width: min(95%, 38ch) !important;
