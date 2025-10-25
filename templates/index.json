@@ -205,6 +205,35 @@
         "titulo_seccion": "FEATURED",
         "columns": "3"
       }
+    },
+    "imagen_grande_D6gcaw": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
+      "settings": {
+        "imagen_seccion": "shopify://shop_images/jewelry-and-print-2023.jpg",
+        "alt_texto": "",
+        "titulo_superior": "ILLUSTRATION",
+        "icono_superior": "shopify://shop_images/grabado.png",
+        "tamano_icono": 75,
+        "texto_seccion": "<h2>PRINTS</h2><p>Don't miss the something about searching for other things or finding a treasure</p>",
+        "posicion_texto": "centroIzq",
+        "alineacion_texto": "center",
+        "enlace_destino": "",
+        "color_texto": "#ffffff",
+        "color_fondo": "rgba(0,0,0,0.5)",
+        "mostrar_fondo": false,
+        "max_ancho_ch": 36,
+        "unidad_offset": "%",
+        "offset_x": 0,
+        "offset_y": 16,
+        "tamano_fuente": 18,
+        "texto_boton": "SHOP FOR THE WALLS",
+        "enlace_boton": "shopify://pages/prints",
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
+      }
     }
   },
   "order": [
@@ -213,6 +242,7 @@
     "imagen_grande_rcYX6X",
     "productos_destacados_hVFyqh",
     "imagen_grande_J47zVL",
-    "productos_destacados_DeYHUF"
+    "productos_destacados_DeYHUF",
+    "imagen_grande_D6gcaw"
   ]
 }
