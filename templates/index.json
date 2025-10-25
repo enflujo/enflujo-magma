@@ -33,6 +33,29 @@
         "z_index": 0
       }
     },
+    "fila_contenido_qyTK88": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_rFwm9g": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 0,
+            "line_height": 1.3,
+            "texto": "<h2>THE BRAND</h2><p><strong>RINGS</strong></p><p><strong>PENDANTS</strong></p><p><strong>PRINTS</strong></p><p><strong>WORKSHOPS</strong></p><p><strong>DIY-SETS</strong></p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_rFwm9g"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
     "productos_destacados_hVFyqh": {
       "type": "productos-destacados",
       "blocks": {
@@ -145,6 +168,7 @@
   },
   "order": [
     "video_f6aDQa",
+    "fila_contenido_qyTK88",
     "productos_destacados_hVFyqh",
     "imagen_grande_rcYX6X",
     "titulo_QtceKq",
