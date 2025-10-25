@@ -181,10 +181,17 @@
           "settings": {
             "product": "caballo"
           }
+        },
+        "product_A4pfnt": {
+          "type": "product",
+          "settings": {
+            "product": "wave-1"
+          }
         }
       },
       "block_order": [
-        "product_WWKwcJ"
+        "product_WWKwcJ",
+        "product_A4pfnt"
       ],
       "name": "Productos destacados",
       "settings": {
