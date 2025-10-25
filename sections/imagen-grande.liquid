@@ -20,7 +20,9 @@
           | image_tag: alt: section.settings.alt_texto
           | default: section.settings.imagen_seccion.alt
         }}
-        {% if section.settings.texto_seccion != blank %}
+        {% assign hay_texto = section.settings.texto_seccion %}
+        {% assign hay_boton = section.settings.enlace_boton %}
+        {% if hay_texto != blank or hay_boton != blank %}
           <div
             class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
             style='
@@ -45,7 +47,16 @@
               {% endcase %}
             '
           >
-            {{ section.settings.texto_seccion }}
+            {% if section.settings.texto_seccion != blank %}
+              {{ section.settings.texto_seccion }}
+            {% endif %}
+            {% if section.settings.enlace_boton != blank %}
+              <div class='enlaceImagen botonDestacado'>
+                <a href='{{ section.settings.enlace_boton }}' class='imagenBoton'>
+                  {{ section.settings.texto_boton | default: 'Ver más' }}
+                </a>
+              </div>
+            {% endif %}
           </div>
         {% endif %}
       </a>
@@ -57,7 +68,9 @@
           | image_tag: alt: section.settings.alt_texto
           | default: section.settings.imagen_seccion.alt
         }}
-        {% if section.settings.texto_seccion != blank %}
+        {% assign hay_texto = section.settings.texto_seccion %}
+        {% assign hay_boton = section.settings.enlace_boton %}
+        {% if hay_texto != blank or hay_boton != blank %}
           <div
             class='textoFlotante {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
             style='
@@ -81,7 +94,16 @@
               {% endcase %}
             '
           >
-            {{ section.settings.texto_seccion }}
+            {% if section.settings.texto_seccion != blank %}
+              {{ section.settings.texto_seccion }}
+            {% endif %}
+            {% if section.settings.enlace_boton != blank %}
+              <div class='enlaceImagen botonDestacado'>
+                <a href='{{ section.settings.enlace_boton }}' class='imagenBoton'>
+                  {{ section.settings.texto_boton | default: 'Ver más' }}
+                </a>
+              </div>
+            {% endif %}
           </div>
         {% endif %}
       </div>
@@ -215,6 +237,17 @@
       "default": 18
     },
     {
+      "type": "text",
+      "id": "texto_boton",
+      "label": "Texto del botón",
+      "default": "Ver más"
+    },
+    {
+      "type": "url",
+      "id": "enlace_boton",
+      "label": "Enlace del botón"
+    },
+    {
       "type": "header",
       "content": "Desplazamiento y niveles"
     },
@@ -343,6 +376,10 @@
   .textoFlotante.posInfDer {
     bottom: 1rem;
     right: 1rem;
+  }
+
+  .enlaceImagen {
+    margin-top: 1em;
   }
   @media (max-width: 768px) {
     .contenedorImagenGrande {
