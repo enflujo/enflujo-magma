@@ -145,11 +145,32 @@
         "columns": "3"
       }
     },
-    "titulo_QtceKq": {
-      "type": "titulo",
-      "name": "Título",
+    "imagen_grande_J47zVL": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
       "settings": {
-        "titulo_seccion": "Shop the Collections"
+        "imagen_seccion": "shopify://shop_images/nail_ring3.jpg",
+        "alt_texto": "",
+        "titulo_superior": "",
+        "tamano_icono": 60,
+        "texto_seccion": "<h2>RINGS</h2><p>Jewelry made for those who find meaning in what they wear and hold.</p>",
+        "posicion_texto": "centroIzq",
+        "alineacion_texto": "center",
+        "enlace_destino": "",
+        "color_texto": "#ffffff",
+        "color_fondo": "rgba(0,0,0,0.5)",
+        "mostrar_fondo": false,
+        "max_ancho_ch": 34,
+        "unidad_offset": "px",
+        "offset_x": 16,
+        "offset_y": 16,
+        "tamano_fuente": 18,
+        "texto_boton": "SHOP FOR YOUR HAND",
+        "enlace_boton": "shopify://pages/jewelry",
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
       }
     },
     "collage_NtppLk": {
@@ -203,7 +224,7 @@
     "fila_contenido_qyTK88",
     "imagen_grande_rcYX6X",
     "productos_destacados_hVFyqh",
-    "titulo_QtceKq",
+    "imagen_grande_J47zVL",
     "collage_NtppLk"
   ]
 }
