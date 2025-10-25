@@ -1,0 +1,438 @@
+{% comment %}
+  Sección de fila flexible: permite agregar bloques de texto o imagen
+  con control de ancho individual (1, 1/2, 1/3, 1/4) que se muestran en línea.
+{% endcomment %}
+
+<div class='filaContenido'>
+  {% for block in section.blocks %}
+    {% assign ancho = block.settings.ancho | default: 'completo' %}
+    {% assign alineacion = block.settings.alineacion | default: 'centro' %}
+    {% assign alineacion_vertical = block.settings.alineacion_vertical | default: 'arriba' %}
+    {% assign espaciado_parrafos = block.settings.espaciado_parrafos | default: 1 %}
+    {% assign line_height = block.settings.line_height | default: 1.5 %}
+    <div
+      class='bloqueContenido bloqueContenido--{{ ancho }} bloqueContenido--{{ alineacion }} bloqueContenido--v-{{ alineacion_vertical }}'
+      style='--espaciado-p: {{ espaciado_parrafos }}em; --line-height: {{ line_height }};'
+      {{ block.shopify_attributes }}
+    >
+      {% case block.type %}
+        {% when 'texto' %}
+          <div class='contenidoTexto'>
+            {{ block.settings.texto }}
+            {% if block.settings.enlace_boton != blank %}
+              <div class='enlaceTexto botonDestacado'>
+                <a href='{{ block.settings.enlace_boton }}'>
+                  {{ block.settings.texto_boton | default: 'Ver más' }}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        {% when 'imagen' %}
+          <div class='contenidoImagen'>
+            {% if block.settings.imagen != blank %}
+              {% render 'imagen', image: block.settings.imagen, width: 800, class: 'imagenBloque' %}
+              {% if block.settings.leyenda != blank %}
+                <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
+              {% endif %}
+            {% endif %}
+          </div>
+      {% endcase %}
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Fila de contenido",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "texto",
+      "name": "Texto",
+      "settings": [
+        {
+          "type": "select",
+          "id": "ancho",
+          "label": "Ancho del bloque",
+          "options": [
+            {
+              "value": "completo",
+              "label": "Completo (1)"
+            },
+            {
+              "value": "mitad",
+              "label": "Mitad (1/2)"
+            },
+            {
+              "value": "tercio",
+              "label": "Tercio (1/3)"
+            },
+            {
+              "value": "dos-tercios",
+              "label": "Dos tercios (2/3)"
+            },
+            {
+              "value": "cuarto",
+              "label": "Cuarto (1/4)"
+            },
+            {
+              "value": "tres-cuartos",
+              "label": "Tres cuartos (3/4)"
+            },
+            {
+              "value": "quinto",
+              "label": "Quinto (1/5)"
+            },
+            {
+              "value": "dos-quintos",
+              "label": "Dos quintos (2/5)"
+            },
+            {
+              "value": "tres-quintos",
+              "label": "Tres quintos (3/5)"
+            },
+            {
+              "value": "cuatro-quintos",
+              "label": "Cuatro quintos (4/5)"
+            }
+          ],
+          "default": "mitad",
+          "info": "Ancho del bloque. Varios bloques se mostrarán en línea según su ancho."
+        },
+        {
+          "type": "select",
+          "id": "alineacion",
+          "label": "Alineación",
+          "options": [
+            {
+              "value": "izquierda",
+              "label": "Izquierda"
+            },
+            {
+              "value": "centro",
+              "label": "Centro"
+            },
+            {
+              "value": "derecha",
+              "label": "Derecha"
+            }
+          ],
+          "default": "centro",
+          "info": "Alineación horizontal del contenido dentro del bloque."
+        },
+        {
+          "type": "select",
+          "id": "alineacion_vertical",
+          "label": "Alineación vertical",
+          "options": [
+            {
+              "value": "arriba",
+              "label": "Arriba"
+            },
+            {
+              "value": "centro",
+              "label": "Centro"
+            },
+            {
+              "value": "abajo",
+              "label": "Abajo"
+            }
+          ],
+          "default": "arriba",
+          "info": "Alineación vertical cuando los bloques tienen diferentes alturas."
+        },
+        {
+          "type": "range",
+          "id": "espaciado_parrafos",
+          "label": "Espaciado entre párrafos",
+          "min": 0,
+          "max": 3,
+          "step": 0.5,
+          "unit": "em",
+          "default": 1,
+          "info": "Espacio vertical entre párrafos."
+        },
+        {
+          "type": "range",
+          "id": "line_height",
+          "label": "Altura de línea",
+          "min": 1,
+          "max": 2.5,
+          "step": 0.1,
+          "default": 1.5,
+          "info": "Espaciado entre líneas de texto."
+        },
+        {
+          "type": "richtext",
+          "id": "texto",
+          "label": "Texto"
+        },
+        {
+          "type": "text",
+          "id": "texto_boton",
+          "label": "Texto del botón (opcional)"
+        },
+        {
+          "type": "url",
+          "id": "enlace_boton",
+          "label": "Enlace del botón"
+        }
+      ]
+    },
+    {
+      "type": "imagen",
+      "name": "Imagen",
+      "settings": [
+        {
+          "type": "select",
+          "id": "ancho",
+          "label": "Ancho del bloque",
+          "options": [
+            {
+              "value": "completo",
+              "label": "Completo (1)"
+            },
+            {
+              "value": "mitad",
+              "label": "Mitad (1/2)"
+            },
+            {
+              "value": "tercio",
+              "label": "Tercio (1/3)"
+            },
+            {
+              "value": "dos-tercios",
+              "label": "Dos tercios (2/3)"
+            },
+            {
+              "value": "cuarto",
+              "label": "Cuarto (1/4)"
+            },
+            {
+              "value": "tres-cuartos",
+              "label": "Tres cuartos (3/4)"
+            },
+            {
+              "value": "quinto",
+              "label": "Quinto (1/5)"
+            },
+            {
+              "value": "dos-quintos",
+              "label": "Dos quintos (2/5)"
+            },
+            {
+              "value": "tres-quintos",
+              "label": "Tres quintos (3/5)"
+            },
+            {
+              "value": "cuatro-quintos",
+              "label": "Cuatro quintos (4/5)"
+            }
+          ],
+          "default": "mitad",
+          "info": "Ancho del bloque. Varios bloques se mostrarán en línea según su ancho."
+        },
+        {
+          "type": "select",
+          "id": "alineacion",
+          "label": "Alineación",
+          "options": [
+            {
+              "value": "izquierda",
+              "label": "Izquierda"
+            },
+            {
+              "value": "centro",
+              "label": "Centro"
+            },
+            {
+              "value": "derecha",
+              "label": "Derecha"
+            }
+          ],
+          "default": "centro",
+          "info": "Alineación horizontal del contenido dentro del bloque."
+        },
+        {
+          "type": "select",
+          "id": "alineacion_vertical",
+          "label": "Alineación vertical",
+          "options": [
+            {
+              "value": "arriba",
+              "label": "Arriba"
+            },
+            {
+              "value": "centro",
+              "label": "Centro"
+            },
+            {
+              "value": "abajo",
+              "label": "Abajo"
+            }
+          ],
+          "default": "arriba",
+          "info": "Alineación vertical cuando los bloques tienen diferentes alturas."
+        },
+        {
+          "type": "image_picker",
+          "id": "imagen",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "leyenda",
+          "label": "Leyenda (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fila de contenido",
+      "category": "Decoraciones",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .filaContenido {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .bloqueContenido {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bloqueContenido--v-arriba {
+    align-self: flex-start;
+    justify-content: flex-start;
+  }
+
+  .bloqueContenido--v-centro {
+    align-self: center;
+    justify-content: center;
+  }
+
+  .bloqueContenido--v-abajo {
+    align-self: flex-end;
+    justify-content: flex-end;
+  }
+
+  .bloqueContenido--izquierda {
+    text-align: left;
+  }
+
+  .bloqueContenido--centro {
+    text-align: center;
+  }
+
+  .bloqueContenido--derecha {
+    text-align: right;
+  }
+
+  .bloqueContenido--completo {
+    flex: 0 0 100%;
+  }
+
+  .bloqueContenido--mitad {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+
+  .bloqueContenido--tercio {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+
+  .bloqueContenido--dos-tercios {
+    flex: 0 0 calc(66.666% - 0.5rem);
+  }
+
+  .bloqueContenido--cuarto {
+    flex: 0 0 calc(25% - 1.125rem);
+  }
+
+  .bloqueContenido--tres-cuartos {
+    flex: 0 0 calc(75% - 0.375rem);
+  }
+
+  .bloqueContenido--quinto {
+    flex: 0 0 calc(20% - 1.2rem);
+  }
+
+  .bloqueContenido--dos-quintos {
+    flex: 0 0 calc(40% - 0.9rem);
+  }
+
+  .bloqueContenido--tres-quintos {
+    flex: 0 0 calc(60% - 0.6rem);
+  }
+
+  .bloqueContenido--cuatro-quintos {
+    flex: 0 0 calc(80% - 0.3rem);
+  }
+
+  .contenidoTexto {
+    padding: 1rem;
+    line-height: var(--line-height, 1.5);
+  }
+
+  .contenidoTexto p {
+    margin-top: var(--espaciado-p, 1em);
+  }
+
+  .contenidoTexto p:first-child {
+    margin-top: 0;
+  }
+
+  .enlaceTexto {
+    margin-top: 1.5em;
+  }
+
+  .imagenBloque {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .leyendaImagen {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    .bloqueContenido--mitad,
+    .bloqueContenido--tercio,
+    .bloqueContenido--dos-tercios,
+    .bloqueContenido--cuarto,
+    .bloqueContenido--tres-cuartos,
+    .bloqueContenido--quinto,
+    .bloqueContenido--dos-quintos,
+    .bloqueContenido--tres-quintos,
+    .bloqueContenido--cuatro-quintos {
+      flex: 0 0 100%;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .bloqueContenido--tercio,
+    .bloqueContenido--dos-tercios,
+    .bloqueContenido--cuarto,
+    .bloqueContenido--tres-cuartos,
+    .bloqueContenido--quinto,
+    .bloqueContenido--dos-quintos,
+    .bloqueContenido--tres-quintos,
+    .bloqueContenido--cuatro-quintos {
+      flex: 0 0 calc(50% - 0.75rem);
+    }
+  }
+{% endstylesheet %}
