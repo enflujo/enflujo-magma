@@ -61,11 +61,22 @@
             "texto_boton": "",
             "enlace_boton": ""
           }
+        },
+        "imagen_eKNMKt": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/sparkle.png",
+            "leyenda": ""
+          }
         }
       },
       "block_order": [
         "texto_rFwm9g",
-        "texto_jmJGmk"
+        "texto_jmJGmk",
+        "imagen_eKNMKt"
       ],
       "name": "Fila de contenido",
       "settings": {}
