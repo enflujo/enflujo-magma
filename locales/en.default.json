@@ -4,15 +4,6 @@
     "not_found": "Page not found.",
     "back_to_shopping": "Back to shopping"
   },
-  "blog": {
-    "article_comments": "Comments",
-    "article_metadata_html": "{{ date }} by {{ author }}",
-    "comment_form_body": "Comment",
-    "comment_form_email": "Email",
-    "comment_form_name": "Name",
-    "comment_form_submit": "Post",
-    "comment_form_title": "Add a comment"
-  },
   "cart": {
     "checkout": "Checkout",
     "title": "Cart",

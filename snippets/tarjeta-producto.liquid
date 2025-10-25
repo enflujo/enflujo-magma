@@ -1,0 +1,23 @@
+{% assign product = product | default: null %}
+{% if product %}
+  <a class='tarjetaProducto' href='{{ product.url }}' aria-label='{{ product.title }}'>
+    {% if product.featured_image %}
+      {{
+        product.featured_image
+        | image_url: width: 720
+        | image_tag: alt: product.featured_image.alt
+        | default: product.title
+        | escape
+      }}
+    {% endif %}
+    <h3 class='tarjetaProductoTitulo'>{{ product.title }}</h3>
+    {% if mostrar_precio %}
+      <div class='tarjetaProductoPrecio'>
+        <span class='precioActual'>{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}
+          <span class='precioComparar'>{{ product.compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </a>
+{% endif %}

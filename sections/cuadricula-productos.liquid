@@ -1,0 +1,175 @@
+<section
+  class='seccionCuadriculaProductos'
+  style='--cols: {{ section.settings.columnas_desktop | default: 3 }}; --cols-m: {{ section.settings.columnas_movil | default: 1 }}; --gap: {{ section.settings.espaciado | default: 16 }}px;'
+>
+  {% if section.settings.titulo != blank or section.settings.descripcion != blank %}
+    <header class='encabezadoCuadricula'>
+      {% if section.settings.titulo != blank %}
+        <h2 class='tituloSeccion'>{{ section.settings.titulo }}</h2>
+      {% endif %}
+      {% if section.settings.descripcion != blank %}
+        <div class='descripcionSeccion'>{{ section.settings.descripcion }}</div>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  {% assign origen = section.settings.origen | default: 'coleccion' %}
+  {% assign limite = section.settings.cantidad_max | default: 12 %}
+  {% assign filtro_tag = section.settings.filtro_tag %}
+
+  <div class='cuadriculaProductos'>
+    {% if origen == 'coleccion' and section.settings.coleccion != blank %}
+      {% assign coll = section.settings.coleccion %}
+      {% assign cont = 0 %}
+      {% for producto in coll.products %}
+        {% if cont >= limite %}{% break %}{% endif %}
+        {% if filtro_tag != blank %}
+          {% if producto.tags contains filtro_tag %}
+            {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
+            {% assign cont = cont | plus: 1 %}
+          {% endif %}
+        {% else %}
+          {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
+          {% assign cont = cont | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    {% elsif origen == 'manual' %}
+      {% assign cont = 0 %}
+      {% for block in section.blocks %}
+        {% if cont >= limite %}{% break %}{% endif %}
+        {% if block.type == 'producto' and block.settings.producto != blank %}
+          {% assign producto = block.settings.producto %}
+          {% if filtro_tag == blank or producto.tags contains filtro_tag %}
+            {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
+            {% assign cont = cont | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cuadrícula de productos",
+  "settings": [
+    { "type": "text", "id": "titulo", "label": "Título" },
+    { "type": "richtext", "id": "descripcion", "label": "Descripción" },
+    {
+      "type": "select",
+      "id": "origen",
+      "label": "Origen de productos",
+      "default": "coleccion",
+      "options": [
+        { "value": "coleccion", "label": "Colección" },
+        { "value": "manual", "label": "Selección manual" }
+      ]
+    },
+    { "type": "collection", "id": "coleccion", "label": "Colección" },
+    {
+      "type": "text",
+      "id": "filtro_tag",
+      "label": "Filtrar por tag (opcional)",
+      "info": "Muestra solo productos que contengan este tag"
+    },
+    {
+      "type": "range",
+      "id": "cantidad_max",
+      "label": "Cantidad máxima",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "columnas_desktop",
+      "label": "Columnas en escritorio",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columnas_movil",
+      "label": "Columnas en móvil",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "espaciado",
+      "label": "Espaciado (px)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 16
+    },
+    { "type": "checkbox", "id": "mostrar_precio", "label": "Mostrar precio", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "producto",
+      "name": "Producto",
+      "limit": 50,
+      "settings": [{ "type": "product", "id": "producto", "label": "Producto" }]
+    }
+  ],
+  "presets": [{ "name": "Cuadrícula de productos", "category": "Productos" }]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .seccionCuadriculaProductos {
+    width: 100%;
+  }
+  .encabezadoCuadricula {
+    margin-bottom: 1rem;
+  }
+  .tituloSeccion {
+    margin: 0 0 0.25rem 0;
+  }
+  .descripcionSeccion {
+    opacity: 0.9;
+  }
+
+  .cuadriculaProductos {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: var(--gap, 16px);
+  }
+  @media (max-width: 768px) {
+    .cuadriculaProductos {
+      grid-template-columns: repeat(var(--cols-m, 1), minmax(0, 1fr));
+    }
+  }
+
+  .tarjetaProducto {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .tarjetaProductoImagen {
+    width: 100%;
+    display: block;
+    background: #f5f5f5;
+  }
+  .tarjetaProductoTitulo {
+    margin: 0.5rem 0 0;
+    font-weight: 600;
+  }
+  .tarjetaProductoPrecio {
+    margin: 0.25rem 0 0;
+  }
+  .tarjetaProductoPrecio .precioComparar {
+    opacity: 0.6;
+    text-decoration: line-through;
+    margin-left: 0.5rem;
+  }
+  .mensajeVacio {
+    opacity: 0.8;
+  }
+{% endstylesheet %}
