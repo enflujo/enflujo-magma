@@ -26,5 +26,3 @@ release
 !.yarn/versions
 publico
 
-sections/*.json
-templates/*.json
