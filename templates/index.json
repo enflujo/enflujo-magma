@@ -81,6 +81,30 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "imagen_grande_rcYX6X": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
+      "settings": {
+        "imagen_seccion": "shopify://shop_images/mano_fondo_negro_back_9d035c33-d638-4dff-b247-be9b1624ca22.jpg",
+        "alt_texto": "",
+        "texto_seccion": "<h2>CHARMS & PENDANTS</h2><p>Discover handcrafted silver and gold jewelry made for those who end here.</p><p></p>",
+        "posicion_texto": "infIzq",
+        "enlace_destino": "shopify://collections/frontpage",
+        "color_texto": "#ffffff",
+        "color_fondo": "#ffffff80",
+        "mostrar_fondo": false,
+        "max_ancho_ch": 36,
+        "unidad_offset": "%",
+        "offset_x": 8,
+        "offset_y": 16,
+        "tamano_fuente": 18,
+        "alineacion_texto": "center",
+        "usar_desfase_escritorio_en_movil": false,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 1
+      }
+    },
     "productos_destacados_hVFyqh": {
       "type": "productos-destacados",
       "blocks": {
@@ -112,30 +136,6 @@
       "settings": {
         "titulo_seccion": "Featured Treasures",
         "columns": "3"
-      }
-    },
-    "imagen_grande_rcYX6X": {
-      "type": "imagen-grande",
-      "name": "Imágen grande",
-      "settings": {
-        "imagen_seccion": "shopify://shop_images/pajaros1.jpg",
-        "alt_texto": "",
-        "texto_seccion": "",
-        "posicion_texto": "supCentro",
-        "enlace_destino": "shopify://collections/frontpage",
-        "color_texto": "#ffffff",
-        "color_fondo": "#ffffff80",
-        "mostrar_fondo": false,
-        "max_ancho_ch": 60,
-        "unidad_offset": "px",
-        "offset_x": 16,
-        "offset_y": 16,
-        "tamano_fuente": 18,
-        "alineacion_texto": "right",
-        "usar_desfase_escritorio_en_movil": true,
-        "desfase_vertical": -28,
-        "desfase_vertical_movil": -2,
-        "z_index": -2
       }
     },
     "titulo_QtceKq": {
@@ -194,8 +194,8 @@
   "order": [
     "video_f6aDQa",
     "fila_contenido_qyTK88",
-    "productos_destacados_hVFyqh",
     "imagen_grande_rcYX6X",
+    "productos_destacados_hVFyqh",
     "titulo_QtceKq",
     "collage_NtppLk"
   ]
