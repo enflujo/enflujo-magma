@@ -14,7 +14,7 @@
       "name": "Video",
       "settings": {
         "video_seccion": "shopify://files/videos/01 HERO_STRINGOUT_1.mp4",
-        "video_texto": "<h2>Handcarved Sculptural</h2><h2>Jewelry to Wear Your Story</h2><p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque faucibus ex sapien vitae. </p>",
+        "video_texto": "<h2>SCULPTURE AGAINST CONFORMITY</h2><p>Handcrafted Objects and Wax Carved Narrative Jewelry inspired in Nature to Carry Your Story</p>",
         "posicion_texto": "supDer",
         "color_texto": "#333333",
         "color_fondo": "#00000080",
@@ -25,7 +25,7 @@
         "offset_y": 71,
         "tamano_fuente": 18,
         "alineacion_texto": "center",
-        "video_texto_boton": "Explore the archive",
+        "video_texto_boton": "ENTER THE ARCHIVE",
         "video_enlace_boton": "shopify://collections/all",
         "usar_desfase_escritorio_en_movil": true,
         "desfase_vertical": 0,
