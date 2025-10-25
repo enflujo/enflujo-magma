@@ -173,49 +173,12 @@
         "z_index": 0
       }
     },
-    "collage_NtppLk": {
-      "type": "collage",
-      "blocks": {
-        "producto_LK9749": {
-          "type": "producto",
-          "settings": {
-            "producto": "anima",
-            "imagen_modo": "galeria",
-            "media_indice": "2",
-            "alt": ""
-          }
-        },
-        "producto_qhk3AU": {
-          "type": "producto",
-          "settings": {
-            "producto": "anima",
-            "imagen_modo": "destacada",
-            "media_indice": "1",
-            "alt": ""
-          }
-        },
-        "producto_ipWbfL": {
-          "type": "producto",
-          "settings": {
-            "producto": "anima",
-            "imagen_modo": "personalizada",
-            "media_indice": "2",
-            "imagen": "shopify://shop_images/pajaros1.jpg",
-            "alt": ""
-          }
-        }
-      },
-      "block_order": [
-        "producto_LK9749",
-        "producto_qhk3AU",
-        "producto_ipWbfL"
-      ],
-      "name": "Collage",
+    "productos_destacados_DeYHUF": {
+      "type": "productos-destacados",
+      "name": "Productos destacados",
       "settings": {
-        "diseno": "tres_izq_grande",
-        "separacion": 0,
-        "radio": 0,
-        "ratio": "1:1"
+        "titulo_seccion": "FEATURED",
+        "columns": "3"
       }
     }
   },
@@ -225,6 +188,6 @@
     "imagen_grande_rcYX6X",
     "productos_destacados_hVFyqh",
     "imagen_grande_J47zVL",
-    "collage_NtppLk"
+    "productos_destacados_DeYHUF"
   ]
 }
