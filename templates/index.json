@@ -160,7 +160,7 @@
         "alineacion_texto": "center",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": false,
         "max_ancho_ch": 34,
         "unidad_offset": "px",
@@ -222,7 +222,7 @@
         "alineacion_texto": "center",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": false,
         "max_ancho_ch": 36,
         "unidad_offset": "%",
@@ -233,6 +233,16 @@
         "desfase_vertical": 0,
         "desfase_vertical_movil": 0,
         "z_index": 0
+      }
+    },
+    "titulo_DtLgA8": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
       }
     },
     "imagen_grande_LPUHX6": {
@@ -250,7 +260,7 @@
         "alineacion_texto": "center",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": false,
         "max_ancho_ch": 50,
         "unidad_offset": "%",
@@ -272,6 +282,7 @@
     "imagen_grande_J47zVL",
     "productos_destacados_DeYHUF",
     "imagen_grande_D6gcaw",
+    "titulo_DtLgA8",
     "imagen_grande_LPUHX6"
   ]
 }
