@@ -23,6 +23,7 @@
 .tituloSeccion {
   font-size: 1.8em;
   margin: 1em 0 1em 0;
+  text-align: center;
 }
 
 /* Controles de formulario: borde recto y línea de 1px */
