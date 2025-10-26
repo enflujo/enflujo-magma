@@ -2,80 +2,177 @@
   class='seccionCuadriculaProductos'
   style='--cols: {{ section.settings.columnas_desktop | default: 3 }}; --cols-m: {{ section.settings.columnas_movil | default: 1 }}; --gap: {{ section.settings.espaciado | default: 16 }}px;'
 >
-  {% if section.settings.titulo != blank or section.settings.descripcion != blank %}
-    <header class='encabezadoCuadricula'>
-      {% if section.settings.titulo != blank %}
-        <h2 class='tituloSeccion'>{{ section.settings.titulo }}</h2>
-      {% endif %}
-      {% if section.settings.descripcion != blank %}
-        <div class='descripcionSeccion'>{{ section.settings.descripcion }}</div>
-      {% endif %}
-    </header>
+  {% if section.settings.coleccion != blank %}
+    <div class='filtrosProductos'>
+      <label for='orden-{{ section.id }}'>Ordenar:</label>
+      <select id='orden-{{ section.id }}' class='selectOrden'>
+        <option value='recientes' selected>Más recientes</option>
+        <option value='precio-desc'>Precio: alto a bajo</option>
+        <option value='precio-asc'>Precio: bajo a alto</option>
+        <option value='titulo-asc'>Título: A → Z</option>
+        <option value='titulo-desc'>Título: Z → A</option>
+      </select>
+    </div>
+
+    {% comment %} SSR inicial: primeros productos para SEO {% endcomment %}
+    <div class='cuadriculaProductos' id='grid-{{ section.id }}'>
+      {% assign inicial = section.settings.coleccion.products | sort: 'published_at' | reverse %}
+      {% for producto in inicial limit: section.settings.tamano_lote %}
+        {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
+      {% endfor %}
+    </div>
+
+    <div id='sentinel-{{ section.id }}' aria-hidden='true'></div>
+    <div class='loaderProductos' id='loader-{{ section.id }}' role='status' aria-live='polite'>
+      Loading more products...
+    </div>
+
+    <script src='{{ 'storefront-productos.js' | asset_url }}' defer></script>
+    <script>
+      (function(){
+        try {
+          var sectionId = "{{ section.id }}";
+          var grid = document.getElementById('grid-' + sectionId);
+          var loader = document.getElementById('loader-' + sectionId);
+          var sentinel = document.getElementById('sentinel-' + sectionId);
+          var select = document.getElementById('orden-' + sectionId);
+          if(!grid) return;
+
+          var collectionHandle = "{{ section.settings.coleccion.handle }}";
+          var storeUrl = "{{ shop.permanent_domain }}";
+          var accessToken = "{{ settings.storefront_api_token }}"; // Configurar en theme settings
+          var tamLote = {{ section.settings.tamano_lote | default: 6 }};
+          var mostrarPrecio = {{ section.settings.mostrar_precio | json }};
+
+          var cargando = false;
+          var endCursor = null;
+          var hasNextPage = true;
+          var ordenActual = 'recientes';
+          var primeraVez = true;
+
+          function mostrarLoader(on){ if(loader) loader.style.display = on ? 'block' : 'none'; }
+
+          async function cargarProductos(reset) {
+            if(cargando) return;
+            if(!reset && !hasNextPage) return;
+
+            cargando = true;
+            mostrarLoader(true);
+
+            try {
+              if(!window.StorefrontProductos) {
+                console.error('StorefrontProductos module not loaded');
+                return;
+              }
+
+              if(!accessToken) {
+                console.warn('Storefront API token not configured. Using SSR only.');
+                cargando = false;
+                mostrarLoader(false);
+                return;
+              }
+
+              window.StorefrontProductos.init(storeUrl, accessToken);
+
+              var sortConfig = window.StorefrontProductos.mapOrdenToSort(ordenActual);
+              var options = {
+                sortKey: sortConfig.sortKey,
+                reverse: sortConfig.reverse,
+                first: tamLote,
+                after: reset ? null : endCursor
+              };
+
+              var result = await window.StorefrontProductos.fetchProducts(collectionHandle, options);
+
+              if(reset) {
+                grid.innerHTML = '';
+                primeraVez = false;
+              } else if(primeraVez) {
+                // Primera carga via JS: reemplazar SSR con orden correcto
+                grid.innerHTML = '';
+                primeraVez = false;
+              }
+
+              result.products.forEach(function(product){
+                var card = window.StorefrontProductos.renderCard(product, mostrarPrecio);
+                var wrapper = document.createElement('div');
+                wrapper.innerHTML = card;
+                grid.appendChild(wrapper.firstChild);
+              });
+
+              endCursor = result.endCursor;
+              hasNextPage = result.pageInfo.hasNextPage;
+
+            } catch(error) {
+              console.error('Error loading products:', error);
+            } finally {
+              cargando = false;
+              mostrarLoader(false);
+            }
+          }
+
+          // Infinite scroll
+          if(sentinel && 'IntersectionObserver' in window){
+            var obs = new IntersectionObserver(function(entries){
+              entries.forEach(function(entry){
+                if(entry.isIntersecting && hasNextPage && !primeraVez){
+                  cargarProductos(false);
+                }
+              });
+            }, { root: null, rootMargin: '300px 0px', threshold: 0 });
+            obs.observe(sentinel);
+          }
+
+          // Cambio de orden
+          if(select){
+            select.addEventListener('change', function(){
+              ordenActual = this.value;
+              endCursor = null;
+              hasNextPage = true;
+              cargarProductos(true);
+            });
+          }
+
+          // Cargar inicial via GraphQL para aplicar orden correcto
+          if(accessToken) {
+            setTimeout(function(){ cargarProductos(true); }, 100);
+          }
+
+        } catch(e) {
+          console.error('Grid initialization error:', e);
+        }
+      })();
+    </script>
+  {% else %}
+    <div class='cuadriculaProductos'>
+      <p class='mensajeVacio'>Selecciona una colección para mostrar productos.</p>
+    </div>
   {% endif %}
-
-  {% assign origen = section.settings.origen | default: 'coleccion' %}
-  {% assign limite = section.settings.cantidad_max | default: 12 %}
-  {% assign filtro_tag = section.settings.filtro_tag %}
-
-  <div class='cuadriculaProductos'>
-    {% if origen == 'coleccion' and section.settings.coleccion != blank %}
-      {% assign coll = section.settings.coleccion %}
-      {% assign cont = 0 %}
-      {% for producto in coll.products %}
-        {% if cont >= limite %}{% break %}{% endif %}
-        {% if filtro_tag != blank %}
-          {% if producto.tags contains filtro_tag %}
-            {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
-            {% assign cont = cont | plus: 1 %}
-          {% endif %}
-        {% else %}
-          {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
-          {% assign cont = cont | plus: 1 %}
-        {% endif %}
-      {% endfor %}
-    {% elsif origen == 'manual' %}
-      {% assign cont = 0 %}
-      {% for block in section.blocks %}
-        {% if cont >= limite %}{% break %}{% endif %}
-        {% if block.type == 'producto' and block.settings.producto != blank %}
-          {% assign producto = block.settings.producto %}
-          {% if filtro_tag == blank or producto.tags contains filtro_tag %}
-            {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
-            {% assign cont = cont | plus: 1 %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  </div>
 </section>
 
 {% schema %}
 {
   "name": "Cuadrícula de productos",
   "settings": [
-    { "type": "text", "id": "titulo", "label": "Título" },
-    { "type": "richtext", "id": "descripcion", "label": "Descripción" },
     {
-      "type": "select",
-      "id": "origen",
-      "label": "Origen de productos",
-      "default": "coleccion",
-      "options": [
-        { "value": "coleccion", "label": "Colección" },
-        { "value": "manual", "label": "Selección manual" }
-      ]
+      "type": "collection",
+      "id": "coleccion",
+      "label": "Colección",
+      "info": "Selecciona una colección para mostrar sus productos"
     },
-    { "type": "collection", "id": "coleccion", "label": "Colección" },
     {
-      "type": "text",
-      "id": "filtro_tag",
-      "label": "Filtrar por tag (opcional)",
-      "info": "Muestra solo productos que contengan este tag"
+      "type": "range",
+      "id": "tamano_lote",
+      "label": "Tamaño de lote (carga progresiva)",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 6
     },
     {
       "type": "range",
       "id": "cantidad_max",
-      "label": "Cantidad máxima",
+      "label": "Cantidad máxima de productos",
       "min": 1,
       "max": 50,
       "step": 1,
@@ -102,21 +199,13 @@
     {
       "type": "range",
       "id": "espaciado",
-      "label": "Espaciado (px)",
+      "label": "Espaciado entre productos (px)",
       "min": 0,
       "max": 40,
       "step": 2,
       "default": 16
     },
     { "type": "checkbox", "id": "mostrar_precio", "label": "Mostrar precio", "default": true }
-  ],
-  "blocks": [
-    {
-      "type": "producto",
-      "name": "Producto",
-      "limit": 50,
-      "settings": [{ "type": "product", "id": "producto", "label": "Producto" }]
-    }
   ],
   "presets": [{ "name": "Cuadrícula de productos", "category": "Productos" }]
 }
@@ -126,13 +215,21 @@
   .seccionCuadriculaProductos {
     width: 100%;
   }
-
-  .encabezadoCuadricula {
-    margin-bottom: 1rem;
+  .filtrosProductos {
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
-
-  .descripcionSeccion {
-    opacity: 0.9;
+  .loaderProductos {
+    display: none;
+    margin: 1rem auto 0;
+    padding: 0.6rem 1rem;
+    width: fit-content;
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    font-size: 0.95rem;
   }
 
   .cuadriculaProductos {

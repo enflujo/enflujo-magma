@@ -1,7 +1,4 @@
 {% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
-
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 <main class='contenedorProducto'>
@@ -170,12 +167,6 @@
     </div>
   </div>
 </main>
-
-{% render 'debug-metadatos', objeto: product, titulo: 'Metafields de producto' %}
-{% assign current_variant = product.selected_or_first_available_variant %}
-{% if current_variant %}
-  {% render 'debug-metadatos', objeto: current_variant, titulo: 'Metafields de variante' %}
-{% endif %}
 
 {% schema %}
 {
