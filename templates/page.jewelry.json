@@ -29,7 +29,7 @@
         "alineacion_texto": "center",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": false,
         "max_ancho_ch": 38,
         "unidad_offset": "%",
@@ -41,10 +41,27 @@
         "desfase_vertical_movil": 0,
         "z_index": 0
       }
+    },
+    "cuadricula_productos_HTE9wj": {
+      "type": "cuadricula-productos",
+      "name": "Cuadrícula de productos",
+      "settings": {
+        "titulo": "",
+        "descripcion": "",
+        "origen": "manual",
+        "coleccion": "",
+        "filtro_tag": "",
+        "cantidad_max": 12,
+        "columnas_desktop": 3,
+        "columnas_movil": 1,
+        "espaciado": 16,
+        "mostrar_precio": true
+      }
     }
   },
   "order": [
     "main",
-    "imagen_grande_c7cqmn"
+    "imagen_grande_c7cqmn",
+    "cuadricula_productos_HTE9wj"
   ]
 }
