@@ -41,10 +41,27 @@
         "desfase_vertical_movil": 0,
         "z_index": 0
       }
+    },
+    "cuadricula_productos_HYwWbb": {
+      "type": "cuadricula-productos",
+      "name": "Cuadrícula de productos",
+      "settings": {
+        "titulo": "",
+        "descripcion": "",
+        "origen": "coleccion",
+        "coleccion": "jewelry",
+        "filtro_tag": "",
+        "cantidad_max": 12,
+        "columnas_desktop": 3,
+        "columnas_movil": 1,
+        "espaciado": 16,
+        "mostrar_precio": true
+      }
     }
   },
   "order": [
     "main",
-    "imagen_grande_c7cqmn"
+    "imagen_grande_c7cqmn",
+    "cuadricula_productos_HYwWbb"
   ]
 }
