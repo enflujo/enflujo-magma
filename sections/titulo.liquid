@@ -1,7 +1,10 @@
 {% assign ancho = section.settings.ancho | default: 'completo' %}
 {% assign alineacion = section.settings.alineacion_texto | default: 'center' %}
+{% assign mostrar_borde = section.settings.mostrar_borde %}
 <div class='contenedorTitulo contenedorTitulo--{{ ancho }}'>
-  <div class='textoTitulo' style='text-align: {{ alineacion }};'>{{ section.settings.titulo_seccion }}</div>
+  <div class='textoTitulo {% if mostrar_borde %}textoTitulo--conBorde{% endif %}' style='text-align: {{ alineacion }};'>
+    {{ section.settings.titulo_seccion }}
+  </div>
 </div>
 
 {% schema %}
@@ -42,6 +45,12 @@
         { "value": "right", "label": "Derecha" }
       ],
       "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_borde",
+      "label": "Mostrar borde superior",
+      "default": true
     }
   ],
   "presets": [
@@ -90,9 +99,12 @@
   }
 
   .textoTitulo {
+    width: 100%;
+  }
+
+  .textoTitulo--conBorde {
     border-top: 2px solid var(--color-foreground);
     padding-top: 1rem;
-    width: 100%;
   }
 
   @media (max-width: 768px) {
