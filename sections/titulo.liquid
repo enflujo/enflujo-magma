@@ -1,13 +1,47 @@
-<h2 class='tituloSeccion'>{{ section.settings.titulo_seccion }}</h2>
+{% assign ancho = section.settings.ancho | default: 'completo' %}
+{% assign alineacion = section.settings.alineacion_texto | default: 'center' %}
+<div class='contenedorTitulo contenedorTitulo--{{ ancho }}'>
+  <div class='textoTitulo' style='text-align: {{ alineacion }};'>{{ section.settings.titulo_seccion }}</div>
+</div>
 
 {% schema %}
 {
   "name": "Título",
   "settings": [
     {
-      "type": "text",
+      "type": "richtext",
       "id": "titulo_seccion",
       "label": "Título"
+    },
+    {
+      "type": "select",
+      "id": "ancho",
+      "label": "Ancho del título",
+      "options": [
+        { "value": "completo", "label": "Completo (1)" },
+        { "value": "mitad", "label": "Mitad (1/2)" },
+        { "value": "tercio", "label": "Tercio (1/3)" },
+        { "value": "dos-tercios", "label": "Dos tercios (2/3)" },
+        { "value": "cuarto", "label": "Cuarto (1/4)" },
+        { "value": "tres-cuartos", "label": "Tres cuartos (3/4)" },
+        { "value": "quinto", "label": "Quinto (1/5)" },
+        { "value": "dos-quintos", "label": "Dos quintos (2/5)" },
+        { "value": "tres-quintos", "label": "Tres quintos (3/5)" },
+        { "value": "cuatro-quintos", "label": "Cuatro quintos (4/5)" }
+      ],
+      "default": "completo",
+      "info": "Controla el ancho máximo del título. Siempre se centrará horizontalmente."
+    },
+    {
+      "type": "select",
+      "id": "alineacion_texto",
+      "label": "Alineación del texto",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" }
+      ],
+      "default": "center"
     }
   ],
   "presets": [
@@ -20,7 +54,50 @@
 {% endschema %}
 
 {% stylesheet %}
-  .tituloSeccion {
-    margin-bottom: 1.5rem;
+  .contenedorTitulo {
+    margin: 1.5rem auto 2rem auto;
+  }
+
+  .contenedorTitulo--completo {
+    width: 100%;
+  }
+  .contenedorTitulo--mitad {
+    width: 50%;
+  }
+  .contenedorTitulo--tercio {
+    width: 33.33%;
+  }
+  .contenedorTitulo--dos-tercios {
+    width: 66.66%;
+  }
+  .contenedorTitulo--cuarto {
+    width: 25%;
+  }
+  .contenedorTitulo--tres-cuartos {
+    width: 75%;
+  }
+  .contenedorTitulo--quinto {
+    width: 20%;
+  }
+  .contenedorTitulo--dos-quintos {
+    width: 40%;
+  }
+  .contenedorTitulo--tres-quintos {
+    width: 60%;
+  }
+  .contenedorTitulo--cuatro-quintos {
+    width: 80%;
+  }
+
+  .textoTitulo {
+    border-top: 2px solid var(--color-foreground);
+    padding-top: 1rem;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .contenedorTitulo {
+      width: 100% !important;
+    }
   }
 {% endstylesheet %}
