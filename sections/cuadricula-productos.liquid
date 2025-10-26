@@ -3,15 +3,19 @@
   style='--cols: {{ section.settings.columnas_desktop | default: 3 }}; --cols-m: {{ section.settings.columnas_movil | default: 1 }}; --gap: {{ section.settings.espaciado | default: 16 }}px;'
 >
   {% if section.settings.coleccion != blank %}
-    <div class='filtrosProductos'>
-      <label for='orden-{{ section.id }}'>Ordenar:</label>
-      <select id='orden-{{ section.id }}' class='selectOrden'>
-        <option value='recientes' selected>Más recientes</option>
-        <option value='precio-desc'>Precio: alto a bajo</option>
-        <option value='precio-asc'>Precio: bajo a alto</option>
-        <option value='titulo-asc'>Título: A → Z</option>
-        <option value='titulo-desc'>Título: Z → A</option>
-      </select>
+    <div class='filtrosYOrden'>
+      <div class='filtrosProductos'>
+        <label for='orden-{{ section.id }}'>Ordenar:</label>
+        <select id='orden-{{ section.id }}' class='selectOrden selectPersonalizado' aria-label='Ordenar productos'>
+          <option value='recientes' selected>Más recientes</option>
+          <option value='precio-desc'>Precio: alto a bajo</option>
+          <option value='precio-asc'>Precio: bajo a alto</option>
+          <option value='titulo-asc'>Título: A → Z</option>
+          <option value='titulo-desc'>Título: Z → A</option>
+        </select>
+      </div>
+
+      <div id='filtros-custom-{{ section.id }}' class='filtrosCustom'></div>
     </div>
 
     {% comment %} SSR inicial: primeros productos para SEO {% endcomment %}
@@ -27,121 +31,202 @@
       Loading more products...
     </div>
 
-    <script src='{{ 'storefront-productos.js' | asset_url }}' defer></script>
+    <script src='{{ 'filtros-productos.js' | asset_url }}' defer></script>
     <script>
-      (function(){
-        try {
-          var sectionId = "{{ section.id }}";
-          var grid = document.getElementById('grid-' + sectionId);
-          var loader = document.getElementById('loader-' + sectionId);
-          var sentinel = document.getElementById('sentinel-' + sectionId);
-          var select = document.getElementById('orden-' + sectionId);
-          if(!grid) return;
+          (function(){
+            var sectionId = "{{ section.id }}";
+            var collectionHandle = "{{ section.settings.coleccion.handle }}";
+            var tamLote = {{ section.settings.tamano_lote | default: 6 }};
+            var mostrarPrecio = {{ section.settings.mostrar_precio | json }};
 
-          var collectionHandle = "{{ section.settings.coleccion.handle }}";
-          var storeUrl = "{{ shop.permanent_domain }}";
-          var accessToken = "{{ settings.storefront_api_token }}"; // Configurar en theme settings
-          var tamLote = {{ section.settings.tamano_lote | default: 6 }};
-          var mostrarPrecio = {{ section.settings.mostrar_precio | json }};
+      var grid = document.getElementById('grid-' + sectionId);
+      var loader = document.getElementById('loader-' + sectionId);
+      var sentinel = document.getElementById('sentinel-' + sectionId);
+      var selectOrden = document.getElementById('orden-' + sectionId);
 
-          var cargando = false;
-          var endCursor = null;
-          var hasNextPage = true;
-          var ordenActual = 'recientes';
-          var primeraVez = true;
+      if (!grid || !collectionHandle) return;
 
-          function mostrarLoader(on){ if(loader) loader.style.display = on ? 'block' : 'none'; }
+      var indiceActual = 0;
+      var cargandoInicial = true;
+      var obs = null;
 
-          async function cargarProductos(reset) {
-            if(cargando) return;
-            if(!reset && !hasNextPage) return;
+            function mostrarLoader(on) {
+              if (loader) loader.style.display = on ? 'block' : 'none';
+            }
 
-            cargando = true;
-            mostrarLoader(true);
+            function renderizarLote(inicio, cantidad) {
+              var filtrados = window.FiltrosProductos.productosFiltrados;
+              var hasta = Math.min(inicio + cantidad, filtrados.length);
 
-            try {
-              if(!window.StorefrontProductos) {
-                console.error('StorefrontProductos module not loaded');
-                return;
+              for (var i = inicio; i < hasta; i++) {
+                var producto = filtrados[i];
+                var html = window.FiltrosProductos.renderCard(producto, mostrarPrecio);
+                var wrapper = document.createElement('div');
+                wrapper.innerHTML = html;
+                var el = wrapper.firstChild;
+                if (el && el.classList) el.classList.add('entrando');
+                grid.appendChild(el);
               }
 
-              if(!accessToken) {
-                console.warn('Storefront API token not configured. Using SSR only.');
-                cargando = false;
+              indiceActual = hasta;
+              return hasta < filtrados.length; // hay más?
+            }
+
+            function reiniciarGrid() {
+              grid.style.opacity = '0';
+              grid.style.transform = 'translateY(6px)';
+              grid.innerHTML = '';
+              indiceActual = 0;
+              var hayMas = renderizarLote(0, tamLote);
+              requestAnimationFrame(function(){
+                requestAnimationFrame(function(){
+                  grid.style.opacity = '1';
+                  grid.style.transform = '';
+                });
+              });
+              return hayMas;
+            }
+
+            function cargarMas() {
+              return renderizarLote(indiceActual, tamLote);
+            }
+
+            async function inicializar() {
+              mostrarLoader(true);
+              try {
+                await window.FiltrosProductos.cargarTodos(collectionHandle);
+                window.FiltrosProductos.ordenar('recientes');
+
+                var hayMas = reiniciarGrid();
+                actualizarObservador(hayMas);
+
+                generarFiltrosCustom();
+
+                cargandoInicial = false;
+              } catch (error) {
+                console.error('Error inicializando filtros:', error);
+              } finally {
                 mostrarLoader(false);
-                return;
               }
+            }
 
-              window.StorefrontProductos.init(storeUrl, accessToken);
+            function prepararObserver() {
+              if (sentinel && 'IntersectionObserver' in window && !obs) {
+                obs = new IntersectionObserver(function(entries) {
+                  entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !cargandoInicial) {
+                      var hayMas = cargarMas();
+                      if (!hayMas) {
+                        obs.unobserve(sentinel);
+                      }
+                    }
+                  });
+                }, { root: null, rootMargin: '300px 0px', threshold: 0 });
+                obs.observe(sentinel);
+              }
+            }
 
-              var sortConfig = window.StorefrontProductos.mapOrdenToSort(ordenActual);
-              var options = {
-                sortKey: sortConfig.sortKey,
-                reverse: sortConfig.reverse,
-                first: tamLote,
-                after: reset ? null : endCursor
+            function actualizarObservador(hayMas) {
+              if (!obs || !sentinel) return;
+              try { obs.unobserve(sentinel); } catch(e) {}
+              if (hayMas) {
+                obs.observe(sentinel);
+              }
+            }
+
+            if (selectOrden) {
+              selectOrden.addEventListener('change', function() {
+                window.FiltrosProductos.ordenar(this.value);
+                var hayMas = reiniciarGrid();
+                actualizarObservador(hayMas);
+              });
+            }
+
+            function generarFiltrosCustom() {
+              var container = document.getElementById('filtros-custom-' + sectionId);
+              if (!container) return;
+
+              var filtrosConfig = {
+                'jewelry': ['material', 'size', 'stone'],
+                'prints': ['paper_size', 'finish', 'orientation'],
+                'diy-kits': ['difficulty', 'duration']
               };
 
-              var result = await window.StorefrontProductos.fetchProducts(collectionHandle, options);
-
-              if(reset) {
-                grid.innerHTML = '';
-                primeraVez = false;
-              } else if(primeraVez) {
-                // Primera carga via JS: reemplazar SSR con orden correcto
-                grid.innerHTML = '';
-                primeraVez = false;
+              var filtros = filtrosConfig[collectionHandle] || [];
+              // Fallback dinámico si el handle no coincide: detectar claves disponibles
+              if (filtros.length === 0) {
+                var candidatos = ['material','size','stone','paper_size','finish','orientation','difficulty','duration'];
+                filtros = candidatos.filter(function(k){
+                  return (window.FiltrosProductos.obtenerValoresTag(k) || []).length > 0;
+                });
+              }
+              if (filtros.length === 0) {
+                container.innerHTML = '';
+                return;
               }
 
-              result.products.forEach(function(product){
-                var card = window.StorefrontProductos.renderCard(product, mostrarPrecio);
-                var wrapper = document.createElement('div');
-                wrapper.innerHTML = card;
-                grid.appendChild(wrapper.firstChild);
+              var html = '<div class="filtrosGrupo">';
+
+              filtros.forEach(function(filtro) {
+                var valores = window.FiltrosProductos.obtenerValoresTag(filtro);
+                if (valores.length === 0) return;
+
+                html += '<div class="filtro">';
+                html += '<label>' + filtro.replace('_', ' ') + ':</label>';
+                html += '<select class="filtro-select selectPersonalizado" data-filtro="' + filtro + '" aria-label="Filtrar por ' + filtro.replace('_',' ') + '">';
+                html += '<option value="">Todos</option>';
+                valores.forEach(function(val) {
+                  html += '<option value="' + val + '">' + val + '</option>';
+                });
+                html += '</select>';
+                html += '</div>';
               });
 
-              endCursor = result.endCursor;
-              hasNextPage = result.pageInfo.hasNextPage;
+              html += '</div>';
+              container.innerHTML = html;
 
-            } catch(error) {
-              console.error('Error loading products:', error);
-            } finally {
-              cargando = false;
-              mostrarLoader(false);
+              container.querySelectorAll('.filtro-select').forEach(function(select) {
+                select.addEventListener('change', function() {
+                  aplicarFiltrosCustom();
+                });
+              });
             }
-          }
 
-          // Infinite scroll
-          if(sentinel && 'IntersectionObserver' in window){
-            var obs = new IntersectionObserver(function(entries){
-              entries.forEach(function(entry){
-                if(entry.isIntersecting && hasNextPage && !primeraVez){
-                  cargarProductos(false);
+            function aplicarFiltrosCustom() {
+              var container = document.getElementById('filtros-custom-' + sectionId);
+              if (!container) return;
+
+              var filtrosCustom = {};
+              container.querySelectorAll('.filtro-select').forEach(function(select) {
+                var key = select.getAttribute('data-filtro');
+                var val = select.value;
+                if (val) {
+                  filtrosCustom[key] = val;
                 }
               });
-            }, { root: null, rootMargin: '300px 0px', threshold: 0 });
-            obs.observe(sentinel);
-          }
 
-          // Cambio de orden
-          if(select){
-            select.addEventListener('change', function(){
-              ordenActual = this.value;
-              endCursor = null;
-              hasNextPage = true;
-              cargarProductos(true);
-            });
-          }
+              window.FiltrosProductos.aplicarFiltros({
+                custom: filtrosCustom
+              });
 
-          // Cargar inicial via GraphQL para aplicar orden correcto
-          if(accessToken) {
-            setTimeout(function(){ cargarProductos(true); }, 100);
-          }
+              var hayMas = reiniciarGrid();
+              actualizarObservador(hayMas);
+            }
 
-        } catch(e) {
-          console.error('Grid initialization error:', e);
-        }
-      })();
+            function boot() {
+              prepararObserver();
+              setTimeout(inicializar, 50);
+            }
+
+            if (window.FiltrosProductos) {
+              boot();
+            } else {
+              document.addEventListener('DOMContentLoaded', function(){
+                if (window.FiltrosProductos) boot();
+                else setTimeout(function(){ if (window.FiltrosProductos) boot(); }, 100);
+              });
+            }
+          })();
     </script>
   {% else %}
     <div class='cuadriculaProductos'>
@@ -215,11 +300,42 @@
   .seccionCuadriculaProductos {
     width: 100%;
   }
+  .filtrosYOrden {
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+  }
   .filtrosProductos {
-    margin: 0 0 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+  .filtrosCustom {
+    flex: 1;
+  }
+  .filtrosGrupo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .filtro {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .filtro label {
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+  .filtro-select,
+  .selectOrden {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 0.95rem;
   }
   .loaderProductos {
     display: none;

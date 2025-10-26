@@ -1,8 +1,15 @@
-<div class='seccionColeccion' data-collection-handle='{{ collection.handle }}'>
+{% comment %} Permite usarse en template de colección o como sección en páginas seleccionando una colección {% endcomment %}
+{% if section.settings.coleccion != blank %}
+  {% assign col = section.settings.coleccion %}
+{% elsif collection %}
+  {% assign col = collection %}
+{% endif %}
+
+<div class='seccionColeccion' data-collection-handle='{{ col.handle }}'>
   <div class='filtrosYOrden'>
     <div class='filtrosProductos'>
       <label for='orden-{{ section.id }}'>Ordenar:</label>
-      <select id='orden-{{ section.id }}' class='selectOrden'>
+      <select id='orden-{{ section.id }}' class='selectOrden selectPersonalizado' aria-label='Ordenar productos'>
         <option value='recientes' selected>Más recientes</option>
         <option value='precio-desc'>Precio: alto a bajo</option>
         <option value='precio-asc'>Precio: bajo a alto</option>
@@ -21,10 +28,14 @@
     id='grid-{{ section.id }}'
     style='--cols: {{ section.settings.columnas_desktop | default: 3 }}; --cols-m: {{ section.settings.columnas_movil | default: 1 }}; --gap: {{ section.settings.espaciado | default: 16 }}px;'
   >
-    {% assign inicial = collection.products | sort: 'published_at' | reverse %}
-    {% for producto in inicial limit: section.settings.tamano_lote %}
-      {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
-    {% endfor %}
+    {% if col != blank %}
+      {% assign inicial = col.products | sort: 'published_at' | reverse %}
+      {% for producto in inicial limit: section.settings.tamano_lote %}
+        {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
+      {% endfor %}
+    {% else %}
+      <p class='mensajeVacio'>Selecciona una colección en los ajustes de la sección.</p>
+    {% endif %}
   </div>
 
   <div id='sentinel-{{ section.id }}' aria-hidden='true'></div>
@@ -34,177 +45,224 @@
 
   <script src='{{ 'filtros-productos.js' | asset_url }}' defer></script>
   <script>
-    (function(){
-      var sectionId = "{{ section.id }}";
-      var collectionHandle = "{{ collection.handle }}";
-      var tamLote = {{ section.settings.tamano_lote | default: 6 }};
-      var mostrarPrecio = {{ section.settings.mostrar_precio | json }};
+      (function(){
+    var sectionId = "{{ section.id }}";
+    var collectionHandle = "{{ col.handle | default: '' }}";
+        var tamLote = {{ section.settings.tamano_lote | default: 6 }};
+        var mostrarPrecio = {{ section.settings.mostrar_precio | json }};
 
-      var grid = document.getElementById('grid-' + sectionId);
-      var loader = document.getElementById('loader-' + sectionId);
-      var sentinel = document.getElementById('sentinel-' + sectionId);
-      var selectOrden = document.getElementById('orden-' + sectionId);
+    var grid = document.getElementById('grid-' + sectionId);
+    var loader = document.getElementById('loader-' + sectionId);
+    var sentinel = document.getElementById('sentinel-' + sectionId);
+    var selectOrden = document.getElementById('orden-' + sectionId);
 
-      if (!grid || !window.FiltrosProductos) return;
+    if (!grid || !collectionHandle) return;
 
-      var indiceActual = 0;
-      var cargandoInicial = true;
-      var obs = null;
+    var indiceActual = 0;
+    var cargandoInicial = true;
+    var obs = null;
 
-      function mostrarLoader(on) {
-        if (loader) loader.style.display = on ? 'block' : 'none';
-      }
-
-      function renderizarLote(inicio, cantidad) {
-        var filtrados = window.FiltrosProductos.productosFiltrados;
-        var hasta = Math.min(inicio + cantidad, filtrados.length);
-
-        for (var i = inicio; i < hasta; i++) {
-          var producto = filtrados[i];
-          var html = window.FiltrosProductos.renderCard(producto, mostrarPrecio);
-          var wrapper = document.createElement('div');
-          wrapper.innerHTML = html;
-          grid.appendChild(wrapper.firstChild);
+        function mostrarLoader(on) {
+          if (loader) loader.style.display = on ? 'block' : 'none';
         }
 
-        indiceActual = hasta;
-        return hasta < filtrados.length; // hay más?
-      }
+        function renderizarLote(inicio, cantidad) {
+          var filtrados = window.FiltrosProductos.productosFiltrados;
+          var hasta = Math.min(inicio + cantidad, filtrados.length);
 
-      function reiniciarGrid() {
-        grid.innerHTML = '';
-        indiceActual = 0;
-        var hayMas = renderizarLote(0, tamLote);
-        return hayMas;
-      }
+          for (var i = inicio; i < hasta; i++) {
+            var producto = filtrados[i];
+            var html = window.FiltrosProductos.renderCard(producto, mostrarPrecio);
+            var wrapper = document.createElement('div');
+            wrapper.innerHTML = html;
+            var el = wrapper.firstChild;
+            if (el && el.classList) el.classList.add('entrando');
+            grid.appendChild(el);
+          }
 
-      function cargarMas() {
-        return renderizarLote(indiceActual, tamLote);
-      }
-
-      // Cargar todos los productos
-      async function inicializar() {
-        mostrarLoader(true);
-
-        try {
-          await window.FiltrosProductos.cargarTodos(collectionHandle);
-          window.FiltrosProductos.ordenar('recientes');
-
-          // Reemplazar SSR con versión ordenada
-          var hayMas = reiniciarGrid();
-          actualizarObservador(hayMas);
-
-          // Generar filtros custom según colección
-          generarFiltrosCustom();
-
-          cargandoInicial = false;
-        } catch (error) {
-          console.error('Error inicializando filtros:', error);
-        } finally {
-          mostrarLoader(false);
+          indiceActual = hasta;
+          return hasta < filtrados.length; // hay más?
         }
-      }
 
-      // Infinite scroll
-      if (sentinel && 'IntersectionObserver' in window) {
-        obs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting && !cargandoInicial) {
-              var hayMas = cargarMas();
-              if (!hayMas) {
-                obs.unobserve(sentinel);
-              }
-            }
+        function reiniciarGrid() {
+          // Transición suave: desvanecer un instante y reponer
+          grid.style.opacity = '0';
+          grid.style.transform = 'translateY(6px)';
+          grid.innerHTML = '';
+          indiceActual = 0;
+          var hayMas = renderizarLote(0, tamLote);
+          // Próximo frame: volver a opacidad 1 para animar entrada
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+              grid.style.opacity = '1';
+              grid.style.transform = '';
+            });
           });
-        }, { root: null, rootMargin: '300px 0px', threshold: 0 });
-        obs.observe(sentinel);
-      }
+          return hayMas;
+        }
 
-      // Asegura que el observador esté correcto tras reinicios
-      function actualizarObservador(hayMas) {
-        if (!obs || !sentinel) return;
-        try { obs.unobserve(sentinel); } catch(e) {}
-        if (hayMas) {
+        function cargarMas() {
+          return renderizarLote(indiceActual, tamLote);
+        }
+
+        // Cargar todos los productos
+        async function inicializar() {
+          mostrarLoader(true);
+
+          try {
+            await window.FiltrosProductos.cargarTodos(collectionHandle);
+            window.FiltrosProductos.ordenar('recientes');
+
+            // Reemplazar SSR con versión ordenada
+            var hayMas = reiniciarGrid();
+            actualizarObservador(hayMas);
+
+            // Generar filtros custom según colección
+            generarFiltrosCustom();
+
+            cargandoInicial = false;
+          } catch (error) {
+            console.error('Error inicializando filtros:', error);
+          } finally {
+            mostrarLoader(false);
+          }
+        }
+
+        // Infinite scroll
+        if (sentinel && 'IntersectionObserver' in window) {
+          obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting && !cargandoInicial) {
+                var hayMas = cargarMas();
+                if (!hayMas) {
+                  obs.unobserve(sentinel);
+                }
+              }
+            });
+          }, { root: null, rootMargin: '300px 0px', threshold: 0 });
           obs.observe(sentinel);
         }
-      }
 
-      // Cambio de orden
-      if (selectOrden) {
-        selectOrden.addEventListener('change', function() {
-          window.FiltrosProductos.ordenar(this.value);
+        // Asegura que el observador esté correcto tras reinicios
+        function actualizarObservador(hayMas) {
+          if (!obs || !sentinel) return;
+          try { obs.unobserve(sentinel); } catch(e) {}
+          if (hayMas) {
+            obs.observe(sentinel);
+          }
+        }
+
+        // Cambio de orden
+        if (selectOrden) {
+          selectOrden.addEventListener('change', function() {
+            window.FiltrosProductos.ordenar(this.value);
+            var hayMas = reiniciarGrid();
+            actualizarObservador(hayMas);
+          });
+        }
+
+        // Generar filtros personalizados según la colección
+        function generarFiltrosCustom() {
+          var container = document.getElementById('filtros-custom-' + sectionId);
+          if (!container) return;
+
+          var filtrosConfig = {
+            'jewelry': ['material', 'size', 'stone'],
+            'prints': ['paper_size', 'finish', 'orientation'],
+            'diy-kits': ['difficulty', 'duration']
+          };
+
+          var filtros = filtrosConfig[collectionHandle] || [];
+          // Fallback: si no hay config por handle, intenta con claves conocidas y muestra solo las que existan
+          if (filtros.length === 0) {
+            var candidatos = ['material','size','stone','paper_size','finish','orientation','difficulty','duration'];
+            filtros = candidatos.filter(function(k){
+              return (window.FiltrosProductos.obtenerValoresTag(k) || []).length > 0;
+            });
+          }
+          if (filtros.length === 0) {
+            container.innerHTML = '';
+            return;
+          }
+
+          var html = '<div class="filtrosGrupo">';
+
+          filtros.forEach(function(filtro) {
+            var valores = window.FiltrosProductos.obtenerValoresTag(filtro);
+            if (valores.length === 0) return;
+
+            html += '<div class="filtro">';
+            html += '<label>' + filtro.replace('_', ' ') + ':</label>';
+            html += '<select class="filtro-select selectPersonalizado" data-filtro="' + filtro + '" aria-label="Filtrar por ' + filtro.replace('_',' ') + '">';
+            html += '<option value="">Todos</option>';
+            valores.forEach(function(val) {
+              html += '<option value="' + val + '">' + val + '</option>';
+            });
+            html += '</select>';
+            html += '</div>';
+          });
+
+          html += '</div>';
+          container.innerHTML = html;
+
+          // Event listeners para filtros custom
+          container.querySelectorAll('.filtro-select').forEach(function(select) {
+            select.addEventListener('change', function() {
+              aplicarFiltrosCustom();
+            });
+          });
+        }
+
+        function aplicarFiltrosCustom() {
+          var container = document.getElementById('filtros-custom-' + sectionId);
+          if (!container) return;
+
+          var filtrosCustom = {};
+          container.querySelectorAll('.filtro-select').forEach(function(select) {
+            var key = select.getAttribute('data-filtro');
+            var val = select.value;
+            if (val) {
+              filtrosCustom[key] = val;
+            }
+          });
+
+          window.FiltrosProductos.aplicarFiltros({
+            custom: filtrosCustom
+          });
+
           var hayMas = reiniciarGrid();
           actualizarObservador(hayMas);
-        });
-      }
+        }
 
-      // Generar filtros personalizados según la colección
-      function generarFiltrosCustom() {
-        var container = document.getElementById('filtros-custom-' + sectionId);
-        if (!container) return;
-
-        var filtrosConfig = {
-          'jewelry': ['material', 'size', 'stone'],
-          'prints': ['paper_size', 'finish', 'orientation'],
-          'diy-kits': ['difficulty', 'duration']
-        };
-
-        var filtros = filtrosConfig[collectionHandle] || [];
-        if (filtros.length === 0) return;
-
-        var html = '<div class="filtrosGrupo">';
-
-        filtros.forEach(function(filtro) {
-          var valores = window.FiltrosProductos.obtenerValoresTag(filtro);
-          if (valores.length === 0) return;
-
-          html += '<div class="filtro">';
-          html += '<label>' + filtro.replace('_', ' ') + ':</label>';
-          html += '<select class="filtro-select" data-filtro="' + filtro + '">';
-          html += '<option value="">Todos</option>';
-          valores.forEach(function(val) {
-            html += '<option value="' + val + '">' + val + '</option>';
-          });
-          html += '</select>';
-          html += '</div>';
-        });
-
-        html += '</div>';
-        container.innerHTML = html;
-
-        // Event listeners para filtros custom
-        container.querySelectorAll('.filtro-select').forEach(function(select) {
-          select.addEventListener('change', function() {
-            aplicarFiltrosCustom();
-          });
-        });
-      }
-
-      function aplicarFiltrosCustom() {
-        var container = document.getElementById('filtros-custom-' + sectionId);
-        if (!container) return;
-
-        var filtrosCustom = {};
-        container.querySelectorAll('.filtro-select').forEach(function(select) {
-          var key = select.getAttribute('data-filtro');
-          var val = select.value;
-          if (val) {
-            filtrosCustom[key] = val;
+        // Arranque diferido: esperar a que cargue filtros-productos.js (defer)
+        function cargar() {
+          // Inicializar observer si existe sentinel (antes de empezar a cargar)
+          if (sentinel && 'IntersectionObserver' in window && !obs) {
+            obs = new IntersectionObserver(function(entries) {
+              entries.forEach(function(entry) {
+                if (entry.isIntersecting && !cargandoInicial) {
+                  var hayMas = cargarMas();
+                  if (!hayMas) {
+                    obs.unobserve(sentinel);
+                  }
+                }
+              });
+            }, { root: null, rootMargin: '300px 0px', threshold: 0 });
+            obs.observe(sentinel);
           }
-        });
+          setTimeout(inicializar, 50);
+        }
 
-        window.FiltrosProductos.aplicarFiltros({
-          custom: filtrosCustom
-        });
+        if (window.FiltrosProductos) {
+          cargar();
+        } else {
+          document.addEventListener('DOMContentLoaded', function(){
+            if (window.FiltrosProductos) cargar();
+            else setTimeout(function(){ if (window.FiltrosProductos) cargar(); }, 100);
+          });
+        }
 
-        var hayMas = reiniciarGrid();
-        actualizarObservador(hayMas);
-      }
-
-      // Iniciar
-      setTimeout(inicializar, 100);
-
-    })();
+      })();
   </script>
 </div>
 
@@ -212,6 +270,12 @@
 {
   "name": "Colección Principal",
   "settings": [
+    {
+      "type": "collection",
+      "id": "coleccion",
+      "label": "Colección (para usar en páginas)",
+      "info": "Selecciona una colección cuando uses esta sección fuera del template de colección"
+    },
     {
       "type": "range",
       "id": "tamano_lote",
@@ -322,6 +386,9 @@
     display: grid;
     grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
     gap: var(--gap, 16px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   @media (max-width: 768px) {
@@ -331,6 +398,23 @@
 
     .filtrosYOrden {
       flex-direction: column;
+    }
+  }
+
+  .tarjetaProducto.entrando {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    animation: tarjeta-aparece 500ms ease-out forwards;
+  }
+
+  @keyframes tarjeta-aparece {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 {% endstylesheet %}

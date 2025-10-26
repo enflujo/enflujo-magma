@@ -20,7 +20,7 @@
       this.cargando = true;
       var productos = [];
       var page = 1;
-      var limite = 250; // Máximo por página
+      var limite = 50; // Shopify puede limitar por página; iteramos hasta que devuelva vacío
 
       try {
         while (true) {
@@ -39,16 +39,24 @@
 
           productos = productos.concat(data.products);
 
-          // Si trajo menos del límite, ya no hay más páginas
-          if (data.products.length < limite) {
-            break;
-          }
-
           page++;
         }
 
-        this.productos = productos;
-        this.productosFiltrados = productos.slice();
+        // Normalizar productos (tags como array, imagen destacada, etc.)
+        this.productos = productos.map(function (p) {
+          // Asegurar array de tags
+          var rawTags = p.tags;
+          var tagArray = Array.isArray(rawTags)
+            ? rawTags
+            : typeof rawTags === 'string' && rawTags.length > 0
+              ? rawTags.split(',').map(function (t) {
+                  return t.trim();
+                })
+              : [];
+          p.tags = tagArray;
+          return p;
+        });
+        this.productosFiltrados = this.productos.slice();
         this.cargando = false;
         return productos;
       } catch (error) {
@@ -97,8 +105,14 @@
       if (this.filtrosActivos.tags && this.filtrosActivos.tags.length > 0) {
         resultado = resultado.filter(
           function (p) {
+            var tagsProducto = Array.isArray(p.tags) ? p.tags : [];
+            var setLower = new Set(
+              tagsProducto.map(function (t) {
+                return String(t).toLowerCase();
+              })
+            );
             return this.filtrosActivos.tags.some(function (tag) {
-              return p.tags.includes(tag);
+              return setLower.has(String(tag).toLowerCase());
             });
           }.bind(this)
         );
@@ -110,9 +124,10 @@
           var valor = this.filtrosActivos.custom[key];
           resultado = resultado.filter(function (p) {
             // Buscar en tags con formato "key:value"
-            var tagKey = key + ':' + valor;
-            return p.tags.some(function (t) {
-              return t.toLowerCase() === tagKey.toLowerCase();
+            var tagsProducto = Array.isArray(p.tags) ? p.tags : [];
+            var tagKey = (key + ':' + valor).toLowerCase();
+            return tagsProducto.some(function (t) {
+              return String(t).toLowerCase() === tagKey;
             });
           });
         }
@@ -273,7 +288,8 @@
     obtenerValoresTag: function (tagPrefix) {
       var valores = new Set();
       this.productos.forEach(function (p) {
-        p.tags.forEach(function (tag) {
+        var tagsProducto = Array.isArray(p.tags) ? p.tags : [];
+        tagsProducto.forEach(function (tag) {
           if (tag.toLowerCase().startsWith(tagPrefix.toLowerCase() + ':')) {
             var valor = tag.split(':')[1];
             if (valor) valores.add(valor.trim());
