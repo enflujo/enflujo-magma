@@ -51,10 +51,10 @@
         "origen": "coleccion",
         "coleccion": "jewelry",
         "filtro_tag": "",
-        "cantidad_max": 12,
+        "cantidad_max": 6,
         "columnas_desktop": 3,
         "columnas_movil": 1,
-        "espaciado": 16,
+        "espaciado": 4,
         "mostrar_precio": true
       }
     }
