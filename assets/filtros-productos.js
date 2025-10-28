@@ -1,3 +1,38 @@
+function normalizarMeta(v) {
+  if (v == null) return '';
+  if (Array.isArray(v)) return v.map(normalizarMeta);
+  if (typeof v === 'object') {
+    var prefer = v.value || v.label || v.title || v.name || v.handle || v.id;
+    if (prefer != null && prefer !== '') return String(prefer);
+    try {
+      return JSON.stringify(v);
+    } catch (e) {
+      return '[obj]';
+    }
+  }
+  return String(v);
+}
+
+function listish(v) {
+  if (v == null) return [];
+  if (Array.isArray(v)) {
+    var out = [];
+    v.forEach(function (it) {
+      out = out.concat(listish(it));
+    });
+    return out;
+  }
+  var s = normalizarMeta(v);
+  return String(s)
+    .split(',')
+    .map(function (x) {
+      return x.trim();
+    })
+    .filter(function (x) {
+      return x.length > 0;
+    });
+}
+
 /**
  * Sistema de filtrado client-side para productos
  * Usa API nativa de Shopify (/collections/X/products.json)
@@ -131,6 +166,31 @@
             });
           });
         }
+      }
+
+      // Filtros por metafields provenientes de SSR
+      if (this.filtrosActivos.metafields && Object.keys(this.filtrosActivos.metafields).length) {
+        var metaMap = typeof window !== 'undefined' && window.__MetafieldsProductos ? window.__MetafieldsProductos : {};
+        var metaFiltros = this.filtrosActivos.metafields;
+        resultado = resultado.filter(function (p) {
+          var h = p.handle;
+          var metas = metaMap && metaMap[h] ? metaMap[h] : null;
+          if (!metas) return false; // si hay filtros de metafields activos y no tenemos datos, no incluir
+          for (var mk in metaFiltros) {
+            var v = metaFiltros[mk];
+            if (!metas.hasOwnProperty(mk)) return false;
+            var mv = metas[mk];
+            var nv = normalizarMeta(v).toLowerCase();
+            var arr = listish(mv).map(function (s) {
+              return String(s).toLowerCase();
+            });
+            var ok = arr.some(function (s) {
+              return s === nv;
+            });
+            if (!ok) return false;
+          }
+          return true;
+        });
       }
 
       this.productosFiltrados = resultado;

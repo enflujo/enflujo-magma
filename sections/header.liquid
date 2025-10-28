@@ -43,14 +43,14 @@
       {% endif %}
 
       {% if shop.customer_accounts_enabled %}
-        {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
+        {{ 'icono-account.svg' | inline_asset_content | link_to: routes.account_url }}
       {% endif %}
 
       <a href='{{ routes.cart_url }}'>
         {% if cart.item_count > 0 %}
           <sup class='contadorCarrito' data-contador-carrito>{{ cart.item_count }}</sup>
         {% endif %}
-        {{ 'icon-cart.svg' | inline_asset_content }}
+        {{ 'icono-cart.svg' | inline_asset_content }}
       </a>
     </div>
   </div>
@@ -65,14 +65,14 @@
     {% endif %}
 
     {% if shop.customer_accounts_enabled %}
-      {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
+      {{ 'icono-account.svg' | inline_asset_content | link_to: routes.account_url }}
     {% endif %}
 
     <a href='{{ routes.cart_url }}'>
       {% if cart.item_count > 0 %}
         <sup class='contadorCarrito' data-contador-carrito>{{ cart.item_count }}</sup>
       {% endif %}
-      {{ 'icon-cart.svg' | inline_asset_content }}
+      {{ 'icono-cart.svg' | inline_asset_content }}
     </a>
   </div>
 </header>

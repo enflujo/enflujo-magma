@@ -1,233 +1,17 @@
 <section
   class='seccionCuadriculaProductos'
   style='--cols: {{ section.settings.columnas_desktop | default: 3 }}; --cols-m: {{ section.settings.columnas_movil | default: 1 }}; --gap: {{ section.settings.espaciado | default: 16 }}px;'
+  id='cuadricula-{{ section.id }}'
+  data-collection='{{ section.settings.coleccion.handle }}'
 >
   {% if section.settings.coleccion != blank %}
-    <div class='filtrosYOrden'>
-      <div class='filtrosProductos'>
-        <label for='orden-{{ section.id }}'>Ordenar:</label>
-        <select id='orden-{{ section.id }}' class='selectOrden selectPersonalizado' aria-label='Ordenar productos'>
-          <option value='recientes' selected>Más recientes</option>
-          <option value='precio-desc'>Precio: alto a bajo</option>
-          <option value='precio-asc'>Precio: bajo a alto</option>
-          <option value='titulo-asc'>Título: A → Z</option>
-          <option value='titulo-desc'>Título: Z → A</option>
-        </select>
-      </div>
+    {% comment %} Contenedor de filtros nativos (se cargará dinámicamente) {% endcomment %}
+    <div id='filtros-{{ section.id }}' class='filtrosNativos'></div>
 
-      <div id='filtros-custom-{{ section.id }}' class='filtrosCustom'></div>
-    </div>
-
-    {% comment %} SSR inicial: primeros productos para SEO {% endcomment %}
-    <div class='cuadriculaProductos' id='grid-{{ section.id }}'>
-      {% assign inicial = section.settings.coleccion.products | sort: 'published_at' | reverse %}
-      {% for producto in inicial limit: section.settings.tamano_lote %}
-        {% render 'tarjeta-producto', product: producto, mostrar_precio: section.settings.mostrar_precio %}
-      {% endfor %}
-    </div>
+    {% comment %} Grid de productos {% endcomment %}
+    <div class='cuadriculaProductos' id='grid-{{ section.id }}'></div>
 
     <div id='sentinel-{{ section.id }}' aria-hidden='true'></div>
-    <div class='loaderProductos' id='loader-{{ section.id }}' role='status' aria-live='polite'>
-      Loading more products...
-    </div>
-
-    <script src='{{ 'filtros-productos.js' | asset_url }}' defer></script>
-    <script>
-          (function(){
-            var sectionId = "{{ section.id }}";
-            var collectionHandle = "{{ section.settings.coleccion.handle }}";
-            var tamLote = {{ section.settings.tamano_lote | default: 6 }};
-            var mostrarPrecio = {{ section.settings.mostrar_precio | json }};
-
-      var grid = document.getElementById('grid-' + sectionId);
-      var loader = document.getElementById('loader-' + sectionId);
-      var sentinel = document.getElementById('sentinel-' + sectionId);
-      var selectOrden = document.getElementById('orden-' + sectionId);
-
-      if (!grid || !collectionHandle) return;
-
-      var indiceActual = 0;
-      var cargandoInicial = true;
-      var obs = null;
-
-            function mostrarLoader(on) {
-              if (loader) loader.style.display = on ? 'block' : 'none';
-            }
-
-            function renderizarLote(inicio, cantidad) {
-              var filtrados = window.FiltrosProductos.productosFiltrados;
-              var hasta = Math.min(inicio + cantidad, filtrados.length);
-
-              for (var i = inicio; i < hasta; i++) {
-                var producto = filtrados[i];
-                var html = window.FiltrosProductos.renderCard(producto, mostrarPrecio);
-                var wrapper = document.createElement('div');
-                wrapper.innerHTML = html;
-                var el = wrapper.firstChild;
-                if (el && el.classList) el.classList.add('entrando');
-                grid.appendChild(el);
-              }
-
-              indiceActual = hasta;
-              return hasta < filtrados.length; // hay más?
-            }
-
-            function reiniciarGrid() {
-              grid.style.opacity = '0';
-              grid.style.transform = 'translateY(6px)';
-              grid.innerHTML = '';
-              indiceActual = 0;
-              var hayMas = renderizarLote(0, tamLote);
-              requestAnimationFrame(function(){
-                requestAnimationFrame(function(){
-                  grid.style.opacity = '1';
-                  grid.style.transform = '';
-                });
-              });
-              return hayMas;
-            }
-
-            function cargarMas() {
-              return renderizarLote(indiceActual, tamLote);
-            }
-
-            async function inicializar() {
-              mostrarLoader(true);
-              try {
-                await window.FiltrosProductos.cargarTodos(collectionHandle);
-                window.FiltrosProductos.ordenar('recientes');
-
-                var hayMas = reiniciarGrid();
-                actualizarObservador(hayMas);
-
-                generarFiltrosCustom();
-
-                cargandoInicial = false;
-              } catch (error) {
-                console.error('Error inicializando filtros:', error);
-              } finally {
-                mostrarLoader(false);
-              }
-            }
-
-            function prepararObserver() {
-              if (sentinel && 'IntersectionObserver' in window && !obs) {
-                obs = new IntersectionObserver(function(entries) {
-                  entries.forEach(function(entry) {
-                    if (entry.isIntersecting && !cargandoInicial) {
-                      var hayMas = cargarMas();
-                      if (!hayMas) {
-                        obs.unobserve(sentinel);
-                      }
-                    }
-                  });
-                }, { root: null, rootMargin: '300px 0px', threshold: 0 });
-                obs.observe(sentinel);
-              }
-            }
-
-            function actualizarObservador(hayMas) {
-              if (!obs || !sentinel) return;
-              try { obs.unobserve(sentinel); } catch(e) {}
-              if (hayMas) {
-                obs.observe(sentinel);
-              }
-            }
-
-            if (selectOrden) {
-              selectOrden.addEventListener('change', function() {
-                window.FiltrosProductos.ordenar(this.value);
-                var hayMas = reiniciarGrid();
-                actualizarObservador(hayMas);
-              });
-            }
-
-            function generarFiltrosCustom() {
-              var container = document.getElementById('filtros-custom-' + sectionId);
-              if (!container) return;
-
-              var filtrosConfig = {
-                'jewelry': ['material', 'size', 'stone'],
-                'prints': ['paper_size', 'finish', 'orientation'],
-                'diy-kits': ['difficulty', 'duration']
-              };
-
-              var filtros = filtrosConfig[collectionHandle] || [];
-              // Fallback dinámico si el handle no coincide: detectar claves disponibles
-              if (filtros.length === 0) {
-                var candidatos = ['material','size','stone','paper_size','finish','orientation','difficulty','duration'];
-                filtros = candidatos.filter(function(k){
-                  return (window.FiltrosProductos.obtenerValoresTag(k) || []).length > 0;
-                });
-              }
-              if (filtros.length === 0) {
-                container.innerHTML = '';
-                return;
-              }
-
-              var html = '<div class="filtrosGrupo">';
-
-              filtros.forEach(function(filtro) {
-                var valores = window.FiltrosProductos.obtenerValoresTag(filtro);
-                if (valores.length === 0) return;
-
-                html += '<div class="filtro">';
-                html += '<label>' + filtro.replace('_', ' ') + ':</label>';
-                html += '<select class="filtro-select selectPersonalizado" data-filtro="' + filtro + '" aria-label="Filtrar por ' + filtro.replace('_',' ') + '">';
-                html += '<option value="">Todos</option>';
-                valores.forEach(function(val) {
-                  html += '<option value="' + val + '">' + val + '</option>';
-                });
-                html += '</select>';
-                html += '</div>';
-              });
-
-              html += '</div>';
-              container.innerHTML = html;
-
-              container.querySelectorAll('.filtro-select').forEach(function(select) {
-                select.addEventListener('change', function() {
-                  aplicarFiltrosCustom();
-                });
-              });
-            }
-
-            function aplicarFiltrosCustom() {
-              var container = document.getElementById('filtros-custom-' + sectionId);
-              if (!container) return;
-
-              var filtrosCustom = {};
-              container.querySelectorAll('.filtro-select').forEach(function(select) {
-                var key = select.getAttribute('data-filtro');
-                var val = select.value;
-                if (val) {
-                  filtrosCustom[key] = val;
-                }
-              });
-
-              window.FiltrosProductos.aplicarFiltros({
-                custom: filtrosCustom
-              });
-
-              var hayMas = reiniciarGrid();
-              actualizarObservador(hayMas);
-            }
-
-            function boot() {
-              prepararObserver();
-              setTimeout(inicializar, 50);
-            }
-
-            if (window.FiltrosProductos) {
-              boot();
-            } else {
-              document.addEventListener('DOMContentLoaded', function(){
-                if (window.FiltrosProductos) boot();
-                else setTimeout(function(){ if (window.FiltrosProductos) boot(); }, 100);
-              });
-            }
-          })();
-    </script>
   {% else %}
     <div class='cuadriculaProductos'>
       <p class='mensajeVacio'>Selecciona una colección para mostrar productos.</p>
@@ -237,151 +21,89 @@
 
 {% schema %}
 {
-  "name": "Cuadrícula de productos",
+  "name": "Cuadrícula de Productos",
+  "tag": "section",
+  "class": "cuadricula-productos-section",
   "settings": [
     {
       "type": "collection",
       "id": "coleccion",
-      "label": "Colección",
-      "info": "Selecciona una colección para mostrar sus productos"
-    },
-    {
-      "type": "range",
-      "id": "tamano_lote",
-      "label": "Tamaño de lote (carga progresiva)",
-      "min": 3,
-      "max": 24,
-      "step": 3,
-      "default": 6
-    },
-    {
-      "type": "range",
-      "id": "cantidad_max",
-      "label": "Cantidad máxima de productos",
-      "min": 1,
-      "max": 50,
-      "step": 1,
-      "default": 12
-    },
-    {
-      "type": "range",
-      "id": "columnas_desktop",
-      "label": "Columnas en escritorio",
-      "min": 2,
-      "max": 5,
-      "step": 1,
-      "default": 3
-    },
-    {
-      "type": "range",
-      "id": "columnas_movil",
-      "label": "Columnas en móvil",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 1
-    },
-    {
-      "type": "range",
-      "id": "espaciado",
-      "label": "Espaciado entre productos (px)",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "default": 16
-    },
-    { "type": "checkbox", "id": "mostrar_precio", "label": "Mostrar precio", "default": true }
+      "label": "Colección"
+    }
   ],
-  "presets": [{ "name": "Cuadrícula de productos", "category": "Productos" }]
+  "presets": [
+    {
+      "name": "Cuadrícula de Productos"
+    }
+  ]
 }
 {% endschema %}
 
-{% stylesheet %}
+<script src='{{ 'filtros-nativos.js' | asset_url }}' defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var handle = '{{ section.settings.coleccion.handle }}';
+    if (!handle) {
+      console.warn('No hay colección seleccionada en cuadricula-productos');
+      return;
+    }
+
+    if (!window.FiltrosNativos) {
+      console.error('FiltrosNativos no está disponible');
+      return;
+    }
+
+    window.FiltrosNativos.init({
+      rootId: 'cuadricula-{{ section.id }}',
+      filtrosContainer: document.querySelector('#filtros-{{ section.id }}'),
+      productosContainer: document.querySelector('#grid-{{ section.id }}'),
+      sentinel: document.querySelector('#sentinel-{{ section.id }}'),
+      collectionUrl: '/collections/' + handle,
+      sectionId: 'collection',
+      productosSelector: '.collection-products',
+      fetchOnInit: true,
+    });
+  });
+</script>
+
+<style>
   .seccionCuadriculaProductos {
     width: 100%;
   }
-  .filtrosYOrden {
-    margin: 0 0 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: flex-start;
+
+  .filtrosNativos {
+    margin-bottom: 1.5rem;
   }
-  .filtrosProductos {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+
+  .filtrosNativos .coleccionContenedor {
+    display: block;
   }
-  .filtrosCustom {
-    flex: 1;
+
+  .filtrosNativos .contenedorFiltros {
+    position: static;
+    margin-bottom: 1rem;
   }
-  .filtrosGrupo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .filtro {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .filtro label {
-    text-transform: capitalize;
-    font-weight: 500;
-  }
-  .filtro-select,
-  .selectOrden {
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
-    font-size: 0.95rem;
-  }
-  .loaderProductos {
+
+  .filtrosNativos .collection-products {
     display: none;
-    margin: 1rem auto 0;
-    padding: 0.6rem 1rem;
-    width: fit-content;
-    background: rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 6px;
-    font-size: 0.95rem;
   }
 
   .cuadriculaProductos {
     display: grid;
     grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
     gap: var(--gap, 16px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
+
   @media (max-width: 768px) {
     .cuadriculaProductos {
       grid-template-columns: repeat(var(--cols-m, 1), minmax(0, 1fr));
     }
   }
 
-  .tarjetaProducto {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  .tarjetaProductoImagen {
-    width: 100%;
-    display: block;
-    background: #f5f5f5;
-  }
-  .tarjetaProductoTitulo {
-    margin: 0.5rem 0 0;
-    font-weight: 600;
-  }
-  .tarjetaProductoPrecio {
-    margin: 0.25rem 0 0;
-  }
-  .tarjetaProductoPrecio .precioComparar {
-    opacity: 0.6;
-    text-decoration: line-through;
-    margin-left: 0.5rem;
-  }
   .mensajeVacio {
     opacity: 0.8;
   }
-{% endstylesheet %}
+</style>

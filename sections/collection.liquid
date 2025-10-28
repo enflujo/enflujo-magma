@@ -7,8 +7,54 @@
 <main>
   <h1>{{ collection.title }}</h1>
 
-  <div class='coleccionContenedor'>
+  <div class='coleccionContenedor' id='coleccion-{{ section.id }}' data-section-id='{{ section.id }}'>
     <aside class='contenedorFiltros'>
+      {% comment %} Sort by selector con diseño custom {% endcomment %}
+      {% if collection.sort_options.size > 0 %}
+        <div class='filtroGrupo filtroOrden'>
+          <button
+            type='button'
+            class='botonOrdenar botonOscuro'
+            id='btn-ordenar-{{ section.id }}'
+            aria-haspopup='true'
+            aria-expanded='false'
+          >
+            Sort Products
+          </button>
+          <div class='menuOrdenar' id='menu-ordenar-{{ section.id }}'>
+            {% for option in collection.sort_options %}
+              <button
+                type='button'
+                class='opcionOrden'
+                data-value='{{ option.value }}'
+                {% if option.value == collection.sort_by %}
+                  data-selected='true'
+                {% endif %}
+              >
+                {{ option.name }}
+              </button>
+            {% endfor %}
+          </div>
+          <select
+            name='sort_by'
+            id='SortBy-{{ section.id }}'
+            class='selectOrden visuallyHidden'
+            aria-label='Ordenar productos'
+          >
+            {% for option in collection.sort_options %}
+              <option
+                value='{{ option.value }}'
+                {% if option.value == collection.sort_by %}
+                  selected
+                {% endif %}
+              >
+                {{ option.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endif %}
+
       <form id='formFiltros' action='{{ collection.url }}' method='get'>
         {% for filter in collection.filters %}
           {% case filter.type %}
@@ -134,34 +180,21 @@
       {% endif %}
     </aside>
 
-    <div class='collection-products'>
+    <div class='collection-products' id='productos-{{ section.id }}'>
       {% paginate collection.products by 20 %}
         {% for product in collection.products %}
-          <div class='collection-product'>
-            {% if product.featured_image %}
-              {% render 'imagen',
-                class: 'collection-product__image',
-                image: product.featured_image,
-                url: product.url,
-                width: 400,
-                height: 400,
-                crop: 'center'
-              %}
-            {% endif %}
-            <div class='collection-product__content'>
-              <p>{{ product.title | escape | link_to: product.url }}</p>
-              <p>{{ product.price | money }}</p>
-            </div>
-          </div>
+          {% render 'tarjeta-producto', product: product, mostrar_precio: true %}
         {% endfor %}
 
         {{ paginate | default_pagination }}
+        <div id='pagination-data' data-next='{{ paginate.next.url | default: '' }}' hidden></div>
       {% endpaginate %}
+      <div id='sentinel-{{ section.id }}' aria-hidden='true'></div>
     </div>
   </div>
 </main>
 
-{% stylesheet %}
+<style>
   .coleccionContenedor {
     display: grid;
     grid-template-columns: 280px 1fr;
@@ -180,6 +213,104 @@
   .filtroGrupo > summary {
     cursor: pointer;
     font-weight: 600;
+  }
+  .filtroOrden {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .botonOrdenar {
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 0.55rem 0.6rem;
+  }
+
+  .botonOrdenar::before {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    background-image: url('{{ 'icono-ordenar.svg' | asset_url }}');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .botonOrdenar:hover {
+    opacity: 0.85;
+  }
+
+  .menuOrdenar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.25rem;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  .menuOrdenar.abierto {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .opcionOrden {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    transition: background 0.15s ease;
+  }
+
+  .opcionOrden:hover,
+  .opcionOrden:focus {
+    background: #f5f5f5;
+  }
+
+  .opcionOrden[data-selected='true'] {
+    background: #f0f0f0;
+    font-weight: 600;
+  }
+
+  .opcionOrden:not(:last-child) {
+    border-bottom: 1px solid #eee;
   }
   .filtroLista {
     list-style: none;
@@ -239,6 +370,36 @@
     gap: 1rem;
   }
 
+  /* Estilos para tarjeta de producto */
+  .tarjetaProducto {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease;
+  }
+  .tarjetaProducto:hover {
+    transform: translateY(-2px);
+  }
+  .tarjetaProducto img {
+    width: 100%;
+    display: block;
+    background: #f5f5f5;
+  }
+  .tarjetaProductoTitulo {
+    margin: 0.5rem 0 0;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .tarjetaProductoPrecio {
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+  }
+  .tarjetaProductoPrecio .precioComparar {
+    opacity: 0.6;
+    text-decoration: line-through;
+    margin-left: 0.5rem;
+  }
+
   @media (max-width: 900px) {
     .coleccionContenedor {
       grid-template-columns: 1fr;
@@ -248,7 +409,7 @@
       top: auto;
     }
   }
-{% endstylesheet %}
+</style>
 
 {% schema %}
 {
@@ -256,3 +417,23 @@
   "settings": []
 }
 {% endschema %}
+
+<script src='{{ 'filtros-nativos.js' | asset_url }}' defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.FiltrosNativos) {
+      console.error('FiltrosNativos no está disponible');
+      return;
+    }
+
+    window.FiltrosNativos.init({
+      rootId: 'coleccion-{{ section.id }}',
+      collectionUrl: '{{ collection.url }}',
+      sectionId: '{{ section.id }}',
+      productosContainer: document.querySelector('#productos-{{ section.id }}'),
+      productosSelector: '#productos-{{ section.id }}',
+      sentinel: document.querySelector('#sentinel-{{ section.id }}'),
+      fetchOnInit: false,
+    });
+  });
+</script>
