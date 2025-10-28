@@ -64,12 +64,23 @@
         "espaciado": 4,
         "mostrar_precio": true
       }
+    },
+    "titulo_8xNpkz": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2>DISCOVER SOMETHING MORE JEWELRY RINGS</h2><p>Explore the workshops and something else about learning and teaching and the boxes and the studio.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
     }
   },
   "order": [
     "main",
     "imagen_grande_c7cqmn",
     "titulo_trDdjw",
-    "cuadricula_productos_HYwWbb"
+    "cuadricula_productos_HYwWbb",
+    "titulo_8xNpkz"
   ]
 }
