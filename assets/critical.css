@@ -46,6 +46,7 @@ dialog {
 
 p {
   text-wrap: pretty;
+  margin-block-end: 1rem;
 }
 
 p,
