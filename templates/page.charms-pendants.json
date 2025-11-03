@@ -96,6 +96,16 @@
         "desfase_vertical_movil": 0,
         "z_index": 0
       }
+    },
+    "titulo_mhebpG": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
     }
   },
   "order": [
@@ -104,6 +114,7 @@
     "titulo_trDdjw",
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
-    "imagen_grande_XMLgNF"
+    "imagen_grande_XMLgNF",
+    "titulo_mhebpG"
   ]
 }
