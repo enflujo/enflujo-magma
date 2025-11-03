@@ -46,7 +46,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 0,
             "line_height": 1.2,
-            "texto": "<h2>THE BRAND</h2><p><strong>RINGS</strong></p><p><strong>PENDANTS</strong></p><p><strong>PRINTS</strong></p><p><strong>WORKSHOPS</strong></p><p><strong>DIY-SETS</strong></p>",
+            "texto": "<h2>THE BRAND</h2><p>RINGS</p><p>PENDANTS</p><p>PRINTS</p><p>WORKSHOPS</p><p>DIY-SETS</p>",
             "texto_boton": "",
             "enlace_boton": ""
           }
@@ -221,7 +221,7 @@
         "alineacion_texto": "left",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": true,
         "max_ancho_ch": 60,
         "unidad_offset": "px",

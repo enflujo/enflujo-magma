@@ -29,7 +29,7 @@
         "alineacion_texto": "center",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": true,
         "max_ancho_ch": 60,
         "unidad_offset": "px",
@@ -51,11 +51,63 @@
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
+    },
+    "fila_contenido_j4fHDB": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_EmyqAD": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<p>Atelier Workshops:</p><p>Small Groups</p><p>1-to-1</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_84jAgC": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2><strong>LEARN TO MAKE IT YOURSELF TITLE</strong></h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill.</p><h3><strong>MAKE YOU OWN IDEA COME TRUE</strong></h3><p>If you want to create it Cum quo essitateni tem quo dellene mporit ut reptas eatur? Aruptur? Quis mint eostrum dicabo send your idea<strong> </strong><span style=\"text-decoration:underline\"><strong>use the form</strong></span> and please make sure to provide as much information as possible including your full name and your location.</p><p></p><p>If you want me tu create it for you If you would like to commission something write about being open to projects find the information on <span style=\"text-decoration:underline\"><strong>this page.</strong></span> Allow this amount of time to get back to you and write something else.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_iCGzpT": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h6>Special Requests</h6><h6>Commissions</h6>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_EmyqAD",
+        "texto_84jAgC",
+        "texto_iCGzpT"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "imagen_grande_DKi9qA",
-    "titulo_qPdzA9"
+    "titulo_qPdzA9",
+    "fila_contenido_j4fHDB"
   ]
 }

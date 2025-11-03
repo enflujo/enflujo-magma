@@ -13,15 +13,52 @@
       "type": "page",
       "settings": {}
     },
-    "titulo_trDdjw": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "<h2>CHAINS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "left",
-        "mostrar_borde": false
-      }
+    "fila_contenido_xxHXgY": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_WqKk4F": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        },
+        "texto_gxL8WD": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>CHAINS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_bPtwFn": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "centro",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h6>SIZE GUIDE</h6><h6>CARE GUIDE</h6><h6>SHIPPING & PROCESSING TIMES</h6>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_WqKk4F",
+        "texto_gxL8WD",
+        "texto_bPtwFn"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     },
     "cuadricula_productos_HYwWbb": {
       "type": "cuadricula-productos",
@@ -91,7 +128,7 @@
   },
   "order": [
     "main",
-    "titulo_trDdjw",
+    "fila_contenido_xxHXgY",
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
