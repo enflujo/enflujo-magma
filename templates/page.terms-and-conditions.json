@@ -164,6 +164,16 @@
       ],
       "name": "Fila de contenido",
       "settings": {}
+    },
+    "titulo_ac9p9t": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
     }
   },
   "order": [
@@ -171,6 +181,7 @@
     "fila_contenido_idRJgL",
     "texto_aGGmw6",
     "fila_contenido_yLd8Ez",
+    "titulo_ac9p9t",
     "fila_contenido_ibg3CF"
   ]
 }
