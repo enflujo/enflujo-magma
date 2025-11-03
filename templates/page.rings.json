@@ -101,9 +101,9 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
-        "titulo_seccion": "",
-        "ancho": "completo",
-        "alineacion_texto": "center",
+        "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
         "mostrar_borde": true
       }
     }
