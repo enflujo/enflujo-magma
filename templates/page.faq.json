@@ -67,19 +67,6 @@
     "fila_contenido_nMnc7t": {
       "type": "fila-contenido",
       "blocks": {
-        "texto_CKFYkw": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h3>BESPOKE & CUSTOMISATION REQUESTS</h3><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
-            "texto_boton": "GO TO BESPOKE REQUESTS",
-            "enlace_boton": "shopify://pages/contact-1"
-          }
-        },
         "texto_7KhzJH": {
           "type": "texto",
           "settings": {
@@ -91,6 +78,19 @@
             "texto": "",
             "texto_boton": "",
             "enlace_boton": ""
+          }
+        },
+        "texto_CKFYkw": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h3>BESPOKE & CUSTOMISATION REQUESTS</h3><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
+            "texto_boton": "GO TO BESPOKE REQUESTS",
+            "enlace_boton": "shopify://pages/contact-1"
           }
         },
         "texto_44eQxR": {
@@ -108,8 +108,8 @@
         }
       },
       "block_order": [
-        "texto_CKFYkw",
         "texto_7KhzJH",
+        "texto_CKFYkw",
         "texto_44eQxR"
       ],
       "name": "Fila de contenido",
