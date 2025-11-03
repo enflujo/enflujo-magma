@@ -50,7 +50,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h6>The Studio Is Located In Berlin</h6>",
+            "texto": "<h6><span style=\"text-decoration:underline\">CLICK HERE FOR IMPRESSUM, AGB (DEUTSCH)</span></h6>",
             "texto_boton": "",
             "enlace_boton": ""
           }
@@ -117,6 +117,16 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "titulo_ac9p9t": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
     "fila_contenido_ibg3CF": {
       "type": "fila-contenido",
       "blocks": {
@@ -164,16 +174,6 @@
       ],
       "name": "Fila de contenido",
       "settings": {}
-    },
-    "titulo_ac9p9t": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
-      }
     }
   },
   "order": [
