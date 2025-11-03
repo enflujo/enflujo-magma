@@ -64,6 +64,16 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "titulo_h8bDTw": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
     "fila_contenido_nMnc7t": {
       "type": "fila-contenido",
       "blocks": {
@@ -88,7 +98,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h3>BESPOKE & CUSTOMISATION REQUESTS</h3><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
+            "texto": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
             "texto_boton": "GO TO BESPOKE REQUESTS",
             "enlace_boton": "shopify://pages/contact-1"
           }
@@ -115,6 +125,16 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "titulo_Ey9dcf": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
     "fila_contenido_fJinMe": {
       "type": "fila-contenido",
       "blocks": {
@@ -139,7 +159,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h3>OTHER INQUIRIES</h3><p>For online order queries such as pre-order or existing order questions, other customer service questions or press inquiries use the form and something to fill the line.</p>",
+            "texto": "<h2>OTHER INQUIRIES</h2><p>For online order queries such as pre-order or existing order questions, other customer service questions or press inquiries use the form and something to fill the line.</p>",
             "texto_boton": "GO TO OTHER INQUIRIES",
             "enlace_boton": "shopify://pages/contact-1"
           }
@@ -180,7 +200,9 @@
   "order": [
     "main",
     "fila_contenido_idRJgL",
+    "titulo_h8bDTw",
     "fila_contenido_nMnc7t",
+    "titulo_Ey9dcf",
     "fila_contenido_fJinMe",
     "titulo_qqPPEk"
   ]
