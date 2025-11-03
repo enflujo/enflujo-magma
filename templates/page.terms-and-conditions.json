@@ -1,0 +1,209 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "fila_contenido_idRJgL": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_PfgbAM": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h6>You can email the studio at:</h6><h6>INFO (AT) MARIANALAROTTA.COM</h6><h6>Please make sure to provide as much information as possible including your full name and your location.</h6>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_NT7RWN": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>FREQUENTLY ASKED QUESTIONS</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_qcbgJq": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h6>The Studio Is Located In Berlin</h6>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_PfgbAM",
+        "texto_NT7RWN",
+        "texto_qcbgJq"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
+    "titulo_h8bDTw": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
+    "fila_contenido_nMnc7t": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_7KhzJH": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_CKFYkw": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
+            "texto_boton": "GO TO BESPOKE REQUESTS",
+            "enlace_boton": "shopify://pages/contact-1"
+          }
+        },
+        "texto_44eQxR": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_7KhzJH",
+        "texto_CKFYkw",
+        "texto_44eQxR"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
+    "titulo_Ey9dcf": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
+    "fila_contenido_fJinMe": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_8BEYm9": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_bJTGLH": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>OTHER INQUIRIES</h2><p>For online order queries such as pre-order or existing order questions, other customer service questions or press inquiries use the form and something to fill the line.</p>",
+            "texto_boton": "GO TO OTHER INQUIRIES",
+            "enlace_boton": "shopify://pages/contact-1"
+          }
+        },
+        "texto_673pTc": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_8BEYm9",
+        "texto_bJTGLH",
+        "texto_673pTc"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
+    "titulo_qqPPEk": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2><strong>DISCOVER THE COLLECTIONS</strong></h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "fila_contenido_idRJgL",
+    "titulo_h8bDTw",
+    "fila_contenido_nMnc7t",
+    "titulo_Ey9dcf",
+    "fila_contenido_fJinMe",
+    "titulo_qqPPEk"
+  ]
+}
