@@ -64,16 +64,6 @@
       "name": "Fila de contenido",
       "settings": {}
     },
-    "titulo_HiPdCe": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "",
-        "ancho": "completo",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
-      }
-    },
     "fila_contenido_nMnc7t": {
       "type": "fila-contenido",
       "blocks": {
@@ -89,10 +79,38 @@
             "texto_boton": "GO TO BESPOKE REQUESTS",
             "enlace_boton": "shopify://pages/contact-1"
           }
+        },
+        "texto_7KhzJH": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_44eQxR": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
         }
       },
       "block_order": [
-        "texto_CKFYkw"
+        "texto_CKFYkw",
+        "texto_7KhzJH",
+        "texto_44eQxR"
       ],
       "name": "Fila de contenido",
       "settings": {}
@@ -101,7 +119,6 @@
   "order": [
     "main",
     "fila_contenido_idRJgL",
-    "titulo_HiPdCe",
     "fila_contenido_nMnc7t"
   ]
 }
