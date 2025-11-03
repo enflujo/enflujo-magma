@@ -106,6 +106,54 @@
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
+    },
+    "fila_contenido_VdzqK8": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_fXmmYN": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/contact.svg",
+            "leyenda": ""
+          }
+        },
+        "texto_cFhJAr": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
+            "texto_boton": "GET IN TOUCH",
+            "enlace_boton": "shopify://pages/contact-1"
+          }
+        },
+        "texto_JNKLKh": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h3>CONTACT</h3><h6>LOCATED IN BERLIN</h6><h6>SOMETHING ELSE</h6>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_fXmmYN",
+        "texto_cFhJAr",
+        "texto_JNKLKh"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     }
   },
   "order": [
@@ -115,6 +163,7 @@
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
-    "titulo_mhebpG"
+    "titulo_mhebpG",
+    "fila_contenido_VdzqK8"
   ]
 }
