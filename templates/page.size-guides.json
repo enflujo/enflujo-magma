@@ -204,6 +204,45 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "fila_contenido_LQE8Nx": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_tTfD4c": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        },
+        "imagen_8gRtRQ": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        },
+        "imagen_yYhE9i": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_tTfD4c",
+        "imagen_8gRtRQ",
+        "imagen_yYhE9i"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
     "fila_contenido_ibg3CF": {
       "type": "fila-contenido",
       "blocks": {
@@ -262,6 +301,7 @@
     "fila_contenido_BWAPRN",
     "titulo_ac9p9t",
     "fila_contenido_pTxg9N",
+    "fila_contenido_LQE8Nx",
     "fila_contenido_ibg3CF"
   ]
 }
