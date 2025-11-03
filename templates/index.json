@@ -157,7 +157,7 @@
         "texto_boton": "SHOP FOR YOUR HAND",
         "enlace_boton": "shopify://pages/jewelry",
         "posicion_texto": "centroIzq",
-        "alineacion_texto": "center",
+        "alineacion_texto": "left",
         "enlace_destino": "",
         "color_texto": "#ffffff",
         "color_fondo": "#00000080",
