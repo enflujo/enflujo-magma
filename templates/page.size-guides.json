@@ -243,6 +243,67 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "titulo_33iQzT": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
+    "fila_contenido_hzzFDq": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_eQbjwV": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_7xFni7": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>BRACELETS</h2><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl u</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_UxfHNF": {
+          "type": "texto",
+          "settings": {
+            "ancho": "mitad",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_eQbjwV",
+        "texto_7xFni7",
+        "texto_UxfHNF"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
     "fila_contenido_ibg3CF": {
       "type": "fila-contenido",
       "blocks": {
@@ -290,6 +351,53 @@
       ],
       "name": "Fila de contenido",
       "settings": {}
+    },
+    "fila_contenido_pnTqbG": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_KCh3Eb": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "imagen_J7gzJM": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        },
+        "texto_j3j77n": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h4>HOW TO MEASURE YOUR WRIST?</h4><p>Prem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tinciduntut laoreet dolo.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_KCh3Eb",
+        "imagen_J7gzJM",
+        "texto_j3j77n"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     }
   },
   "order": [
@@ -302,6 +410,9 @@
     "titulo_ac9p9t",
     "fila_contenido_pTxg9N",
     "fila_contenido_LQE8Nx",
-    "fila_contenido_ibg3CF"
+    "titulo_33iQzT",
+    "fila_contenido_hzzFDq",
+    "fila_contenido_ibg3CF",
+    "fila_contenido_pnTqbG"
   ]
 }
