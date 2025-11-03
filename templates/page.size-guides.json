@@ -124,6 +124,25 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "fila_contenido_BWAPRN": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_PQ8jmh": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "mitad",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_PQ8jmh"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
     "titulo_ac9p9t": {
       "type": "titulo",
       "name": "Título",
@@ -133,6 +152,57 @@
         "alineacion_texto": "center",
         "mostrar_borde": true
       }
+    },
+    "fila_contenido_pTxg9N": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_JGGb63": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_t6LHtC": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>NECKLACES</h2><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobo.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_4TNJm6": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_JGGb63",
+        "texto_t6LHtC",
+        "texto_4TNJm6"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     },
     "fila_contenido_ibg3CF": {
       "type": "fila-contenido",
@@ -189,7 +259,9 @@
     "titulo_ntGU3q",
     "texto_aGGmw6",
     "fila_contenido_yLd8Ez",
+    "fila_contenido_BWAPRN",
     "titulo_ac9p9t",
+    "fila_contenido_pTxg9N",
     "fila_contenido_ibg3CF"
   ]
 }
