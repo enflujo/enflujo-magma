@@ -77,6 +77,16 @@
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
+    },
+    "titulo_MbfbYm": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
     }
   },
   "order": [
@@ -85,6 +95,7 @@
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
-    "titulo_mhebpG"
+    "titulo_mhebpG",
+    "titulo_MbfbYm"
   ]
 }
