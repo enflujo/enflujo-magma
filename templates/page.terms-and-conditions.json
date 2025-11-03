@@ -37,7 +37,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h2>FREQUENTLY ASKED QUESTIONS</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh.</p>",
+            "texto": "<h2>TERMS & CONDITIONS</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh.</p>",
             "texto_boton": "",
             "enlace_boton": ""
           }
@@ -64,146 +64,19 @@
       "name": "Fila de contenido",
       "settings": {}
     },
-    "titulo_h8bDTw": {
-      "type": "titulo",
-      "name": "Título",
+    "texto_aGGmw6": {
+      "type": "texto",
+      "name": "Bloque de texto",
       "settings": {
-        "titulo_seccion": "",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
-      }
-    },
-    "fila_contenido_nMnc7t": {
-      "type": "fila-contenido",
-      "blocks": {
-        "texto_7KhzJH": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        },
-        "texto_CKFYkw": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
-            "texto_boton": "GO TO BESPOKE REQUESTS",
-            "enlace_boton": "shopify://pages/contact-1"
-          }
-        },
-        "texto_44eQxR": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        }
-      },
-      "block_order": [
-        "texto_7KhzJH",
-        "texto_CKFYkw",
-        "texto_44eQxR"
-      ],
-      "name": "Fila de contenido",
-      "settings": {}
-    },
-    "titulo_Ey9dcf": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
-      }
-    },
-    "fila_contenido_fJinMe": {
-      "type": "fila-contenido",
-      "blocks": {
-        "texto_8BEYm9": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        },
-        "texto_bJTGLH": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>OTHER INQUIRIES</h2><p>For online order queries such as pre-order or existing order questions, other customer service questions or press inquiries use the form and something to fill the line.</p>",
-            "texto_boton": "GO TO OTHER INQUIRIES",
-            "enlace_boton": "shopify://pages/contact-1"
-          }
-        },
-        "texto_673pTc": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        }
-      },
-      "block_order": [
-        "texto_8BEYm9",
-        "texto_bJTGLH",
-        "texto_673pTc"
-      ],
-      "name": "Fila de contenido",
-      "settings": {}
-    },
-    "titulo_qqPPEk": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "<h2><strong>DISCOVER THE COLLECTIONS</strong></h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "left",
-        "mostrar_borde": true
+        "texto": "<h3>1. General</h3><p>The following “Terms & Conditions”,duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate.</p><h4>Fers feugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p><h4>Fers feugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p><h3>2. Create an account</h3><p>The following “Terms & Conditions”,duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam non</p><h3>3. Payment</h3><p>The following “Terms & Conditions”,duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam non</p><h4>Rfeugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p><h4>Fers feugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p>",
+        "texto_boton": "Ver más",
+        "enlace_boton": ""
       }
     }
   },
   "order": [
     "main",
     "fila_contenido_idRJgL",
-    "titulo_h8bDTw",
-    "fila_contenido_nMnc7t",
-    "titulo_Ey9dcf",
-    "fila_contenido_fJinMe",
-    "titulo_qqPPEk"
+    "texto_aGGmw6"
   ]
 }
