@@ -115,15 +115,53 @@
         "mostrar_borde": true
       }
     },
-    "titulo_MbfbYm": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "left",
-        "mostrar_borde": true
-      }
+    "fila_contenido_FmdbWg": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_CFVkFT": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/contact.svg",
+            "leyenda": ""
+          }
+        },
+        "texto_JGxq3m": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_dJxCin": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>CONTACT</h2><h6>LOCATED IN BERLIN</h6><h6>SOMETHING ELSE</h6>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_CFVkFT",
+        "texto_JGxq3m",
+        "texto_dJxCin"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     }
   },
   "order": [
@@ -133,6 +171,6 @@
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
     "titulo_mhebpG",
-    "titulo_MbfbYm"
+    "fila_contenido_FmdbWg"
   ]
 }
