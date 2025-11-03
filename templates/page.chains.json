@@ -13,40 +13,11 @@
       "type": "page",
       "settings": {}
     },
-    "imagen_grande_c7cqmn": {
-      "type": "imagen-grande",
-      "name": "Imágen grande",
-      "settings": {
-        "imagen_seccion": "shopify://shop_images/lucky_bracelet_chain.jpg",
-        "alt_texto": "",
-        "titulo_superior": "NECKLACES & BRACELETS",
-        "icono_superior": "shopify://shop_images/fire.png",
-        "tamano_icono": 40,
-        "texto_seccion": "",
-        "texto_boton": "Ver más",
-        "enlace_boton": "",
-        "posicion_texto": "infIzq",
-        "alineacion_texto": "center",
-        "enlace_destino": "",
-        "color_texto": "#ffffff",
-        "color_fondo": "#00000080",
-        "mostrar_fondo": false,
-        "max_ancho_ch": 38,
-        "unidad_offset": "%",
-        "offset_x": 3,
-        "offset_y": 16,
-        "tamano_fuente": 16,
-        "usar_desfase_escritorio_en_movil": true,
-        "desfase_vertical": 0,
-        "desfase_vertical_movil": 0,
-        "z_index": 0
-      }
-    },
     "titulo_trDdjw": {
       "type": "titulo",
       "name": "Título",
       "settings": {
-        "titulo_seccion": "<h2>NECKLACES & BRACELETS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
+        "titulo_seccion": "<h2>CHAINS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
         "mostrar_borde": false
@@ -56,7 +27,7 @@
       "type": "cuadricula-productos",
       "name": "Cuadrícula de productos",
       "settings": {
-        "coleccion": "jewelry"
+        "coleccion": "chains"
       }
     },
     "titulo_8xNpkz": {
@@ -110,7 +81,6 @@
   },
   "order": [
     "main",
-    "imagen_grande_c7cqmn",
     "titulo_trDdjw",
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
