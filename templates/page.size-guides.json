@@ -16,7 +16,7 @@
     "fila_contenido_idRJgL": {
       "type": "fila-contenido",
       "blocks": {
-        "texto_PfgbAM": {
+        "texto_qcbgJq": {
           "type": "texto",
           "settings": {
             "ancho": "quinto",
@@ -37,29 +37,26 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h2>TERMS & CONDITIONS</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh.</p>",
+            "texto": "<h2>SIZE GUIDES</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh euismo.</p>",
             "texto_boton": "",
             "enlace_boton": ""
           }
         },
-        "texto_qcbgJq": {
-          "type": "texto",
+        "imagen_jCjzWh": {
+          "type": "imagen",
           "settings": {
             "ancho": "quinto",
-            "alineacion": "izquierda",
+            "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h6><span style=\"text-decoration:underline\">CLICK HERE FOR IMPRESSUM, AGB (DEUTSCH)</span></h6>",
-            "texto_boton": "",
-            "enlace_boton": ""
+            "imagen": "shopify://shop_images/sparkle.png",
+            "leyenda": ""
           }
         }
       },
       "block_order": [
-        "texto_PfgbAM",
+        "texto_qcbgJq",
         "texto_NT7RWN",
-        "texto_qcbgJq"
+        "imagen_jCjzWh"
       ],
       "name": "Fila de contenido",
       "settings": {}
