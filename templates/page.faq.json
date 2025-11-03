@@ -114,11 +114,63 @@
       ],
       "name": "Fila de contenido",
       "settings": {}
+    },
+    "fila_contenido_fJinMe": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_8BEYm9": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "texto_bJTGLH": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h3>OTHER INQUIRIES</h3><p>For online order queries such as pre-order or existing order questions, other customer service questions or press inquiries use the form and something to fill the line.</p>",
+            "texto_boton": "GO TO OTHER INQUIRIES",
+            "enlace_boton": "shopify://pages/contact-1"
+          }
+        },
+        "texto_673pTc": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_8BEYm9",
+        "texto_bJTGLH",
+        "texto_673pTc"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "fila_contenido_idRJgL",
-    "fila_contenido_nMnc7t"
+    "fila_contenido_nMnc7t",
+    "fila_contenido_fJinMe"
   ]
 }
