@@ -223,7 +223,7 @@
         "color_texto": "#ffffff",
         "color_fondo": "#00000080",
         "mostrar_fondo": true,
-        "max_ancho_ch": 60,
+        "max_ancho_ch": 37,
         "unidad_offset": "px",
         "offset_x": 16,
         "offset_y": 16,
@@ -271,7 +271,7 @@
       "name": "Productos destacados",
       "settings": {
         "titulo_seccion": "FEATURED",
-        "columns": "4"
+        "columns": "2"
       }
     },
     "imagen_grande_D6gcaw": {
