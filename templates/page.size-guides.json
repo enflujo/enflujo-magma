@@ -304,6 +304,63 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "fila_contenido_pnTqbG": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_KCh3Eb": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        },
+        "imagen_J7gzJM": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": ""
+          }
+        },
+        "texto_j3j77n": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h4>HOW TO MEASURE YOUR WRIST?</h4><p>Prem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tinciduntut laoreet dolo.</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_KCh3Eb",
+        "imagen_J7gzJM",
+        "texto_j3j77n"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
+    "titulo_RUnymL": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "center",
+        "mostrar_borde": true
+      }
+    },
     "fila_contenido_ibg3CF": {
       "type": "fila-contenido",
       "blocks": {
@@ -351,53 +408,6 @@
       ],
       "name": "Fila de contenido",
       "settings": {}
-    },
-    "fila_contenido_pnTqbG": {
-      "type": "fila-contenido",
-      "blocks": {
-        "texto_KCh3Eb": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        },
-        "imagen_J7gzJM": {
-          "type": "imagen",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "leyenda": ""
-          }
-        },
-        "texto_j3j77n": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h4>HOW TO MEASURE YOUR WRIST?</h4><p>Prem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tinciduntut laoreet dolo.</p>",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        }
-      },
-      "block_order": [
-        "texto_KCh3Eb",
-        "imagen_J7gzJM",
-        "texto_j3j77n"
-      ],
-      "name": "Fila de contenido",
-      "settings": {}
     }
   },
   "order": [
@@ -412,7 +422,8 @@
     "fila_contenido_LQE8Nx",
     "titulo_33iQzT",
     "fila_contenido_hzzFDq",
-    "fila_contenido_ibg3CF",
-    "fila_contenido_pnTqbG"
+    "fila_contenido_pnTqbG",
+    "titulo_RUnymL",
+    "fila_contenido_ibg3CF"
   ]
 }
