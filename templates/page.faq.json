@@ -165,12 +165,23 @@
       ],
       "name": "Fila de contenido",
       "settings": {}
+    },
+    "titulo_qqPPEk": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2><strong>DISCOVER THE COLLECTIONS</strong></h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
     }
   },
   "order": [
     "main",
     "fila_contenido_idRJgL",
     "fila_contenido_nMnc7t",
-    "fila_contenido_fJinMe"
+    "fila_contenido_fJinMe",
+    "titulo_qqPPEk"
   ]
 }
