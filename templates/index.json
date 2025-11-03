@@ -237,18 +237,6 @@
     "productos_destacados_RKp7aL": {
       "type": "productos-destacados",
       "blocks": {
-        "product_7P6jyN": {
-          "type": "product",
-          "settings": {
-            "product": "finger"
-          }
-        },
-        "product_MwTke6": {
-          "type": "product",
-          "settings": {
-            "product": "puntilla"
-          }
-        },
         "product_kQXT6P": {
           "type": "product",
           "settings": {
@@ -263,8 +251,6 @@
         }
       },
       "block_order": [
-        "product_7P6jyN",
-        "product_MwTke6",
         "product_kQXT6P",
         "product_JaEriC"
       ],
@@ -313,6 +299,45 @@
         "mostrar_borde": true
       }
     },
+    "titulo_gVPYEj": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2>LEARN SOMETHING WORKSHOP SOMETHING</h2><p>Explore the workshops and something else about learning and teaching and the boxes and the studio.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
+    },
+    "imagen_grande_w8U9xY": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
+      "settings": {
+        "imagen_seccion": "shopify://shop_images/MAGMA_Hero_b3cd7cd7-d5ea-4e23-87fd-37d8ad908274.svg",
+        "alt_texto": "",
+        "titulo_superior": "WORKSHOPS",
+        "icono_superior": "shopify://shop_images/workshops.svg",
+        "tamano_icono": 60,
+        "texto_seccion": "",
+        "texto_boton": "Ver más",
+        "enlace_boton": "",
+        "posicion_texto": "centro",
+        "alineacion_texto": "center",
+        "enlace_destino": "",
+        "color_texto": "#ffffff",
+        "color_fondo": "rgba(0,0,0,0.5)",
+        "mostrar_fondo": true,
+        "max_ancho_ch": 60,
+        "unidad_offset": "px",
+        "offset_x": 16,
+        "offset_y": 16,
+        "tamano_fuente": 18,
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
+      }
+    },
     "imagen_grande_LPUHX6": {
       "type": "imagen-grande",
       "name": "Imágen grande",
@@ -340,6 +365,54 @@
         "desfase_vertical_movil": 0,
         "z_index": 0
       }
+    },
+    "fila_contenido_KVjP3f": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_XAX4YF": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/contact.svg",
+            "leyenda": ""
+          }
+        },
+        "texto_iWkwtQ": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
+            "texto_boton": "GET IN TOUCH",
+            "enlace_boton": "shopify://pages/contact-1"
+          }
+        },
+        "texto_TWGce3": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2><strong>CONTACT</strong></h2><p>LOCATED IN BERLIN</p><p>SOMETHING ELSE</p>",
+            "texto_boton": "",
+            "enlace_boton": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_XAX4YF",
+        "texto_iWkwtQ",
+        "texto_TWGce3"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
     }
   },
   "order": [
@@ -353,6 +426,9 @@
     "productos_destacados_RKp7aL",
     "imagen_grande_D6gcaw",
     "titulo_DtLgA8",
-    "imagen_grande_LPUHX6"
+    "titulo_gVPYEj",
+    "imagen_grande_w8U9xY",
+    "imagen_grande_LPUHX6",
+    "fila_contenido_KVjP3f"
   ]
 }
