@@ -20,7 +20,7 @@
           <div class='contenidoTexto'>
             {{ block.settings.texto }}
             {% if block.settings.enlace_boton != blank %}
-              <div class='enlaceTexto botonDestacado'>
+              <div class='enlaceTexto botonDestacado alinear-{{ section.settings.alineacion_parrafos | default: 'center' }}'>
                 <a href='{{ block.settings.enlace_boton }}'>
                   {{ block.settings.texto_boton | default: 'Ver más' }}
                 </a>

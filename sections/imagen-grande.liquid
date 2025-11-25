@@ -65,7 +65,7 @@
               {{ section.settings.texto_seccion }}
             {% endif %}
             {% if section.settings.enlace_boton != blank %}
-              <div class='enlaceImagen botonDestacado'>
+              <div class='enlaceImagen botonDestacado alinear-{{ section.settings.alineacion_texto | default: 'center' }}'>
                 <a href='{{ section.settings.enlace_boton }}' class='imagenBoton'>
                   {{ section.settings.texto_boton | default: 'Ver más' }}
                 </a>
@@ -124,7 +124,7 @@
               {{ section.settings.texto_seccion }}
             {% endif %}
             {% if section.settings.enlace_boton != blank %}
-              <div class='enlaceImagen botonDestacado'>
+              <div class='enlaceImagen botonDestacado alinear-{{ section.settings.alineacion_texto | default: 'center' }}'>
                 <a href='{{ section.settings.enlace_boton }}' class='imagenBoton'>
                   {{ section.settings.texto_boton | default: 'Ver más' }}
                 </a>
