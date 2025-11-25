@@ -141,7 +141,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
-        "titulo_seccion": "Featured Treasures",
+        "titulo_seccion": "Featured Pieces",
         "title_alignment": "center",
         "items_alignment": "center",
         "items_gap": 11,
@@ -205,7 +205,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
-        "titulo_seccion": "FEATURED",
+        "titulo_seccion": "Featured Pieces",
         "title_alignment": "center",
         "items_alignment": "center",
         "items_gap": 11,
@@ -262,7 +262,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
-        "titulo_seccion": "Featured",
+        "titulo_seccion": "Featured Pieces",
         "title_alignment": "center",
         "items_alignment": "center",
         "items_gap": 11,
