@@ -46,7 +46,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 0,
             "line_height": 1.2,
-            "texto": "<h2>THE BRAND</h2><p>RINGS</p><p>PENDANTS</p><p>PRINTS</p><p>WORKSHOPS</p><p>DIY-SETS</p>",
+            "texto": "<h2>THE BRAND</h2><h6>RINGS<br/>CHARMS & PENDANTS<br/>NECKLACES & BRACELETS<br/>PRINTS<br/>WORKSHOPS<br/>DIY-SETS</h6>",
             "texto_boton": "",
             "enlace_boton": ""
           }
@@ -70,7 +70,7 @@
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "imagen": "shopify://shop_images/sparkle.png",
+            "imagen": "shopify://shop_images/brand_icon_78fd0728-33bf-4dbc-a15b-ac79b456490d.svg",
             "leyenda": ""
           }
         }
@@ -96,15 +96,15 @@
         "texto_boton": "SHOP FOR YOUR WRIST & NECK",
         "enlace_boton": "shopify://pages/jewelry",
         "posicion_texto": "infIzq",
-        "alineacion_texto": "center",
+        "alineacion_texto": "left",
         "enlace_destino": "",
         "color_texto": "#ffffff",
         "color_fondo": "#ffffff80",
         "mostrar_fondo": false,
         "max_ancho_ch": 36,
-        "unidad_offset": "%",
-        "offset_x": 3,
-        "offset_y": 14,
+        "unidad_offset": "px",
+        "offset_x": 50,
+        "offset_y": 50,
         "tamano_fuente": 18,
         "usar_desfase_escritorio_en_movil": false,
         "desfase_vertical": 0,
@@ -228,7 +228,7 @@
         "enlace_destino": "",
         "color_texto": "#ffffff",
         "color_fondo": "#00000080",
-        "mostrar_fondo": true,
+        "mostrar_fondo": false,
         "max_ancho_ch": 37,
         "unidad_offset": "px",
         "offset_x": 50,
