@@ -64,7 +64,7 @@
         {{ section.settings.video_texto }}
       {% endif %}
       {% if section.settings.video_enlace_boton != blank %}
-        <div class='enlaceVideo botonDestacado'>
+        <div class='enlaceVideo botonDestacado alinear-{{ section.settings.alineacion_texto | default: 'center' }}'>
           <a href='{{ section.settings.video_enlace_boton }}' class='videoBoton'>
             {{ section.settings.video_texto_boton | default: 'Ver más' }}
           </a>
@@ -379,6 +379,21 @@
   .enlaceVideo {
     margin-top: 1em;
   }
+
+  /* Alineación del botón según `alineacion_texto` */
+  .enlaceVideo {
+    display: flex;
+  }
+  .enlaceVideo.alinear-left {
+    margin: 0 auto 0 0;
+  }
+  .enlaceVideo.alinear-center {
+    margin: 0 auto;
+  }
+  .enlaceVideo.alinear-right {
+    margin: 0 0 0 auto;
+  }
+
   @media (max-width: 768px) {
     .contenedorVideo {
       transform: translateY(var(--desfaseYMovil, var(--desfaseY, 0%)));
