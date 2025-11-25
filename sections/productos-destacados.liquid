@@ -1,9 +1,12 @@
-<div class='contenedorProductosDestacados'>
+<div class='contenedorProductosDestacados alineacion-titulo-{{ section.settings.title_alignment | default: 'center' }} alineacion-items-{{ section.settings.items_alignment | default: 'center' }}'>
   {% if section.settings.titulo_seccion != blank %}
     <h2 class='tituloSeccion'>{{ section.settings.titulo_seccion }}</h2>
   {% endif %}
 
-  <div class='productosGrid cols-{{ section.settings.columns }}'>
+  <div
+    class='productosGrid cols-{{ section.settings.columns }}'
+    style='--gap: {{ section.settings.items_gap | default: 24 }}px;'
+  >
     {% for block in section.blocks %}
       {% assign prod = all_products[block.settings.product] %}
       {% if prod %}
@@ -56,6 +59,38 @@
     },
     {
       "type": "select",
+      "id": "title_alignment",
+      "label": "Alineación del título",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "items_alignment",
+      "label": "Alineación de elementos",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "items_gap",
+      "label": "Separación entre elementos (gap)",
+      "min": 0,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "select",
       "id": "columns",
       "label": "Columnas",
       "default": "3",
@@ -91,23 +126,49 @@
 
 {% stylesheet %}
   .productosGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 3rem;
-    justify-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap, 24px);
   }
 
-  .productosGrid.cols-1 {
-    grid-template-columns: 1fr;
+  /* Alineación de contenido de la sección */
+  .contenedorProductosDestacados.alineacion-titulo-left .tituloSeccion {
+    text-align: left;
   }
-  .productosGrid.cols-2 {
-    grid-template-columns: repeat(2, 1fr);
+  .contenedorProductosDestacados.alineacion-titulo-center .tituloSeccion {
+    text-align: center;
   }
-  .productosGrid.cols-3 {
-    grid-template-columns: repeat(3, 1fr);
+  .contenedorProductosDestacados.alineacion-titulo-right .tituloSeccion {
+    text-align: right;
   }
-  .productosGrid.cols-4 {
-    grid-template-columns: repeat(4, 1fr);
+
+  /* Alineación del bloque de items (grilla como conjunto) */
+  .contenedorProductosDestacados.alineacion-items-left .productosGrid {
+    justify-content: start;
+  }
+  .contenedorProductosDestacados.alineacion-items-center .productosGrid {
+    justify-content: center;
+  }
+  .contenedorProductosDestacados.alineacion-items-right .productosGrid {
+    justify-content: end;
+  }
+
+  /* Anchos por columnas usando flex-basis para mantener tamaño de tarjeta
+     y permitir alinear el grupo con justify-content */
+  .productosGrid .productoTarjeta {
+    box-sizing: border-box;
+  }
+  .productosGrid.cols-1 .productoTarjeta {
+    flex: 0 1 100%;
+  }
+  .productosGrid.cols-2 .productoTarjeta {
+    flex: 0 1 calc((100% - var(--gap)) / 2);
+  }
+  .productosGrid.cols-3 .productoTarjeta {
+    flex: 0 1 calc((100% - var(--gap) * 2) / 3);
+  }
+  .productosGrid.cols-4 .productoTarjeta {
+    flex: 0 1 calc((100% - var(--gap) * 3) / 4);
   }
 
   .productoTarjeta {
