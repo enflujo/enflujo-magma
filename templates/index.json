@@ -262,7 +262,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
-        "titulo_seccion": "FEATURED",
+        "titulo_seccion": "Featured",
         "title_alignment": "center",
         "items_alignment": "center",
         "items_gap": 11,
