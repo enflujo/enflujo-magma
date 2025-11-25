@@ -302,8 +302,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 1.5rem;
-    padding: 1rem;
+    padding: 1rem 0;
     width: 100%;
   }
 
@@ -341,43 +340,43 @@
   }
 
   .bloqueContenido--completo {
-    flex: 0 0 100%;
+    width: 100%;
   }
 
   .bloqueContenido--mitad {
-    flex: 0 0 calc(50% - 0.75rem);
+    width: 50%;
   }
 
   .bloqueContenido--tercio {
-    flex: 0 0 calc(33.333% - 1rem);
+    width: 33.333%;
   }
 
   .bloqueContenido--dos-tercios {
-    flex: 0 0 calc(66.666% - 0.5rem);
+    width: 66.666%;
   }
 
   .bloqueContenido--cuarto {
-    flex: 0 0 calc(25% - 1.125rem);
+    width: 25%;
   }
 
   .bloqueContenido--tres-cuartos {
-    flex: 0 0 calc(75% - 0.375rem);
+    width: 75%;
   }
 
   .bloqueContenido--quinto {
-    flex: 0 0 calc(20% - 1.2rem);
+    width: 20%;
   }
 
   .bloqueContenido--dos-quintos {
-    flex: 0 0 calc(40% - 0.9rem);
+    width: 40%;
   }
 
   .bloqueContenido--tres-quintos {
-    flex: 0 0 calc(60% - 0.6rem);
+    width: 60%;
   }
 
   .bloqueContenido--cuatro-quintos {
-    flex: 0 0 calc(80% - 0.3rem);
+    width: 80%;
   }
 
   .contenidoTexto {
@@ -419,7 +418,7 @@
     .bloqueContenido--dos-quintos,
     .bloqueContenido--tres-quintos,
     .bloqueContenido--cuatro-quintos {
-      flex: 0 0 100%;
+      width: 100%;
     }
   }
 
@@ -432,7 +431,7 @@
     .bloqueContenido--dos-quintos,
     .bloqueContenido--tres-quintos,
     .bloqueContenido--cuatro-quintos {
-      flex: 0 0 calc(50% - 0.75rem);
+      width: 50%;
     }
   }
 {% endstylesheet %}
