@@ -26,7 +26,6 @@
               <a href='{{ prod.url }}'>{{ prod.title }}</a>
             </h3>
             <div class='productoPrecio'>{{ prod.price | money }}</div>
-            <div class='productoDescripcion'>{{ prod.description | strip_html | truncate: 120 }}</div>
             {% comment %} Si el producto tiene exactamente una variante, permitir agregar rápido al carrito; de lo contrario, enlazar a la página del producto {% endcomment %}
             {% if prod.variants.size == 1 %}
               {% assign v = prod.variants.first %}
@@ -39,7 +38,7 @@
                 <button class='agotado' disabled>Out of stock</button>
               {% endif %}
             {% else %}
-              <a class='ver-producto' href='{{ prod.url }}'>View product</a>
+              <a class='verProducto botonAgregar' href='{{ prod.url }}'>View product</a>
             {% endif %}
           </div>
         </article>
@@ -213,14 +212,18 @@
     padding: 0.5rem 0.75rem;
     border: 0;
     cursor: pointer;
+    font-size: 0.8rem;
+    font-family: var(--font-primary--family);
   }
 
-  .ver-producto {
+  .verProducto {
     display: inline-block;
-    background: transparent;
-    color: var(--color-foreground);
+    background: var(--color-foreground);
+    color: var(--color-background) !important;
     padding: 0.5rem 0.75rem;
-    text-decoration: underline;
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .agotado {
