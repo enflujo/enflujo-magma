@@ -378,13 +378,13 @@
     "fila_contenido_KVjP3f": {
       "type": "fila-contenido",
       "blocks": {
-        "imagen_XAX4YF": {
+        "imagen_JWaJRa": {
           "type": "imagen",
           "settings": {
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "imagen": "shopify://shop_images/contact.svg",
+            "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
             "leyenda": ""
           }
         },
@@ -396,7 +396,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
+            "texto": "<h2>CONTACT</h2><h6>If you have any questions you can either fill out the contact form or write an E-Mail. Please ensure to provide as much information as possible in the body of your email including your full name and your location.</h6>",
             "texto_boton": "GET IN TOUCH",
             "enlace_boton": "shopify://pages/contact-1"
           }
@@ -409,14 +409,14 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h2><strong>CONTACT</strong></h2><p>LOCATED IN BERLIN</p><p>SOMETHING ELSE</p>",
+            "texto": "<h2>NEWSLETTER</h2><h6>Join to receive news about new editions, upcoming releases, and occasional updates on products and culture.</h6>",
             "texto_boton": "",
             "enlace_boton": ""
           }
         }
       },
       "block_order": [
-        "imagen_XAX4YF",
+        "imagen_JWaJRa",
         "texto_iWkwtQ",
         "texto_TWGce3"
       ],
