@@ -409,7 +409,7 @@
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
-            "texto": "<h2>NEWSLETTER</h2><h6>Join to receive news about new editions, upcoming releases, and occasional updates on products and culture.</h6>",
+            "texto": "<h2>NEWSLETTER</h2><h6>Join to receive news about upcoming releases and occasional updates on products and culture.</h6>",
             "texto_boton": "",
             "enlace_boton": ""
           }
