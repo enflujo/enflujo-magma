@@ -9,8 +9,9 @@
  */
 {
   "current": {
-    "type_primary_font": "roboto_n4",
-    "type_headers_font": "roboto_n4",
+    "type_primary_font": "roboto_n3",
+    "type_headers_font": "roboto_n3",
+    "background_color": "#f5f5f5",
     "content_for_index": []
   }
 }
