@@ -12,7 +12,18 @@
     "main": {
       "type": "product",
       "settings": {}
+    },
+    "carrusel_U4y7cw": {
+      "type": "carrusel",
+      "name": "Carrusel",
+      "settings": {
+        "titulo": "Related",
+        "tipo": "productos"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "carrusel_U4y7cw"
+  ]
 }
