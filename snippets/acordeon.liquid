@@ -1,0 +1,92 @@
+<div class='acordeon'>
+  <div class='acordeon-toggle' type='button'>
+    <span class='acordeon-title'>{{ title }}</span>
+    <span class='acordeon-icon'>
+      <svg width='12' height='12' viewBox='0 0 24 24' fill='currentColor'>
+        <path d="M12 16L4 8h16z"></path>
+      </svg>
+    </span>
+  </div>
+
+  <div class='acordeon-content textoEnriquecido'>
+    {{ content }}
+  </div>
+</div>
+
+{% style %}
+  .acordeon {
+    /* padding: 0.75rem 0; */
+  }
+
+  .acordeon-title {
+    border-bottom: 1px solid;
+    width: 100%;
+    padding-bottom: 0.25rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .acordeon-toggle {
+    font-size: 0.875rem;
+    font-weight: lighter;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .acordeon-icon {
+    transition: transform 0.2s ease;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .acordeon.open .acordeon-icon {
+    transform: rotate(180deg) translateY(50%);
+  }
+
+  /* cuerpo plegable */
+  .acordeon-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    padding-top: 0.5rem;
+  }
+
+  .acordeon.open .acordeon-content {
+    max-height: 600px;
+  }
+
+  /* estilos de contenido rich text */
+  .textoEnriquecido p {
+    margin: 0 0 1rem;
+  }
+
+  .textoEnriquecido ul {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+    list-style: disc;
+  }
+
+  .textoEnriquecido li {
+    margin-bottom: 0.4rem;
+  }
+{% endstyle %}
+
+{% javascript %}
+  document.addEventListener('click', function (e) {
+    const toggle = e.target.closest('.acordeon-toggle');
+    if (!toggle) return;
+
+    const container = toggle.closest('.acordeon');
+    container.classList.toggle('open');
+  });
+{% endjavascript %}

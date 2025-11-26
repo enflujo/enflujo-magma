@@ -168,6 +168,11 @@ textarea:focus {
   box-shadow: none;
 }
 
+.textoEnriquecido {
+  margin: 0 0 1rem;
+  white-space: normal;
+}
+
 /* Estilos para tarjetas de producto */
 .tarjetaProducto {
   text-decoration: none;

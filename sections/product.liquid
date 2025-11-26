@@ -3,19 +3,85 @@
 {% endcomment %}
 <main class='contenedorProducto'>
   <div class='imagenesProducto'>
-    {% for image in product.images %}
-      {% render 'imagen', class: 'imagenProducto', image: image %}
-    {% endfor %}
+    {% if product.images.size > 0 %}
+      {% assign imagen_inicial = product.featured_image | default: product.images.first %}
+      <div class='galeriaProducto' data-gallery>
+        <div class='galeriaThumbs' role='list'>
+          {% for img in product.images %}
+            <button
+              type='button'
+              class='galeriaThumb{% if img.id == imagen_inicial.id %} activa{% endif %}'
+              data-large='{{ img | image_url: width: 1400 }}'
+              aria-label='{{ img.alt | escape | default: product.title }}'
+            >
+              <img
+                src='{{ img | image_url: width: 300, height: 300, crop: "center" }}'
+                alt='{{ img.alt | escape | default: product.title }}'
+                width='150'
+                height='150'
+                loading='lazy'
+              >
+            </button>
+          {% endfor %}
+        </div>
+        <div class='imagenPrincipal'>
+          {% assign alto_principal = 1400 | divided_by: imagen_inicial.aspect_ratio | round %}
+          <button type='button' class='imagenPrincipalBtn' data-lightbox-trigger>
+            <img
+              class='imagenPrincipalImg'
+              src='{{ imagen_inicial | image_url: width: 1400 }}'
+              alt='{{ imagen_inicial.alt | escape | default: product.title }}'
+              width='1400'
+              height='{{ alto_principal }}'
+            >
+          </button>
+        </div>
+      </div>
+    {% endif %}
   </div>
 
   <div class='informacionProducto'>
     <div class='encabezadoProducto'>
-      <h1>{{ product.title }}</h1>
+      {% assign inventario_restante = 0 %}
+      {% assign variantes_controladas = 0 %}
+      {% for v in product.variants %}
+        {% if v.inventory_management and v.inventory_policy == 'deny' %}
+          {% assign inventario_restante = inventario_restante | plus: v.inventory_quantity %}
+          {% assign variantes_controladas = variantes_controladas | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+      {% if product.available and variantes_controladas > 0 and inventario_restante > 0 and inventario_restante < 10 %}
+        <p class='stock-restante'>
+          {% if inventario_restante == 1 %}
+            Only 1 left
+          {% else %}
+            Only {{ inventario_restante }} left
+          {% endif %}
+        </p>
+      {% endif %}
+
+      {% if product.category != blank %}
+        <a href='{{ routes.collections_url }}/{{ product.category | handleize }}' class='boton-categoria'>
+          {{ product.category }}
+        </a>
+      {% endif %}
+      <h1 class='tituloProducto'>{{ product.title }}</h1>
       {% assign current_variant = product.selected_or_first_available_variant %}
       <p id='precioProducto'>{{ current_variant.price | money }}</p>
       <p>{{ product.description }}</p>
     </div>
 
+    <div class='acordeones'>
+      {% if product.metafields.custom.details %}
+        {% assign detalle_html = product.metafields.custom.details | metafield_tag %}
+        {% render 'acordeon', title: 'Details', content: detalle_html %}
+      {% endif %}
+
+      {% if product.metafields.custom.production_delivery %}
+        {% assign mensaje_html = shop.metafields.custom.production_delivery_text | metafield_tag %}
+        {% render 'acordeon', title: 'Production & Delivery', content: mensaje_html %}
+      {% endif %}
+    </div>
     <div class='opcionesProducto'>
       {% form 'product', product %}
         {% assign current_variant = product.selected_or_first_available_variant %}
@@ -25,7 +91,12 @@
         {% if product.has_only_default_variant == false %}
           {% for option in product.options_with_values %}
             <div class='campoOpcion'>
-              <label for='opcion-{{ forloop.index }}'>{{ option.name }}</label>
+              {% assign opt_label = option.name %}
+              {% assign opt_name_lc = option.name | downcase | strip %}
+              {% if opt_name_lc contains 'material' %}
+                {% assign opt_label = 'Material' %}
+              {% endif %}
+              <label class='tituloOpcionCompra' for='opcion-{{ forloop.index }}'>{{ opt_label }}</label>
               <select
                 id='opcion-{{ forloop.index }}'
                 class='selectPersonalizado'
@@ -47,7 +118,10 @@
           {% endfor %}
         {% endif %}
 
-        <input type='number' name='quantity' min='1' value='1'>
+        <div class='campoOpcion'>
+          <label for='quantity' class='tituloOpcionCompra'>Quantity</label>
+          <input id='quantity' type='number' name='quantity' min='1' value='1'>
+        </div>
 
         <input
           type='submit'
@@ -56,117 +130,22 @@
             disabled
           {% endunless %}
         >
-
-        {% assign tags_text = product.tags | join: ',' | downcase %}
-        {% assign tipo_text = product.type | downcase %}
-        {% if tags_text contains 'talla-anillo' or tipo_text contains 'anillo' %}
-          <div class='campoProp'>
-            <label for='prop-talla'>Talla de anillo</label>
-            <select id='prop-talla' name='properties[Talla]' class='selectPersonalizado' aria-label='Talla de anillo'>
-              {% for t in (5..10) %}
-                <option
-                  value='{{ t }}'
-                  {% if forloop.first %}
-                    selected
-                  {% endif %}
-                >
-                  {{ t }}
-                </option>
-              {% endfor %}
-            </select>
-          </div>
-        {% endif %}
-
-        {% if tags_text contains 'cadena' or tipo_text contains 'collar' or tipo_text contains 'cadena' %}
-          <div class='campoProp'>
-            <label for='prop-cadena'>Longitud de cadena</label>
-            <select
-              id='prop-cadena'
-              name='properties[Longitud de cadena]'
-              class='selectPersonalizado'
-              aria-label='Longitud de cadena'
-            >
-              <option value='40 cm'>40 cm</option>
-              <option value='45 cm' selected>45 cm</option>
-              <option value='50 cm'>50 cm</option>
-            </select>
-          </div>
-        {% endif %}
-
-        {% if tags_text contains 'grabado' or tipo_text contains 'joya' %}
-          <div class='campoProp'>
-            <label for='prop-grabado'>Grabado (opcional)</label>
-            <input
-              id='prop-grabado'
-              type='text'
-              name='properties[Grabado]'
-              maxlength='30'
-              placeholder='Texto para grabar'
-            >
-          </div>
-        {% endif %}
-
-        {% if tags_text contains 'tamaño'
-          or tags_text contains 'tamano'
-          or tipo_text contains 'ilustración'
-          or tipo_text contains 'ilustracion'
-          or tipo_text contains 'print'
-          or tipo_text contains 'lámina'
-          or tipo_text contains 'lamina'
-        %}
-          <div class='campoProp'>
-            <label for='prop-tamano'>Tamaño</label>
-            <select
-              id='prop-tamano'
-              name='properties[Tamaño]'
-              class='selectPersonalizado'
-              aria-label='Tamaño de impresión'
-            >
-              <option value='A4' selected>A4</option>
-              <option value='A3'>A3</option>
-              <option value='30x40 cm'>30x40 cm</option>
-            </select>
-          </div>
-        {% endif %}
-
-        {% if tags_text contains 'papel'
-          or tipo_text contains 'ilustración'
-          or tipo_text contains 'ilustracion'
-          or tipo_text contains 'print'
-          or tipo_text contains 'lámina'
-          or tipo_text contains 'lamina'
-        %}
-          <div class='campoProp'>
-            <label for='prop-papel'>Papel</label>
-            <select id='prop-papel' name='properties[Papel]' class='selectPersonalizado' aria-label='Tipo de papel'>
-              <option value='Mate' selected>Mate</option>
-              <option value='Satinado'>Satinado</option>
-              <option value='Algodón'>Algodón</option>
-            </select>
-          </div>
-        {% endif %}
-
-        {% if tags_text contains 'enmarcado'
-          or tipo_text contains 'ilustración'
-          or tipo_text contains 'ilustracion'
-          or tipo_text contains 'print'
-          or tipo_text contains 'lámina'
-          or tipo_text contains 'lamina'
-        %}
-          <div class='campoProp'>
-            <label for='prop-marco'>Enmarcado</label>
-            <select id='prop-marco' name='properties[Enmarcado]' class='selectPersonalizado' aria-label='Enmarcado'>
-              <option value='Sin marco' selected>Sin marco</option>
-              <option value='Negro'>Negro</option>
-              <option value='Blanco'>Blanco</option>
-              <option value='Natural'>Natural</option>
-            </select>
-          </div>
-        {% endif %}
       {% endform %}
     </div>
   </div>
 </main>
+
+<div class='lightbox' data-lightbox style='display:none;'>
+  <button type='button' class='lightbox-close' data-lightbox-close aria-label='Cerrar'>×</button>
+  <img
+    class='lightbox-img'
+    src='about:blank'
+    alt=''
+    width='1'
+    height='1'
+    style='max-width:95%;max-height:95vh;width:auto;height:auto;'
+  >
+</div>
 
 {% schema %}
 {
@@ -185,10 +164,118 @@
     gap: 2rem;
   }
 
+  #precioProducto {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  .acordeones {
+    margin-top: 2rem;
+  }
+
   .imagenesProducto {
     flex: 1 1 40%;
+  }
+
+  .galeriaProducto {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .galeriaThumbs {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+    max-height: 70vh;
+    scrollbar-width: thin;
+  }
+  .galeriaThumb {
+    border: 2px solid #ddd;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+  }
+  .galeriaThumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .galeriaThumb.activa {
+    border-color: #000;
+  }
+  .imagenPrincipal {
+    flex: 1 1 auto;
+  }
+  .imagenPrincipalBtn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: zoom-in;
+    display: block;
+    width: 100%;
+  }
+  .imagenPrincipalImg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.activo {
+    display: flex;
+  }
+  .lightbox-img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.5rem;
+    opacity: 0.8;
+  }
+  .lightbox-close:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .galeriaProducto {
+      flex-direction: column;
+    }
+    .galeriaThumbs {
+      flex-direction: row;
+      max-height: none;
+    }
+    .galeriaThumb img {
+      max-width: 64px;
+      height: auto;
+    }
   }
 
   .imagenProducto {
@@ -197,7 +284,7 @@
   }
 
   .informacionProducto {
-    flex: 1 1 50%;
+    flex: 1 1 25%;
     font-size: 0.875rem;
   }
 
@@ -234,6 +321,34 @@
 
   .opcionesProducto input[type='submit']:hover {
     background-color: #333;
+  }
+  .stock-restante {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .boton-categoria {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-decoration: underline !important;
+  }
+
+  .boton-categoria:hover {
+    text-decoration: none !important;
+  }
+
+  .tituloProducto {
+    font-size: 1.2rem;
+    margin: 0.05rem 0;
+  }
+
+  .tituloOpcionCompra {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-transform: uppercase;
   }
 {% endstylesheet %}
 
@@ -283,5 +398,77 @@
       }
     }
     selects.forEach(function(s){ s.addEventListener('change', actualizar); });
+  })();
+</script>
+
+<script>
+  (function () {
+    function initGaleria(root) {
+      root = root || document;
+      var galerias = root.querySelectorAll('[data-gallery]');
+      galerias.forEach(function (g) {
+        if (g.dataset.galInit) return;
+        g.dataset.galInit = '1';
+        var main = g.querySelector('.imagenPrincipalImg');
+        var btns = g.querySelectorAll('.galeriaThumb');
+        var lightbox = document.querySelector('[data-lightbox]');
+        var lightboxImg = lightbox ? lightbox.querySelector('.lightbox-img') : null;
+        var trigger = g.querySelector('[data-lightbox-trigger]');
+        var closeBtns = lightbox ? lightbox.querySelectorAll('[data-lightbox-close]') : [];
+
+        btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var src = btn.getAttribute('data-large');
+            if (src && main) {
+              main.src = src;
+              var active = g.querySelector('.galeriaThumb.activa');
+              if (active) active.classList.remove('activa');
+              btn.classList.add('activa');
+            }
+          });
+        });
+
+        if (trigger && lightbox && lightboxImg) {
+          trigger.addEventListener('click', function () {
+            lightboxImg.src = main.src;
+            lightboxImg.alt = main.alt;
+            lightboxImg.removeAttribute('width');
+            lightboxImg.removeAttribute('height');
+            lightboxImg.style.cssText = 'max-width:95%;max-height:95vh;width:auto;height:auto;';
+            lightbox.style.display = 'flex';
+            lightbox.classList.add('activo');
+            document.body.style.overflow = 'hidden';
+          });
+
+          var cerrarLightbox = function () {
+            lightbox.style.display = 'none';
+            lightbox.classList.remove('activo');
+            document.body.style.overflow = '';
+          };
+
+          closeBtns.forEach(function (btn) {
+            btn.addEventListener('click', cerrarLightbox);
+          });
+
+          lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) {
+              cerrarLightbox();
+            }
+          });
+
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('activo')) {
+              cerrarLightbox();
+            }
+          });
+        }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      initGaleria(document);
+    });
+    document.addEventListener('shopify:section:load', function (e) {
+      initGaleria(e.target);
+    });
   })();
 </script>
