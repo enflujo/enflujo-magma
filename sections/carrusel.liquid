@@ -9,26 +9,96 @@
 
   <div class='carrusel' data-carrusel>
     {% if section.settings.tipo == 'productos' %}
-      {% for block in section.blocks %}
-        {% if block.type == 'producto' %}
-          {% assign prod = all_products[block.settings.producto] %}
-          {% if prod %}
-            <a href='{{ prod.url }}' class='carruselItem'>
-              {% if prod.featured_image %}
-                <img
-                  src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
-                  alt='{{ prod.title }}'
-                  width='200'
-                  height='200'
-                  loading='lazy'
-                >
-              {% endif %}
-              <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
-              <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
-            </a>
+      {% comment %} Modo manual: usar bloques {% endcomment %}
+      {% if section.settings.modo == 'manual' %}
+        {% for block in section.blocks %}
+          {% if block.type == 'producto' %}
+            {% assign prod = all_products[block.settings.producto] %}
+            {% if prod %}
+              <a href='{{ prod.url }}' class='carruselItem'>
+                {% if prod.featured_image %}
+                  <img
+                    src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
+                    alt='{{ prod.title }}'
+                    width='200'
+                    height='200'
+                    loading='lazy'
+                  >
+                {% endif %}
+                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
+              </a>
+            {% endif %}
           {% endif %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Modo automático: productos relacionados {% endcomment %}
+        {% assign max_productos = section.settings.limite | default: 8 %}
+        {% assign producto_actual = product %}
+        {% assign contador = 0 %}
+        {% assign ids_mostrados = '' %}
+
+        {% comment %} 1. Primero buscar en la misma colección {% endcomment %}
+        {% if producto_actual.collections.first %}
+          {% assign coleccion_principal = producto_actual.collections.first %}
+          {% for prod in coleccion_principal.products limit: 20 %}
+            {% if prod.id != producto_actual.id and contador < max_productos %}
+              <a href='{{ prod.url }}' class='carruselItem'>
+                {% if prod.featured_image %}
+                  <img
+                    src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
+                    alt='{{ prod.title }}'
+                    width='200'
+                    height='200'
+                    loading='lazy'
+                  >
+                {% endif %}
+                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
+              </a>
+              {% assign contador = contador | plus: 1 %}
+              {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
+            {% endif %}
+          {% endfor %}
         {% endif %}
-      {% endfor %}
+
+        {% comment %} 2. Si no hay suficientes, completar con productos que comparten tags {% endcomment %}
+        {% if contador < max_productos and producto_actual.tags.size > 0 %}
+          {% for prod in collections.all.products limit: 50 %}
+            {% if prod.id != producto_actual.id and contador < max_productos %}
+              {% assign id_str = prod.id | append: ',' %}
+              {% unless ids_mostrados contains id_str %}
+                {% assign tiene_tag_comun = false %}
+                {% for tag in prod.tags %}
+                  {% if producto_actual.tags contains tag %}
+                    {% assign tiene_tag_comun = true %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if tiene_tag_comun %}
+                  <a href='{{ prod.url }}' class='carruselItem'>
+                    {% if prod.featured_image %}
+                      <img
+                        src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
+                        alt='{{ prod.title }}'
+                        width='200'
+                        height='200'
+                        loading='lazy'
+                      >
+                    {% endif %}
+                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                    <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
+                  </a>
+                  {% assign contador = contador | plus: 1 %}
+                  {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
+                {% endif %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+
     {% elsif section.settings.tipo == 'colecciones' %}
       {% for block in section.blocks %}
         {% if block.type == 'coleccion' %}
@@ -81,6 +151,26 @@
         { "value": "productos", "label": "Productos" },
         { "value": "colecciones", "label": "Colecciones" }
       ]
+    },
+    {
+      "type": "select",
+      "id": "modo",
+      "label": "Modo de selección",
+      "default": "automatico",
+      "info": "Automático: muestra productos relacionados de la misma colección o con tags similares. Manual: selecciona productos específicos.",
+      "options": [
+        { "value": "automatico", "label": "Automático (relacionados)" },
+        { "value": "manual", "label": "Manual (bloques)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "limite",
+      "label": "Cantidad máxima de productos (modo automático)",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
     }
   ],
   "blocks": [
