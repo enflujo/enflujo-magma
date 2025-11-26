@@ -1,0 +1,180 @@
+{% comment %}
+  Sección de carrusel para mostrar productos o colecciones
+{% endcomment %}
+
+<div class='contenedorCarrusel'>
+  {% if section.settings.titulo != blank %}
+    <h2 class='tituloCarrusel'>{{ section.settings.titulo }}</h2>
+  {% endif %}
+
+  <div class='carrusel' data-carrusel>
+    {% if section.settings.tipo == 'productos' %}
+      {% for block in section.blocks %}
+        {% if block.type == 'producto' %}
+          {% assign prod = all_products[block.settings.producto] %}
+          {% if prod %}
+            <a href='{{ prod.url }}' class='carruselItem'>
+              {% if prod.featured_image %}
+                <img
+                  src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
+                  alt='{{ prod.title }}'
+                  width='200'
+                  height='200'
+                  loading='lazy'
+                >
+              {% endif %}
+              <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+              <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% elsif section.settings.tipo == 'colecciones' %}
+      {% for block in section.blocks %}
+        {% if block.type == 'coleccion' %}
+          {% assign col = collections[block.settings.coleccion] %}
+          {% if col %}
+            <a href='{{ col.url }}' class='carruselItem'>
+              {% if col.featured_image %}
+                <img
+                  src='{{ col.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
+                  alt='{{ col.title }}'
+                  width='200'
+                  height='200'
+                  loading='lazy'
+                >
+              {% elsif col.products.first.featured_image %}
+                <img
+                  src='{{ col.products.first.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
+                  alt='{{ col.title }}'
+                  width='200'
+                  height='200'
+                  loading='lazy'
+                >
+              {% endif %}
+              <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+              <p class='carruselItemCantidad'>{{ col.products_count }} productos</p>
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Carrusel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Productos relacionados"
+    },
+    {
+      "type": "select",
+      "id": "tipo",
+      "label": "Tipo de contenido",
+      "default": "productos",
+      "options": [
+        { "value": "productos", "label": "Productos" },
+        { "value": "colecciones", "label": "Colecciones" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "producto",
+      "name": "Producto",
+      "settings": [
+        {
+          "type": "product",
+          "id": "producto",
+          "label": "Seleccionar producto"
+        }
+      ]
+    },
+    {
+      "type": "coleccion",
+      "name": "Colección",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "coleccion",
+          "label": "Seleccionar colección"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Carrusel"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .contenedorCarrusel {
+    padding: 2rem 0;
+  }
+
+  .tituloCarrusel {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .carrusel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding: 0 1rem 1rem;
+  }
+
+  .carruselItem {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+  }
+
+  .carruselItem:hover {
+    transform: translateY(-4px);
+  }
+
+  .carruselItem img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    display: block;
+  }
+
+  .carruselItemTitulo {
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .carruselItemPrecio,
+  .carruselItemCantidad {
+    font-size: 0.85rem;
+    margin: 0;
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .carruselItem {
+      flex: 0 0 160px;
+    }
+  }
+{% endstylesheet %}
