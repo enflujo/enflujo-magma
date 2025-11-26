@@ -60,11 +60,18 @@
         </p>
       {% endif %}
 
+      {% if product.collections.first %}
+        <a href='{{ product.collections.first.url }}' class='boton-coleccion'>
+          {{ product.collections.first.title }}
+        </a>
+      {% endif %}
+
       {% if product.category != blank %}
         <a href='{{ routes.collections_url }}/{{ product.category | handleize }}' class='boton-categoria'>
           {{ product.category }}
         </a>
       {% endif %}
+
       <h1 class='tituloProducto'>{{ product.title }}</h1>
       {% assign current_variant = product.selected_or_first_available_variant %}
       <p id='precioProducto'>{{ current_variant.price | money }}</p>
@@ -331,11 +338,22 @@
     display: block;
     font-size: 0.8rem;
     text-transform: uppercase;
-    margin-bottom: 1rem;
     text-decoration: underline !important;
   }
 
   .boton-categoria:hover {
+    text-decoration: none !important;
+  }
+
+  .boton-coleccion {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    text-decoration: underline !important;
+    margin-bottom: 1rem;
+  }
+
+  .boton-coleccion:hover {
     text-decoration: none !important;
   }
 
