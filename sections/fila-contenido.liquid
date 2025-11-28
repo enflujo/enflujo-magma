@@ -36,6 +36,12 @@
               {% endif %}
             {% endif %}
           </div>
+        {% when 'acordeon' %}
+          <div class='contenidoAcordeon'>
+            {% if block.settings.titulo_acordeon != blank %}
+              {% render 'acordeon', title: block.settings.titulo_acordeon, content: block.settings.contenido_acordeon %}
+            {% endif %}
+          </div>
       {% endcase %}
     </div>
   {% endfor %}
@@ -283,6 +289,114 @@
           "type": "text",
           "id": "leyenda",
           "label": "Leyenda (opcional)"
+        }
+      ]
+    },
+    {
+      "type": "acordeon",
+      "name": "Acordeón",
+      "settings": [
+        {
+          "type": "select",
+          "id": "ancho",
+          "label": "Ancho del bloque",
+          "options": [
+            {
+              "value": "completo",
+              "label": "Completo (1)"
+            },
+            {
+              "value": "mitad",
+              "label": "Mitad (1/2)"
+            },
+            {
+              "value": "tercio",
+              "label": "Tercio (1/3)"
+            },
+            {
+              "value": "dos-tercios",
+              "label": "Dos tercios (2/3)"
+            },
+            {
+              "value": "cuarto",
+              "label": "Cuarto (1/4)"
+            },
+            {
+              "value": "tres-cuartos",
+              "label": "Tres cuartos (3/4)"
+            },
+            {
+              "value": "quinto",
+              "label": "Quinto (1/5)"
+            },
+            {
+              "value": "dos-quintos",
+              "label": "Dos quintos (2/5)"
+            },
+            {
+              "value": "tres-quintos",
+              "label": "Tres quintos (3/5)"
+            },
+            {
+              "value": "cuatro-quintos",
+              "label": "Cuatro quintos (4/5)"
+            }
+          ],
+          "default": "completo",
+          "info": "Ancho del bloque. Varios bloques se mostrarán en línea según su ancho."
+        },
+        {
+          "type": "select",
+          "id": "alineacion",
+          "label": "Alineación",
+          "options": [
+            {
+              "value": "izquierda",
+              "label": "Izquierda"
+            },
+            {
+              "value": "centro",
+              "label": "Centro"
+            },
+            {
+              "value": "derecha",
+              "label": "Derecha"
+            }
+          ],
+          "default": "izquierda",
+          "info": "Alineación horizontal del contenido dentro del bloque."
+        },
+        {
+          "type": "select",
+          "id": "alineacion_vertical",
+          "label": "Alineación vertical",
+          "options": [
+            {
+              "value": "arriba",
+              "label": "Arriba"
+            },
+            {
+              "value": "centro",
+              "label": "Centro"
+            },
+            {
+              "value": "abajo",
+              "label": "Abajo"
+            }
+          ],
+          "default": "arriba",
+          "info": "Alineación vertical cuando los bloques tienen diferentes alturas."
+        },
+        {
+          "type": "text",
+          "id": "titulo_acordeon",
+          "label": "Título del acordeón",
+          "default": "Ver detalles"
+        },
+        {
+          "type": "richtext",
+          "id": "contenido_acordeon",
+          "label": "Contenido"
         }
       ]
     }
