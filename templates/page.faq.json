@@ -14,14 +14,6 @@
       "disabled": true,
       "settings": {}
     },
-    "acordeon_Jg9e4D": {
-      "type": "acordeon",
-      "name": "Acordeón",
-      "settings": {
-        "titulo": "Pregunta 1",
-        "mensaje_html": "<p>hola</p>"
-      }
-    },
     "fila_contenido_idRJgL": {
       "type": "fila-contenido",
       "blocks": {
@@ -99,17 +91,14 @@
             "enlace_boton": ""
           }
         },
-        "texto_CKFYkw": {
-          "type": "texto",
+        "acordeon_yGi3tc": {
+          "type": "acordeon",
           "settings": {
             "ancho": "tres-quintos",
             "alineacion": "izquierda",
             "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
-            "texto_boton": "GO TO BESPOKE REQUESTS",
-            "enlace_boton": "shopify://pages/contact-1"
+            "titulo_acordeon": "BESPOKE & CUSTOMISATION REQUESTS",
+            "contenido_acordeon": "<p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>"
           }
         },
         "texto_44eQxR": {
@@ -128,7 +117,7 @@
       },
       "block_order": [
         "texto_7KhzJH",
-        "texto_CKFYkw",
+        "acordeon_yGi3tc",
         "texto_44eQxR"
       ],
       "name": "Fila de contenido",
@@ -208,7 +197,6 @@
   },
   "order": [
     "main",
-    "acordeon_Jg9e4D",
     "fila_contenido_idRJgL",
     "titulo_h8bDTw",
     "fila_contenido_nMnc7t",
