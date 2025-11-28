@@ -1,0 +1,31 @@
+{% assign titulo = section.settings.titulo  %}
+{% assign texto = section.settings.mensaje_html %}
+
+{% render 'acordeon', title: titulo, content: texto %}
+
+{% schema %}
+{
+  "name": "Acordeón",
+  "tag": "section",
+  "class": "acordeon-seccion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titulo",
+      "label": "Title",
+    },
+
+    {
+      "type": "richtext",
+      "id": "mensaje_html",
+      "label": "Content",
+      "default": "<p>Your content goes here.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Acordeón"
+    }
+  ]
+}
+{% endschema %}
