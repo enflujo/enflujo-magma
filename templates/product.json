@@ -16,7 +16,7 @@
           "type": "enlace",
           "settings": {
             "titulo": "SIZE GUIDE",
-            "url": "shopify://pages/contact"
+            "url": "shopify://pages/size-guides"
           }
         },
         "enlace_edbRBG": {
@@ -30,7 +30,7 @@
           "type": "enlace",
           "settings": {
             "titulo": "SHIPPING & PROCESSING TIMES",
-            "url": ""
+            "url": "shopify://pages/contact"
           }
         }
       },
