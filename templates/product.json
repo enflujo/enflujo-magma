@@ -23,20 +23,28 @@
           "type": "enlace",
           "settings": {
             "titulo": "CARE GUIDE",
-            "url": "shopify://pages/contact-1"
+            "url": ""
+          }
+        },
+        "enlace_wK6dXa": {
+          "type": "enlace",
+          "settings": {
+            "titulo": "Ver más",
+            "url": ""
           }
         },
         "enlace_E7AtcM": {
           "type": "enlace",
           "settings": {
             "titulo": "SHIPPING & PROCESSING TIMES",
-            "url": "shopify://pages/contact"
+            "url": ""
           }
         }
       },
       "block_order": [
         "enlace_4BDJD7",
         "enlace_edbRBG",
+        "enlace_wK6dXa",
         "enlace_E7AtcM"
       ],
       "settings": {}
