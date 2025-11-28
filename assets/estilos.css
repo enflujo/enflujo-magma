@@ -36,10 +36,16 @@
 }
 
 .botonOscuro {
+  cursor: pointer;
   background: var(--color-foreground);
   color: var(--color-background);
   padding: 0.55rem 0.6rem;
   border: none;
+}
+
+.botonOscuro:hover,
+.botonOscuro:focus {
+  opacity: 0.85;
 }
 
 /* Controles de formulario: borde recto y línea de 1px */

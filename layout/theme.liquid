@@ -17,10 +17,11 @@
 
   <body>
     {% sections 'header-group' %}
-
+    <main>
     {{ content_for_layout }}
+    </main>
 
-    {% sections 'footer-group' %}
+    <footer>{% sections 'footer-group' %}</footer>
     <script src='{{ 'magma.js' | asset_url }}' defer></script>
   </body>
 </html>
