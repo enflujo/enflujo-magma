@@ -12,18 +12,18 @@
     "main": {
       "type": "product",
       "blocks": {
-        "enlace_edbRBG": {
-          "type": "enlace",
-          "settings": {
-            "titulo": "Ver más",
-            "url": ""
-          }
-        },
         "enlace_4BDJD7": {
           "type": "enlace",
           "settings": {
             "titulo": "SIZE GUIDE",
-            "url": "shopify://pages/size-guides"
+            "url": "shopify://pages/contact"
+          }
+        },
+        "enlace_edbRBG": {
+          "type": "enlace",
+          "settings": {
+            "titulo": "SIZE GUIDE",
+            "url": "shopify://pages/contact-1"
           }
         },
         "enlace_E7AtcM": {
@@ -35,8 +35,8 @@
         }
       },
       "block_order": [
-        "enlace_edbRBG",
         "enlace_4BDJD7",
+        "enlace_edbRBG",
         "enlace_E7AtcM"
       ],
       "settings": {}
