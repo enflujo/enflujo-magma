@@ -11,6 +11,34 @@
   "sections": {
     "main": {
       "type": "product",
+      "blocks": {
+        "enlace_edbRBG": {
+          "type": "enlace",
+          "settings": {
+            "titulo": "Ver más",
+            "url": ""
+          }
+        },
+        "enlace_4BDJD7": {
+          "type": "enlace",
+          "settings": {
+            "titulo": "SIZE GUIDE",
+            "url": "shopify://pages/size-guides"
+          }
+        },
+        "enlace_E7AtcM": {
+          "type": "enlace",
+          "settings": {
+            "titulo": "SHIPPING & PROCESSING TIMES",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "enlace_edbRBG",
+        "enlace_4BDJD7",
+        "enlace_E7AtcM"
+      ],
       "settings": {}
     },
     "carrusel_U4y7cw": {
@@ -18,7 +46,9 @@
       "name": "Carrusel",
       "settings": {
         "titulo": "Related",
-        "tipo": "productos"
+        "tipo": "productos",
+        "modo": "automatico",
+        "limite": 8
       }
     }
   },
