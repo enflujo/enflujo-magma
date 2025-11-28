@@ -186,7 +186,7 @@
           {% render 'tarjeta-producto', product: product, mostrar_precio: true %}
         {% endfor %}
 
-        {{ paginate | default_pagination }}
+        <div style='display: none;'>{{ paginate | default_pagination }}</div>
         <div id='pagination-data' data-next='{{ paginate.next.url | default: '' }}' hidden></div>
       {% endpaginate %}
       <div id='sentinel-{{ section.id }}' aria-hidden='true'></div>

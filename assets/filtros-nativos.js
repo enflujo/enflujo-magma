@@ -91,13 +91,25 @@
                 });
               }, 200);
             } else {
+              // Crear un wrapper temporal para parsear el HTML
               var wrapper = document.createElement('div');
               wrapper.innerHTML = data.productos;
+              
+              // Extraer solo las tarjetas de producto
               var tarjetas = wrapper.querySelectorAll('.tarjetaProducto');
+              
+              // Actualizar el pagination-data antes de insertar las tarjetas
+              var nuevoPaginationData = wrapper.querySelector('#pagination-data');
+              var paginationDataActual = productosContainer.querySelector('#pagination-data');
+              if (nuevoPaginationData && paginationDataActual) {
+                paginationDataActual.setAttribute('data-next', nuevoPaginationData.getAttribute('data-next') || '');
+              }
+              
+              // Insertar solo las tarjetas
               tarjetas.forEach(function (t) {
                 t.classList.add('entrando');
+                productosContainer.insertAdjacentElement('beforeend', t);
               });
-              productosContainer.insertAdjacentHTML('beforeend', wrapper.innerHTML);
             }
             prepareObserver();
           }
@@ -198,19 +210,36 @@
 
       function prepareObserver() {
         if (!('IntersectionObserver' in window) || !sentinel) return;
+        
+        // Desconectar observer anterior si existe
         if (obs) {
           try {
-            obs.unobserve(sentinel);
+            obs.disconnect();
           } catch (e) {}
+          obs = null;
         }
+        
+        // Verificar si hay siguiente página
         var next = nextPageURL();
-        if (!next) return;
+        if (!next) {
+          console.log('No hay más páginas para cargar');
+          return;
+        }
+        
         obs = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (entry) {
               if (!entry.isIntersecting || cargando) return;
+              
+              // Verificar de nuevo que hay siguiente página en el momento de la intersección
+              var nextURL = nextPageURL();
+              if (!nextURL) {
+                obs.disconnect();
+                return;
+              }
+              
               var params = new URLSearchParams(window.location.search);
-              var page = new URL(next, window.location.origin).searchParams.get('page');
+              var page = new URL(nextURL, window.location.origin).searchParams.get('page');
               actualizarSeccion(params, /*replace*/ false, page);
             });
           },
