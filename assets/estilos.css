@@ -8,11 +8,21 @@
   font-weight: bold;
 }
 
+.botonDestacado--claro {
+  background: #f7f7f7;
+  color: #111;
+  border-color: #111;
+}
+
+.botonDestacado--oscuro {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
 .botonDestacado:hover,
 .botonDestacado:focus {
-  background: var(--color-foreground);
-  color: var(--color-background);
-  border-color: var(--color-foreground);
+  opacity: 0.9;
 }
 
 .botonDestacado a:hover {

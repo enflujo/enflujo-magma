@@ -20,7 +20,7 @@
           <div class='contenidoTexto'>
             {{ block.settings.texto }}
             {% if block.settings.enlace_boton != blank %}
-              <div class='enlaceTexto botonDestacado alinear-{{ section.settings.alineacion_parrafos | default: 'center' }}'>
+              <div class='enlaceTexto botonDestacado botonDestacado--{{ block.settings.estilo_boton | default: 'claro' }} alinear-{{ block.settings.alineacion | default: 'centro' }}'>
                 <a href='{{ block.settings.enlace_boton }}'>
                   {{ block.settings.texto_boton | default: 'Ver más' }}
                 </a>
@@ -182,6 +182,16 @@
           "type": "url",
           "id": "enlace_boton",
           "label": "Enlace del botón"
+        },
+        {
+          "type": "select",
+          "id": "estilo_boton",
+          "label": "Estilo del botón",
+          "default": "claro",
+          "options": [
+            { "value": "claro", "label": "Fondo claro, texto negro" },
+            { "value": "oscuro", "label": "Fondo negro, texto blanco" }
+          ]
         }
       ]
     },
