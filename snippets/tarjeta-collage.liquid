@@ -1,0 +1,169 @@
+{% comment %}
+  Snippet para renderizar tarjetas con diferentes estilos
+  Parámetros:
+  - item: producto o colección
+  - tipo: 'producto' o 'coleccion'
+  - estilo: 'simple' (imagen + info) o 'collage' (solo imagen con opciones de collage)
+  - imagen_modo: para productos ('destacada', 'galeria', 'personalizada')
+  - imagen_custom: imagen personalizada (opcional)
+  - media_indice: índice de imagen en galería (opcional)
+  - alt_custom: texto alternativo personalizado (opcional)
+  - ratio: relación de aspecto para collage ('1:1', '4:3', etc.)
+  - radius: radio de borde en px
+{% endcomment %}
+
+{% assign estilo = estilo | default: 'simple' %}
+{% assign ratio = ratio | default: '1:1' %}
+{% assign radius = radius | default: 8 %}
+
+{% capture ratio_val %}
+  {% case ratio %}
+    {% when '1:1' %}1
+    {% when '4:3' %}0.75
+    {% when '3:2' %}0.6667
+    {% when '16:9' %}0.5625
+    {% when '2:3' %}1.5
+    {% when '3:4' %}1.3333
+    {% when '9:16' %}1.7778
+    {% else %}1
+  {% endcase %}
+{% endcapture %}
+
+{% assign url = '' %}
+{% assign imagen = blank %}
+{% assign alt = '' %}
+{% assign titulo = '' %}
+{% assign precio = '' %}
+
+{% if tipo == 'producto' and item %}
+  {% assign url = item.url %}
+  {% assign titulo = item.title %}
+  {% assign precio = item.price | money %}
+  
+  {% if imagen_modo == 'personalizada' and imagen_custom %}
+    {% assign imagen = imagen_custom %}
+    {% assign alt = alt_custom | default: titulo %}
+  {% elsif imagen_modo == 'galeria' %}
+    {% assign idx = media_indice | default: '1' %}
+    {% assign idx = idx | plus: 0 %}
+    {% assign target = idx | minus: 1 %}
+    {% assign cuenta = 0 %}
+    {% for m in item.media %}
+      {% if m.media_type == 'image' %}
+        {% if cuenta == target %}
+          {% assign imagen = m.preview_image %}
+          {% assign alt = m.preview_image.alt | default: titulo %}
+          {% break %}
+        {% endif %}
+        {% assign cuenta = cuenta | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+    {% if imagen == blank %}
+      {% assign imagen = item.featured_image %}
+      {% assign alt = imagen.alt | default: titulo %}
+    {% endif %}
+  {% else %}
+    {% assign imagen = item.featured_image %}
+    {% assign alt = imagen.alt | default: titulo %}
+  {% endif %}
+  
+{% elsif tipo == 'coleccion' and item %}
+  {% assign url = item.url %}
+  {% assign titulo = item.title %}
+  
+  {% if imagen_modo == 'personalizada' and imagen_custom %}
+    {% assign imagen = imagen_custom %}
+    {% assign alt = alt_custom | default: titulo %}
+  {% else %}
+    {% assign imagen = item.image %}
+    {% if imagen == blank and item.products.first %}
+      {% assign imagen = item.products.first.featured_image %}
+    {% endif %}
+    {% assign alt = titulo %}
+  {% endif %}
+{% endif %}
+
+{% if estilo == 'collage' %}
+  {% comment %} Estilo collage: solo imagen con ratio box {% endcomment %}
+  {% if imagen %}
+    <a class='tarjetaCollage' href='{{ url }}' style='--radius: {{ radius }}px; --ratio: {{ ratio_val | strip }};'>
+      <span class='tarjetaCollageRatio'>
+        {{ imagen | image_url: width: 800 | image_tag: alt: alt, class: 'tarjetaCollageImg', loading: 'lazy' }}
+      </span>
+    </a>
+  {% endif %}
+{% else %}
+  {% comment %} Estilo simple: imagen + título + precio {% endcomment %}
+  {% if imagen %}
+    <a href='{{ url }}' class='tarjetaSimple'>
+      <img
+        src='{{ imagen | image_url: width: 400, height: 400, crop: "center" }}'
+        alt='{{ alt }}'
+        width='200'
+        height='200'
+        loading='lazy'
+        class='tarjetaSimpleImg'
+      >
+      <h3 class='tarjetaSimpleTitulo'>{{ titulo }}</h3>
+      {% if precio != blank %}
+        <p class='tarjetaSimplePrecio'>{{ precio }}</p>
+      {% endif %}
+    </a>
+  {% endif %}
+{% endif %}
+
+{% stylesheet %}
+  /* Estilo collage */
+  .tarjetaCollage {
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .tarjetaCollageRatio {
+    display: block;
+    width: 100%;
+    aspect-ratio: calc(1 / var(--ratio));
+  }
+  
+  .tarjetaCollageImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Estilo simple */
+  .tarjetaSimple {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+  }
+
+  .tarjetaSimple:hover {
+    transform: translateY(-4px);
+  }
+
+  .tarjetaSimpleImg {
+    width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    display: block;
+  }
+
+  .tarjetaSimpleTitulo {
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .tarjetaSimplePrecio {
+    font-size: 0.85rem;
+    margin: 0;
+    color: #666;
+  }
+{% endstylesheet %}

@@ -2,12 +2,17 @@
   Sección de carrusel para mostrar productos o colecciones
 {% endcomment %}
 
-<div class='contenedorCarrusel'>
+{% assign ancho_completo = section.settings.ancho_completo | default: false %}
+{% assign estilo_vista = section.settings.estilo_vista | default: 'simple' %}
+{% assign ratio = section.settings.ratio | default: '1:1' %}
+{% assign radius = section.settings.radius | default: 8 %}
+
+<div class='contenedorCarrusel{% if ancho_completo %} contenedorCarrusel--completo{% endif %}'>
   {% if section.settings.titulo != blank %}
     <h2 class='tituloCarrusel'>{{ section.settings.titulo }}</h2>
   {% endif %}
 
-  <div class='carrusel' data-carrusel>
+  <div class='carrusel carrusel--{{ estilo_vista }}' data-carrusel>
     {% if section.settings.tipo == 'productos' %}
       {% comment %} Modo manual: usar bloques {% endcomment %}
       {% if section.settings.modo == 'manual' %}
@@ -15,19 +20,15 @@
           {% if block.type == 'producto' %}
             {% assign prod = all_products[block.settings.producto] %}
             {% if prod %}
-              <a href='{{ prod.url }}' class='carruselItem'>
-                {% if prod.featured_image %}
-                  <img
-                    src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
-                    alt='{{ prod.title }}'
-                    width='200'
-                    height='200'
-                    loading='lazy'
-                  >
-                {% endif %}
-                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
-                <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
-              </a>
+              <div class='carruselItem'>
+                {% render 'tarjeta-collage',
+                  item: prod,
+                  tipo: 'producto',
+                  estilo: estilo_vista,
+                  ratio: ratio,
+                  radius: radius
+                %}
+              </div>
             {% endif %}
           {% endif %}
         {% endfor %}
@@ -43,19 +44,15 @@
           {% assign coleccion_principal = producto_actual.collections.first %}
           {% for prod in coleccion_principal.products limit: 20 %}
             {% if prod.id != producto_actual.id and contador < max_productos %}
-              <a href='{{ prod.url }}' class='carruselItem'>
-                {% if prod.featured_image %}
-                  <img
-                    src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
-                    alt='{{ prod.title }}'
-                    width='200'
-                    height='200'
-                    loading='lazy'
-                  >
-                {% endif %}
-                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
-                <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
-              </a>
+              <div class='carruselItem'>
+                {% render 'tarjeta-collage',
+                  item: prod,
+                  tipo: 'producto',
+                  estilo: estilo_vista,
+                  ratio: ratio,
+                  radius: radius
+                %}
+              </div>
               {% assign contador = contador | plus: 1 %}
               {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
             {% endif %}
@@ -77,19 +74,15 @@
                 {% endfor %}
 
                 {% if tiene_tag_comun %}
-                  <a href='{{ prod.url }}' class='carruselItem'>
-                    {% if prod.featured_image %}
-                      <img
-                        src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
-                        alt='{{ prod.title }}'
-                        width='200'
-                        height='200'
-                        loading='lazy'
-                      >
-                    {% endif %}
-                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
-                    <p class='carruselItemPrecio'>{{ prod.price | money }}</p>
-                  </a>
+                  <div class='carruselItem'>
+                    {% render 'tarjeta-collage',
+                      item: prod,
+                      tipo: 'producto',
+                      estilo: estilo_vista,
+                      ratio: ratio,
+                      radius: radius
+                    %}
+                  </div>
                   {% assign contador = contador | plus: 1 %}
                   {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
                 {% endif %}
@@ -104,27 +97,15 @@
         {% if block.type == 'coleccion' %}
           {% assign col = collections[block.settings.coleccion] %}
           {% if col %}
-            <a href='{{ col.url }}' class='carruselItem'>
-              {% if col.featured_image %}
-                <img
-                  src='{{ col.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
-                  alt='{{ col.title }}'
-                  width='200'
-                  height='200'
-                  loading='lazy'
-                >
-              {% elsif col.products.first.featured_image %}
-                <img
-                  src='{{ col.products.first.featured_image | image_url: width: 400, height: 400, crop: "center" }}'
-                  alt='{{ col.title }}'
-                  width='200'
-                  height='200'
-                  loading='lazy'
-                >
-              {% endif %}
-              <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
-              <p class='carruselItemCantidad'>{{ col.products_count }} productos</p>
-            </a>
+            <div class='carruselItem'>
+              {% render 'tarjeta-collage',
+                item: col,
+                tipo: 'coleccion',
+                estilo: estilo_vista,
+                ratio: ratio,
+                radius: radius
+              %}
+            </div>
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -171,6 +152,47 @@
       "max": 12,
       "step": 1,
       "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "ancho_completo",
+      "label": "Ancho completo de pantalla",
+      "default": false,
+      "info": "Si está desactivado, usa el ancho del contenido"
+    },
+    {
+      "type": "select",
+      "id": "estilo_vista",
+      "label": "Estilo de vista",
+      "default": "simple",
+      "options": [
+        { "value": "simple", "label": "Simple (imagen + info)" },
+        { "value": "collage", "label": "Collage (solo imagen)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Relación de aspecto (solo collage)",
+      "default": "1:1",
+      "options": [
+        { "value": "1:1", "label": "1:1" },
+        { "value": "4:3", "label": "4:3" },
+        { "value": "3:2", "label": "3:2" },
+        { "value": "16:9", "label": "16:9" },
+        { "value": "2:3", "label": "2:3 (vertical)" },
+        { "value": "3:4", "label": "3:4 (vertical)" },
+        { "value": "9:16", "label": "9:16 (vertical)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Radio de borde (px, solo collage)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 8
     }
   ],
   "blocks": [
@@ -211,6 +233,12 @@
     padding: 2rem 0;
   }
 
+  .contenedorCarrusel--completo {
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
   .tituloCarrusel {
     text-align: center;
     margin-bottom: 2rem;
@@ -230,41 +258,20 @@
   .carruselItem {
     flex: 0 0 200px;
     scroll-snap-align: start;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    transition: transform 0.2s ease;
   }
 
-  .carruselItem:hover {
-    transform: translateY(-4px);
-  }
-
-  .carruselItem img {
-    width: 100%;
-    height: auto;
-    border: 1px solid #eee;
-    display: block;
-  }
-
-  .carruselItemTitulo {
-    font-size: 0.9rem;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .carruselItemPrecio,
-  .carruselItemCantidad {
-    font-size: 0.85rem;
-    margin: 0;
-    color: #666;
+  /* Estilo collage: imágenes más grandes */
+  .carrusel--collage .carruselItem {
+    flex: 0 0 300px;
   }
 
   @media (max-width: 768px) {
     .carruselItem {
       flex: 0 0 160px;
+    }
+    
+    .carrusel--collage .carruselItem {
+      flex: 0 0 240px;
     }
   }
 {% endstylesheet %}
