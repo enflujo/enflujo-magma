@@ -73,27 +73,21 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "posicion_flotante": "izquierda",
-        "ancho_flotante": "quinto"
+        "alineacion_elementos": "start"
       }
     },
     "fila_contenido_nMnc7t": {
       "type": "fila-contenido",
       "blocks": {
-        "texto_WCNKRr": {
-          "type": "texto",
+        "imagen_Lf3r6e": {
+          "type": "imagen",
           "settings": {
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<p>hola</p>",
-            "texto_boton": "",
-            "enlace_boton": "",
-            "estilo_boton": "claro",
-            "borde_posicion": "ninguno",
-            "borde_grosor": 1
+            "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
+            "leyenda": "",
+            "sticky": true
           }
         },
         "texto_9cAHrY": {
@@ -164,7 +158,7 @@
         }
       },
       "block_order": [
-        "texto_WCNKRr",
+        "imagen_Lf3r6e",
         "texto_9cAHrY",
         "acordeon_yGi3tc",
         "acordeon_n4ejRh",
@@ -174,8 +168,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "posicion_flotante": "izquierda",
-        "ancho_flotante": "quinto"
+        "alineacion_elementos": "center"
       }
     },
     "fila_contenido_kBNabE": {
@@ -225,8 +218,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "posicion_flotante": "derecha",
-        "ancho_flotante": "quinto"
+        "alineacion_elementos": "center"
       }
     },
     "fila_contenido_bFDQqx": {
@@ -276,8 +268,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "posicion_flotante": "derecha",
-        "ancho_flotante": "quinto"
+        "alineacion_elementos": "center"
       }
     },
     "fila_contenido_GQ7bYq": {
@@ -305,8 +296,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "posicion_flotante": "derecha",
-        "ancho_flotante": "quinto"
+        "alineacion_elementos": "center"
       }
     },
     "fila_contenido_fJinMe": {
@@ -334,8 +324,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "posicion_flotante": "derecha",
-        "ancho_flotante": "quinto"
+        "alineacion_elementos": "center"
       }
     },
     "titulo_qqPPEk": {
