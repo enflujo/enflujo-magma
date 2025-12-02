@@ -80,6 +80,22 @@
     "fila_contenido_nMnc7t": {
       "type": "fila-contenido",
       "blocks": {
+        "texto_WCNKRr": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<p>hola</p>",
+            "texto_boton": "",
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
+        },
         "texto_9cAHrY": {
           "type": "texto",
           "settings": {
@@ -148,6 +164,7 @@
         }
       },
       "block_order": [
+        "texto_WCNKRr",
         "texto_9cAHrY",
         "acordeon_yGi3tc",
         "acordeon_n4ejRh",
@@ -157,7 +174,6 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "imagen_flotante": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
         "posicion_flotante": "izquierda",
         "ancho_flotante": "quinto"
       }
