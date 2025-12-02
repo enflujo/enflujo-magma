@@ -65,28 +65,18 @@
       "name": "Fila de contenido",
       "settings": {}
     },
-    "titulo_h8bDTw": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
-      }
-    },
     "fila_contenido_nMnc7t": {
       "type": "fila-contenido",
       "blocks": {
-        "texto_7KhzJH": {
+        "texto_9cAHrY": {
           "type": "texto",
           "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
             "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
+            "espaciado_parrafos": 0,
+            "line_height": 1,
+            "texto": "<h2>FAQ - ORDERS</h2>",
             "texto_boton": "",
             "enlace_boton": ""
           }
@@ -101,54 +91,95 @@
             "contenido_acordeon": "<p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>"
           }
         },
-        "texto_44eQxR": {
-          "type": "texto",
+        "acordeon_n4ejRh": {
+          "type": "acordeon",
           "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
             "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
+            "titulo_acordeon": "How long will my order take to ship?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_iTjbGd": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Can I make a change to my order after I've placed it?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_VBNTWr": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Do you offer gift wrapping?",
+            "contenido_acordeon": "<p>Other than protective wrapping and some tissue  paper, no extra packaging is applied to your parcel in order to keep  your parcel as lightweight as possible, and keep shipping and handling  costs at a minimum. </p><p>If you require custom gift wrapping, this can be arranged on a case-by-case basis for a nominal fee. Please <span style=\"text-decoration:underline\"><strong>contact the Studio</strong></span> to enquire.</p>"
+          }
+        },
+        "acordeon_dtLT3w": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Can I supply my own gold or silver for the piece I want to order?",
+            "contenido_acordeon": ""
           }
         }
       },
       "block_order": [
-        "texto_7KhzJH",
+        "texto_9cAHrY",
         "acordeon_yGi3tc",
-        "texto_44eQxR"
+        "acordeon_n4ejRh",
+        "acordeon_iTjbGd",
+        "acordeon_VBNTWr",
+        "acordeon_dtLT3w"
       ],
       "name": "Fila de contenido",
       "settings": {}
     },
-    "titulo_Ey9dcf": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
-      }
-    },
-    "fila_contenido_fJinMe": {
+    "fila_contenido_kBNabE": {
       "type": "fila-contenido",
       "blocks": {
-        "texto_8BEYm9": {
+        "texto_Pwrd7X": {
           "type": "texto",
           "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
             "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
+            "espaciado_parrafos": 0,
+            "line_height": 1,
+            "texto": "<h2>FAQ - WARRANTY</h2>",
             "texto_boton": "",
             "enlace_boton": ""
           }
         },
+        "acordeon_aN8Qfr": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Does the jewellery come with a warranty?",
+            "contenido_acordeon": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_Pwrd7X",
+        "acordeon_aN8Qfr"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
+    "fila_contenido_fJinMe": {
+      "type": "fila-contenido",
+      "blocks": {
         "texto_bJTGLH": {
           "type": "texto",
           "settings": {
@@ -161,28 +192,23 @@
             "texto_boton": "GO TO OTHER INQUIRIES",
             "enlace_boton": "shopify://pages/contact-1"
           }
-        },
-        "texto_673pTc": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
         }
       },
       "block_order": [
-        "texto_8BEYm9",
-        "texto_bJTGLH",
-        "texto_673pTc"
+        "texto_bJTGLH"
       ],
       "name": "Fila de contenido",
       "settings": {}
+    },
+    "titulo_CUxfXV": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "titulo_seccion": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
     },
     "titulo_qqPPEk": {
       "type": "titulo",
@@ -198,10 +224,10 @@
   "order": [
     "main",
     "fila_contenido_idRJgL",
-    "titulo_h8bDTw",
     "fila_contenido_nMnc7t",
-    "titulo_Ey9dcf",
+    "fila_contenido_kBNabE",
     "fila_contenido_fJinMe",
+    "titulo_CUxfXV",
     "titulo_qqPPEk"
   ]
 }
