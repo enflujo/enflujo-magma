@@ -27,7 +27,8 @@
             "line_height": 1.5,
             "texto": "<h6>You can email the studio at:</h6><h6>INFO (AT) MARIANALAROTTA.COM</h6><h6>Please make sure to provide as much information as possible including your full name and your location.</h6>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro"
           }
         },
         "texto_NT7RWN": {
@@ -40,7 +41,8 @@
             "line_height": 1.5,
             "texto": "<h2>FREQUENTLY ASKED QUESTIONS</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh.</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro"
           }
         },
         "texto_qcbgJq": {
@@ -53,7 +55,8 @@
             "line_height": 1.5,
             "texto": "<h6>The Studio Is Located In Berlin</h6>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro"
           }
         }
       },
@@ -78,7 +81,8 @@
             "line_height": 1,
             "texto": "<h2>FAQ - ORDERS</h2>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro"
           }
         },
         "acordeon_yGi3tc": {
@@ -156,7 +160,8 @@
             "line_height": 1,
             "texto": "<h2>FAQ - WARRANTY</h2>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro"
           }
         },
         "acordeon_aN8Qfr": {
@@ -190,7 +195,8 @@
             "line_height": 1.5,
             "texto": "<h2>OTHER INQUIRIES</h2><p>For online order queries such as pre-order or existing order questions, other customer service questions or press inquiries use the form and something to fill the line.</p>",
             "texto_boton": "GO TO OTHER INQUIRIES",
-            "enlace_boton": "shopify://pages/contact-1"
+            "enlace_boton": "shopify://pages/contact-1",
+            "estilo_boton": "oscuro"
           }
         }
       },
