@@ -31,13 +31,16 @@
           </div>
         {% when 'imagen' %}
           {% if block.settings.sticky %}
-            <div class='contenidoImagen contenidoImagen--flotante contenidoImagen--flotante-{{ block.settings.posicion_sticky | default: 'derecha' }}'>
-              {% if block.settings.imagen != blank %}
-                {% render 'imagen', image: block.settings.imagen, width: 400, class: 'imagenBloque' %}
-                {% if block.settings.leyenda != blank %}
-                  <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
+            {% assign ancho_flotante = block.settings.ancho_flotante | default: 300 %}
+            <div class='contenidoImagen--wrapper contenidoImagen--wrapper-{{ block.settings.posicion_sticky | default: 'derecha' }}' style='--ancho-flotante: {{ ancho_flotante }}px;'>
+              <div class='contenidoImagen contenidoImagen--flotante'>
+                {% if block.settings.imagen != blank %}
+                  {% render 'imagen', image: block.settings.imagen, width: 400, class: 'imagenBloque' %}
+                  {% if block.settings.leyenda != blank %}
+                    <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
+                  {% endif %}
                 {% endif %}
-              {% endif %}
+              </div>
             </div>
           {% else %}
             <div class='contenidoImagen'>
@@ -370,6 +373,17 @@
             { "value": "derecha", "label": "Derecha" }
           ],
           "info": "Solo aplica si 'Imagen flotante' está activado"
+        },
+        {
+          "type": "range",
+          "id": "ancho_flotante",
+          "label": "Ancho de imagen flotante",
+          "min": 200,
+          "max": 500,
+          "step": 50,
+          "unit": "px",
+          "default": 300,
+          "info": "Solo aplica si 'Imagen flotante' está activado"
         }
       ]
     },
@@ -653,28 +667,38 @@
     color: rgba(0, 0, 0, 0.7);
   }
 
-  .contenidoImagen--flotante {
+  .contenidoImagen--wrapper {
     position: absolute;
-    top: 2rem;
-    width: 300px;
-    max-width: 30%;
-    z-index: 10;
+    top: 0;
+    bottom: 0;
+    width: var(--ancho-flotante, 300px);
+    pointer-events: none;
   }
 
-  .contenidoImagen--flotante-izquierda {
+  .contenidoImagen--wrapper-izquierda {
     left: 1rem;
   }
 
-  .contenidoImagen--flotante-derecha {
+  .contenidoImagen--wrapper-derecha {
     right: 1rem;
   }
 
+  .contenidoImagen--flotante {
+    position: sticky;
+    top: 2rem;
+    width: 100%;
+    pointer-events: auto;
+  }
+
   @media (max-width: 768px) {
-    .contenidoImagen--flotante {
+    .contenidoImagen--wrapper {
       position: static;
       width: 100%;
-      max-width: 100%;
       margin-bottom: 1rem;
+    }
+
+    .contenidoImagen--flotante {
+      position: static;
     }
   }
 
