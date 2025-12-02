@@ -17,7 +17,9 @@
     >
       {% case block.type %}
         {% when 'texto' %}
-          <div class='contenidoTexto'>
+          {% assign borde_posicion = block.settings.borde_posicion | default: 'ninguno' %}
+          {% assign borde_grosor = block.settings.borde_grosor | default: 1 %}
+          <div class='contenidoTexto contenidoTexto--borde-{{ borde_posicion }}' style='--borde-grosor: {{ borde_grosor }}px;'>
             {{ block.settings.texto }}
             {% if block.settings.enlace_boton != blank %}
               <div class='enlaceTexto botonDestacado botonDestacado--{{ block.settings.estilo_boton | default: 'claro' }} alinear-{{ block.settings.alineacion | default: 'centro' }}'>
@@ -192,6 +194,30 @@
             { "value": "claro", "label": "Fondo claro, texto negro" },
             { "value": "oscuro", "label": "Fondo negro, texto blanco" }
           ]
+        },
+        {
+          "type": "select",
+          "id": "borde_posicion",
+          "label": "Posición del borde",
+          "default": "ninguno",
+          "options": [
+            { "value": "ninguno", "label": "Sin borde" },
+            { "value": "arriba", "label": "Arriba" },
+            { "value": "abajo", "label": "Abajo" },
+            { "value": "izquierda", "label": "Izquierda" },
+            { "value": "derecha", "label": "Derecha" },
+            { "value": "completo", "label": "Completo" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "borde_grosor",
+          "label": "Grosor del borde",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 1
         }
       ]
     },
@@ -435,7 +461,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0 1rem;
   }
 
   .bloqueContenido--v-arriba {
@@ -515,6 +541,31 @@
 
   .contenidoTexto p:first-child {
     margin-block-start: 0;
+  }
+
+  .contenidoTexto--borde-arriba {
+    border-top: var(--borde-grosor, 1px) solid var(--color-foreground, #111);
+    padding-top: 1rem;
+  }
+
+  .contenidoTexto--borde-abajo {
+    border-bottom: var(--borde-grosor, 1px) solid var(--color-foreground, #111);
+    padding-bottom: 1rem;
+  }
+
+  .contenidoTexto--borde-izquierda {
+    border-left: var(--borde-grosor, 1px) solid var(--color-foreground, #111);
+    padding-left: 1rem;
+  }
+
+  .contenidoTexto--borde-derecha {
+    border-right: var(--borde-grosor, 1px) solid var(--color-foreground, #111);
+    padding-right: 1rem;
+  }
+
+  .contenidoTexto--borde-completo {
+    border: var(--borde-grosor, 1px) solid var(--color-foreground, #111);
+    padding: 1rem;
   }
 
   .enlaceTexto {
