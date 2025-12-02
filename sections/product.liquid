@@ -88,8 +88,6 @@
         {% assign mensaje_html = shop.metafields.custom.production_delivery_text | metafield_tag %}
         {% render 'acordeon', title: 'Production & Delivery', content: mensaje_html %}
       {% endif %}
-
-      
     </div>
     <div class='opcionesProducto'>
       {% form 'product', product %}
@@ -140,12 +138,11 @@
           {% endunless %}
         >
 
-          {% if product.metafields.custom.add_chain %}
-        {% assign nota = shop.metafields.custom.add_chain | metafield_tag %}
-        <div class="textoCadenas">{{ nota }}</div>
-        <input type='button' class='agregarCadenaBtn botonOscuro' data-chain-page='/pages/chains' value="Add Chain">
-
-      {% endif %}
+        {% if product.metafields.custom.add_chain %}
+          {% assign nota = shop.metafields.custom.add_chain | metafield_tag %}
+          <div class='textoCadenas'>{{ nota }}</div>
+          <input type='button' class='agregarCadenaBtn botonOscuro' data-chain-page='/pages/chains' value='Add Chain'>
+        {% endif %}
       {% endform %}
 
       {% if section.blocks.size > 0 %}
@@ -376,7 +373,8 @@
     margin-right: 1rem;
   }
 
-  .opcionesProducto input[type='submit'], .opcionesProducto input[type='button'] {
+  .opcionesProducto input[type='submit'],
+  .opcionesProducto input[type='button'] {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     background-color: #000;
@@ -386,7 +384,8 @@
     cursor: pointer;
   }
 
-  .opcionesProducto input[type='submit']:hover, .opcionesProducto input[type='button']:hover {
+  .opcionesProducto input[type='submit']:hover,
+  .opcionesProducto input[type='button']:hover {
     background-color: #333;
   }
   .stock-restante {
@@ -472,7 +471,7 @@
     position: relative;
     padding: 2rem;
     border-radius: 4px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   .modal-cadenas-cerrar {
@@ -635,126 +634,132 @@
 
       if (!modal || !modalBody || !btnAbrir) return;
 
-      var btns = {cerrar: btnsOldCerrar};
+      var btns = { cerrar: btnsOldCerrar };
 
-    function cerrarModal() {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-    }
+      function cerrarModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
 
-    function abrirModal() {
-      var pagina = btnAbrir.getAttribute('data-chain-page');
-      if (!pagina) pagina = '/pages/chains';
-      
-      modalBody.innerHTML = '<p style="text-align:center;padding:2rem;">Loading...</p>';
-      modal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      function abrirModal() {
+        var pagina = btnAbrir.getAttribute('data-chain-page');
+        if (!pagina) pagina = '/pages/chains';
 
-      fetch(pagina)
-        .then(function(res) {
-          return res.text();
-        })
-        .then(function(html) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(html, 'text/html');
-          
-          var mainEl = doc.querySelector('main');
-          if (!mainEl) {
-            modalBody.innerHTML = '<p style="text-align:center;padding:2rem;">No content found</p>';
-            return;
-          }
-          
-          modalBody.innerHTML = mainEl.innerHTML;
-          
-          var scripts = modalBody.querySelectorAll('script');
+        modalBody.innerHTML = '<p style="text-align:center;padding:2rem;">Loading...</p>';
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
 
-          var scriptsExternos = [];
-          var scriptsInline = [];
-          
-          scripts.forEach(function(oldScript) {
-            if (!oldScript.textContent || oldScript.textContent.trim().length === 0) {
-              if (oldScript.src) {
-                scriptsExternos.push(oldScript);
-              }
+        fetch(pagina)
+          .then(function (res) {
+            return res.text();
+          })
+          .then(function (html) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+
+            var mainEl = doc.querySelector('main');
+            if (!mainEl) {
+              modalBody.innerHTML = '<p style="text-align:center;padding:2rem;">No content found</p>';
               return;
             }
-            scriptsInline.push(oldScript);
-          });
 
-          var loadedCount = 0;
-          function checkAllLoaded() {
-            if (loadedCount === scriptsExternos.length) {
-              scriptsInline.forEach(function(oldScript) {
-                var codigo = oldScript.textContent;
-                codigo = codigo.replace(/document\.addEventListener\s*\(\s*['"]DOMContentLoaded['"]\s*,\s*function\s*\(\s*\)\s*\{/g, '(function(){');
-                codigo = codigo.replace(/\}\s*\)\s*;?\s*$/g, '})();');
-                
-                var newScript = document.createElement('script');
-                newScript.textContent = codigo;
-                oldScript.parentNode.replaceChild(newScript, oldScript);
-              });
-            }
-          }
+            modalBody.innerHTML = mainEl.innerHTML;
 
-          scriptsExternos.forEach(function(oldScript) {
-            var newScript = document.createElement('script');
-            newScript.src = oldScript.src;
-            newScript.onload = function() {
-              loadedCount++;
-              checkAllLoaded();
-            };
-            newScript.onerror = function() {
-              loadedCount++;
-              checkAllLoaded();
-            };
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-          });
+            var scripts = modalBody.querySelectorAll('script');
 
-          if (scriptsExternos.length === 0) {
-            checkAllLoaded();
-          }
+            var scriptsExternos = [];
+            var scriptsInline = [];
 
-          var forms = modalBody.querySelectorAll('form[action*="/cart/add"]');
-          forms.forEach(function(form) {
-            form.addEventListener('submit', function(e) {
-              e.preventDefault();
-              var formData = new FormData(form);
-              fetch('/cart/add.js', {
-                method: 'POST',
-                body: formData
-              })
-              .then(function(res) { return res.json(); })
-              .then(function(data) {
-                if (typeof window.updateCartCount === 'function') {
-                  window.updateCartCount();
+            scripts.forEach(function (oldScript) {
+              if (!oldScript.textContent || oldScript.textContent.trim().length === 0) {
+                if (oldScript.src) {
+                  scriptsExternos.push(oldScript);
                 }
-                alert('Chain added to cart!');
-              })
-              .catch(function(err) {
-                alert('Error adding to cart');
+                return;
+              }
+              scriptsInline.push(oldScript);
+            });
+
+            var loadedCount = 0;
+            function checkAllLoaded() {
+              if (loadedCount === scriptsExternos.length) {
+                scriptsInline.forEach(function (oldScript) {
+                  var codigo = oldScript.textContent;
+                  codigo = codigo.replace(
+                    /document\.addEventListener\s*\(\s*['"]DOMContentLoaded['"]\s*,\s*function\s*\(\s*\)\s*\{/g,
+                    '(function(){'
+                  );
+                  codigo = codigo.replace(/\}\s*\)\s*;?\s*$/g, '})();');
+
+                  var newScript = document.createElement('script');
+                  newScript.textContent = codigo;
+                  oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+              }
+            }
+
+            scriptsExternos.forEach(function (oldScript) {
+              var newScript = document.createElement('script');
+              newScript.src = oldScript.src;
+              newScript.onload = function () {
+                loadedCount++;
+                checkAllLoaded();
+              };
+              newScript.onerror = function () {
+                loadedCount++;
+                checkAllLoaded();
+              };
+              oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+
+            if (scriptsExternos.length === 0) {
+              checkAllLoaded();
+            }
+
+            var forms = modalBody.querySelectorAll('form[action*="/cart/add"]');
+            forms.forEach(function (form) {
+              form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(form);
+                fetch('/cart/add.js', {
+                  method: 'POST',
+                  body: formData,
+                })
+                  .then(function (res) {
+                    return res.json();
+                  })
+                  .then(function (data) {
+                    if (typeof window.updateCartCount === 'function') {
+                      window.updateCartCount();
+                    }
+                    alert('Chain added to cart!');
+                  })
+                  .catch(function (err) {
+                    alert('Error adding to cart');
+                  });
               });
             });
+          })
+          .catch(function (err) {
+            console.error('Error al cargar modal:', err);
+            modalBody.innerHTML =
+              '<p style="text-align:center;padding:2rem;">Error loading content: ' + err.message + '</p>';
           });
-        })
-        .catch(function(err) {
-          console.error('Error al cargar modal:', err);
-          modalBody.innerHTML = '<p style="text-align:center;padding:2rem;">Error loading content: ' + err.message + '</p>';
-        });
-    }
+      }
 
-    btnAbrir.addEventListener('click', abrirModal);
+      btnAbrir.addEventListener('click', abrirModal);
 
-    btns.cerrar.forEach(function(btn) {
-      btn.addEventListener('click', cerrarModal);
-    });
+      btns.cerrar.forEach(function (btn) {
+        btn.addEventListener('click', cerrarModal);
+      });
 
-      modal.addEventListener('click', function(e) {
+      modal.addEventListener('click', function (e) {
         if (e.target === modal) {
           cerrarModal();
         }
       });
 
-      document.addEventListener('keydown', function(e) {
+      document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && modal.style.display === 'flex') {
           cerrarModal();
         }
