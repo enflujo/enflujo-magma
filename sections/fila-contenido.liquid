@@ -4,45 +4,51 @@
 {% endcomment %}
 
 <div class='filaContenido filaContenido--{{ section.settings.alineacion_elementos | default: 'start' }}'>
+  {% comment %} Renderizar imágenes flotantes primero, fuera del flujo {% endcomment %}
   {% for block in section.blocks %}
-    {% assign ancho = block.settings.ancho | default: 'completo' %}
-    {% assign alineacion = block.settings.alineacion | default: 'centro' %}
-    {% assign alineacion_vertical = block.settings.alineacion_vertical | default: 'arriba' %}
-    {% assign espaciado_parrafos = block.settings.espaciado_parrafos | default: 1 %}
-    {% assign line_height = block.settings.line_height | default: 1.5 %}
-    <div
-      class='bloqueContenido bloqueContenido--{{ ancho }} bloqueContenido--{{ alineacion }} bloqueContenido--v-{{ alineacion_vertical }}'
-      style='--espaciado-p: {{ espaciado_parrafos }}em; --line-height: {{ line_height }};'
-      {{ block.shopify_attributes }}
-    >
-      {% case block.type %}
-        {% when 'texto' %}
-          {% assign borde_posicion = block.settings.borde_posicion | default: 'ninguno' %}
-          {% assign borde_grosor = block.settings.borde_grosor | default: 1 %}
-          <div class='contenidoTexto contenidoTexto--borde-{{ borde_posicion }}' style='--borde-grosor: {{ borde_grosor }}px;'>
-            {{ block.settings.texto }}
-            {% if block.settings.enlace_boton != blank %}
-              <div class='enlaceTexto botonDestacado botonDestacado--{{ block.settings.estilo_boton | default: 'claro' }} alinear-{{ block.settings.alineacion | default: 'centro' }}'>
-                <a href='{{ block.settings.enlace_boton }}'>
-                  {{ block.settings.texto_boton | default: 'Ver más' }}
-                </a>
-              </div>
+    {% if block.type == 'imagen' and block.settings.sticky %}
+      {% assign ancho_flotante = block.settings.ancho_flotante | default: 300 %}
+      <div class='contenidoImagen--wrapper contenidoImagen--wrapper-{{ block.settings.posicion_sticky | default: 'derecha' }}' style='--ancho-flotante: {{ ancho_flotante }}px;' {{ block.shopify_attributes }}>
+        <div class='contenidoImagen contenidoImagen--flotante'>
+          {% if block.settings.imagen != blank %}
+            {% render 'imagen', image: block.settings.imagen, width: 400, class: 'imagenBloque' %}
+            {% if block.settings.leyenda != blank %}
+              <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
             {% endif %}
-          </div>
-        {% when 'imagen' %}
-          {% if block.settings.sticky %}
-            {% assign ancho_flotante = block.settings.ancho_flotante | default: 300 %}
-            <div class='contenidoImagen--wrapper contenidoImagen--wrapper-{{ block.settings.posicion_sticky | default: 'derecha' }}' style='--ancho-flotante: {{ ancho_flotante }}px;'>
-              <div class='contenidoImagen contenidoImagen--flotante'>
-                {% if block.settings.imagen != blank %}
-                  {% render 'imagen', image: block.settings.imagen, width: 400, class: 'imagenBloque' %}
-                  {% if block.settings.leyenda != blank %}
-                    <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
-                  {% endif %}
-                {% endif %}
-              </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% comment %} Renderizar bloques normales (incluyendo imágenes no-sticky) {% endcomment %}
+  {% for block in section.blocks %}
+    {% unless block.type == 'imagen' and block.settings.sticky %}
+      {% assign ancho = block.settings.ancho | default: 'completo' %}
+      {% assign alineacion = block.settings.alineacion | default: 'centro' %}
+      {% assign alineacion_vertical = block.settings.alineacion_vertical | default: 'arriba' %}
+      {% assign espaciado_parrafos = block.settings.espaciado_parrafos | default: 1 %}
+      {% assign line_height = block.settings.line_height | default: 1.5 %}
+      <div
+        class='bloqueContenido bloqueContenido--{{ ancho }} bloqueContenido--{{ alineacion }} bloqueContenido--v-{{ alineacion_vertical }}'
+        style='--espaciado-p: {{ espaciado_parrafos }}em; --line-height: {{ line_height }};'
+        {{ block.shopify_attributes }}
+      >
+        {% case block.type %}
+          {% when 'texto' %}
+            {% assign borde_posicion = block.settings.borde_posicion | default: 'ninguno' %}
+            {% assign borde_grosor = block.settings.borde_grosor | default: 1 %}
+            <div class='contenidoTexto contenidoTexto--borde-{{ borde_posicion }}' style='--borde-grosor: {{ borde_grosor }}px;'>
+              {{ block.settings.texto }}
+              {% if block.settings.enlace_boton != blank %}
+                <div class='enlaceTexto botonDestacado botonDestacado--{{ block.settings.estilo_boton | default: 'claro' }} alinear-{{ block.settings.alineacion | default: 'centro' }}'>
+                  <a href='{{ block.settings.enlace_boton }}'>
+                    {{ block.settings.texto_boton | default: 'Ver más' }}
+                  </a>
+                </div>
+              {% endif %}
             </div>
-          {% else %}
+          {% when 'imagen' %}
             <div class='contenidoImagen'>
               {% if block.settings.imagen != blank %}
                 {% render 'imagen', image: block.settings.imagen, width: 800, class: 'imagenBloque' %}
@@ -51,15 +57,15 @@
                 {% endif %}
               {% endif %}
             </div>
-          {% endif %}
-        {% when 'acordeon' %}
-          <div class='contenidoAcordeon'>
-            {% if block.settings.titulo_acordeon != blank %}
-              {% render 'acordeon', title: block.settings.titulo_acordeon, content: block.settings.contenido_acordeon %}
-            {% endif %}
-          </div>
-      {% endcase %}
-    </div>
+          {% when 'acordeon' %}
+            <div class='contenidoAcordeon'>
+              {% if block.settings.titulo_acordeon != blank %}
+                {% render 'acordeon', title: block.settings.titulo_acordeon, content: block.settings.contenido_acordeon %}
+              {% endif %}
+            </div>
+        {% endcase %}
+      </div>
+    {% endunless %}
   {% endfor %}
 </div>
 
