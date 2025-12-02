@@ -193,6 +193,54 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "fila_contenido_bFDQqx": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_WRkXNJ": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 0,
+            "line_height": 1,
+            "texto": "<h2>FAQ - JEWELRY</h2>",
+            "texto_boton": "",
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
+        },
+        "acordeon_hpDE34": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "What is the difference between metals?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_8D39PG": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Does 9ct Gold Tarnish?",
+            "contenido_acordeon": ""
+          }
+        }
+      },
+      "block_order": [
+        "texto_WRkXNJ",
+        "acordeon_hpDE34",
+        "acordeon_8D39PG"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
     "fila_contenido_GQ7bYq": {
       "type": "fila-contenido",
       "blocks": {
@@ -257,6 +305,7 @@
     "fila_contenido_idRJgL",
     "fila_contenido_nMnc7t",
     "fila_contenido_kBNabE",
+    "fila_contenido_bFDQqx",
     "fila_contenido_GQ7bYq",
     "fila_contenido_fJinMe",
     "titulo_qqPPEk"
