@@ -9,15 +9,15 @@
 }
 
 .botonDestacado--claro {
-  background: #f7f7f7;
-  color: #111;
-  border-color: #111;
+  background: transparent;
+  color: var(--color-foreground);
+  border-color: var(--color-foreground);
 }
 
 .botonDestacado--oscuro {
-  background: #111;
-  color: #fff;
-  border-color: #111;
+  background: var(--color-foreground);
+  color: var(--color-background);
+  border-color: var(--color-foreground);
 }
 
 .botonDestacado:hover,
