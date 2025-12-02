@@ -88,7 +88,8 @@
             "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
             "leyenda": "",
             "sticky": true,
-            "posicion_sticky": "derecha"
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "texto_9cAHrY": {
@@ -562,7 +563,11 @@
         "titulo": "",
         "tipo": "colecciones",
         "modo": "automatico",
-        "limite": 8
+        "limite": 8,
+        "ancho_completo": true,
+        "estilo_vista": "collage",
+        "ratio": "1:1",
+        "radius": 8
       }
     }
   },
