@@ -69,10 +69,10 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
-        "titulo_seccion": "",
+        "titulo_seccion": "<p><strong>FAQ - ORDERS</strong></p>",
         "ancho": "tres-quintos",
-        "alineacion_texto": "center",
-        "mostrar_borde": true
+        "alineacion_texto": "left",
+        "mostrar_borde": false
       }
     },
     "fila_contenido_nMnc7t": {
