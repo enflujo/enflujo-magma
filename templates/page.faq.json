@@ -536,6 +536,34 @@
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
+    },
+    "carrusel_GxnVnW": {
+      "type": "carrusel",
+      "blocks": {
+        "coleccion_NtAzy4": {
+          "type": "coleccion",
+          "settings": {
+            "coleccion": "mar"
+          }
+        },
+        "coleccion_Q8neWA": {
+          "type": "coleccion",
+          "settings": {
+            "coleccion": "frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "coleccion_NtAzy4",
+        "coleccion_Q8neWA"
+      ],
+      "name": "Carrusel",
+      "settings": {
+        "titulo": "",
+        "tipo": "colecciones",
+        "modo": "automatico",
+        "limite": 8
+      }
     }
   },
   "order": [
@@ -547,6 +575,7 @@
     "fila_contenido_XyG9iJ",
     "fila_contenido_GQ7bYq",
     "fila_contenido_fJinMe",
-    "titulo_qqPPEk"
+    "titulo_qqPPEk",
+    "carrusel_GxnVnW"
   ]
 }
