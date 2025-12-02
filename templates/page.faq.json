@@ -87,7 +87,8 @@
             "alineacion_vertical": "arriba",
             "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
             "leyenda": "",
-            "sticky": true
+            "sticky": true,
+            "posicion_sticky": "derecha"
           }
         },
         "texto_9cAHrY": {
@@ -224,6 +225,19 @@
     "fila_contenido_bFDQqx": {
       "type": "fila-contenido",
       "blocks": {
+        "imagen_XVzVkE": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/brand_icon_78fd0728-33bf-4dbc-a15b-ac79b456490d.svg",
+            "leyenda": "",
+            "sticky": true,
+            "posicion_sticky": "izquierda",
+            "ancho_flotante": 250
+          }
+        },
         "texto_WRkXNJ": {
           "type": "texto",
           "settings": {
@@ -259,12 +273,24 @@
             "titulo_acordeon": "Does 9ct Gold Tarnish?",
             "contenido_acordeon": ""
           }
+        },
+        "acordeon_U9NAzc": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Will the jewellery turn my skin green?",
+            "contenido_acordeon": ""
+          }
         }
       },
       "block_order": [
+        "imagen_XVzVkE",
         "texto_WRkXNJ",
         "acordeon_hpDE34",
-        "acordeon_8D39PG"
+        "acordeon_8D39PG",
+        "acordeon_U9NAzc"
       ],
       "name": "Fila de contenido",
       "settings": {
