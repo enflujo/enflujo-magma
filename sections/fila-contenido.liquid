@@ -30,14 +30,25 @@
             {% endif %}
           </div>
         {% when 'imagen' %}
-          <div class='contenidoImagen{% if block.settings.sticky %} contenidoImagen--sticky{% endif %}'>
-            {% if block.settings.imagen != blank %}
-              {% render 'imagen', image: block.settings.imagen, width: 800, class: 'imagenBloque' %}
-              {% if block.settings.leyenda != blank %}
-                <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
+          {% if block.settings.sticky %}
+            <div class='contenidoImagen contenidoImagen--flotante contenidoImagen--flotante-{{ block.settings.posicion_sticky | default: 'derecha' }}'>
+              {% if block.settings.imagen != blank %}
+                {% render 'imagen', image: block.settings.imagen, width: 400, class: 'imagenBloque' %}
+                {% if block.settings.leyenda != blank %}
+                  <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
+                {% endif %}
               {% endif %}
-            {% endif %}
-          </div>
+            </div>
+          {% else %}
+            <div class='contenidoImagen'>
+              {% if block.settings.imagen != blank %}
+                {% render 'imagen', image: block.settings.imagen, width: 800, class: 'imagenBloque' %}
+                {% if block.settings.leyenda != blank %}
+                  <p class='leyendaImagen'>{{ block.settings.leyenda }}</p>
+                {% endif %}
+              {% endif %}
+            </div>
+          {% endif %}
         {% when 'acordeon' %}
           <div class='contenidoAcordeon'>
             {% if block.settings.titulo_acordeon != blank %}
@@ -345,9 +356,20 @@
         {
           "type": "checkbox",
           "id": "sticky",
-          "label": "Imagen fija (sticky)",
+          "label": "Imagen flotante",
           "default": false,
-          "info": "La imagen permanecerá visible durante el scroll"
+          "info": "La imagen flotará sobre el contenido sin ocupar espacio en el flujo"
+        },
+        {
+          "type": "select",
+          "id": "posicion_sticky",
+          "label": "Posición de imagen flotante",
+          "default": "derecha",
+          "options": [
+            { "value": "izquierda", "label": "Izquierda" },
+            { "value": "derecha", "label": "Derecha" }
+          ],
+          "info": "Solo aplica si 'Imagen flotante' está activado"
         }
       ]
     },
@@ -477,6 +499,7 @@
     align-items: flex-start;
     padding: 1rem 0;
     width: 100%;
+    position: relative;
   }
 
   .filaContenido--start {
@@ -630,15 +653,28 @@
     color: rgba(0, 0, 0, 0.7);
   }
 
-  .contenidoImagen--sticky {
-    position: sticky;
+  .contenidoImagen--flotante {
+    position: absolute;
     top: 2rem;
-    align-self: flex-start;
+    width: 300px;
+    max-width: 30%;
+    z-index: 10;
+  }
+
+  .contenidoImagen--flotante-izquierda {
+    left: 1rem;
+  }
+
+  .contenidoImagen--flotante-derecha {
+    right: 1rem;
   }
 
   @media (max-width: 768px) {
-    .contenidoImagen--sticky {
+    .contenidoImagen--flotante {
       position: static;
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
     }
   }
 
