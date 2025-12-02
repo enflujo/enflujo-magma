@@ -352,6 +352,125 @@
         "alineacion_elementos": "center"
       }
     },
+    "fila_contenido_XyG9iJ": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_XpehbP": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/workshops.svg",
+            "leyenda": "",
+            "sticky": true,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 200
+          }
+        },
+        "texto_nFENta": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 0,
+            "line_height": 1,
+            "texto": "<h2>FAQ - DO IT YOURSELF</h2>",
+            "texto_boton": "",
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
+        },
+        "acordeon_hM8Ptt": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "How big are the workshops?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_PEK6zj": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "What's the workshop schedule?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_X7JJn4": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Can I create my own idea in a workshop?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_3rhaxN": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Can I have something of my own made?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_eE6FKa": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "What's the minimum hours of private workshops?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_hxbHb3": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Are materials included in the workshop prices?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_FYPbfa": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "What is Magma?",
+            "contenido_acordeon": ""
+          }
+        }
+      },
+      "block_order": [
+        "imagen_XpehbP",
+        "texto_nFENta",
+        "acordeon_hM8Ptt",
+        "acordeon_PEK6zj",
+        "acordeon_X7JJn4",
+        "acordeon_3rhaxN",
+        "acordeon_eE6FKa",
+        "acordeon_hxbHb3",
+        "acordeon_FYPbfa"
+      ],
+      "name": "Fila de contenido",
+      "settings": {
+        "alineacion_elementos": "center"
+      }
+    },
     "fila_contenido_GQ7bYq": {
       "type": "fila-contenido",
       "blocks": {
@@ -425,6 +544,7 @@
     "fila_contenido_nMnc7t",
     "fila_contenido_kBNabE",
     "fila_contenido_bFDQqx",
+    "fila_contenido_XyG9iJ",
     "fila_contenido_GQ7bYq",
     "fila_contenido_fJinMe",
     "titulo_qqPPEk"
