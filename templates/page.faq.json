@@ -182,6 +182,30 @@
       "name": "Fila de contenido",
       "settings": {}
     },
+    "fila_contenido_GQ7bYq": {
+      "type": "fila-contenido",
+      "blocks": {
+        "texto_kwNEKm": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
+            "texto_boton": "GO TO BESPOKE REQUESTS",
+            "enlace_boton": "shopify://pages/contact-1",
+            "estilo_boton": "oscuro"
+          }
+        }
+      },
+      "block_order": [
+        "texto_kwNEKm"
+      ],
+      "name": "Fila de contenido",
+      "settings": {}
+    },
     "fila_contenido_fJinMe": {
       "type": "fila-contenido",
       "blocks": {
@@ -232,6 +256,7 @@
     "fila_contenido_idRJgL",
     "fila_contenido_nMnc7t",
     "fila_contenido_kBNabE",
+    "fila_contenido_GQ7bYq",
     "fila_contenido_fJinMe",
     "titulo_CUxfXV",
     "titulo_qqPPEk"
