@@ -173,11 +173,22 @@
             "titulo_acordeon": "Does the jewellery come with a warranty?",
             "contenido_acordeon": ""
           }
+        },
+        "acordeon_be7nqc": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "My jewellery has arrived damaged or not as described.",
+            "contenido_acordeon": ""
+          }
         }
       },
       "block_order": [
         "texto_Pwrd7X",
-        "acordeon_aN8Qfr"
+        "acordeon_aN8Qfr",
+        "acordeon_be7nqc"
       ],
       "name": "Fila de contenido",
       "settings": {}
