@@ -283,6 +283,56 @@
             "titulo_acordeon": "Will the jewellery turn my skin green?",
             "contenido_acordeon": ""
           }
+        },
+        "acordeon_3aMzYg": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "Can I make adjustments to the design?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_LcVLKt": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "How do I know my ring size?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_aQ8zmT": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "How do I measure my wrist to know my bracelet size?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_wVBgrz": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "How do I choose the chain length for my pendant?",
+            "contenido_acordeon": ""
+          }
+        },
+        "acordeon_WqTMKk": {
+          "type": "acordeon",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "titulo_acordeon": "How do I clean my jewelry?",
+            "contenido_acordeon": ""
+          }
         }
       },
       "block_order": [
@@ -290,7 +340,12 @@
         "texto_WRkXNJ",
         "acordeon_hpDE34",
         "acordeon_8D39PG",
-        "acordeon_U9NAzc"
+        "acordeon_U9NAzc",
+        "acordeon_3aMzYg",
+        "acordeon_LcVLKt",
+        "acordeon_aQ8zmT",
+        "acordeon_wVBgrz",
+        "acordeon_WqTMKk"
       ],
       "name": "Fila de contenido",
       "settings": {
