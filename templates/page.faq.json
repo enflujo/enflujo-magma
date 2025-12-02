@@ -230,16 +230,6 @@
       "name": "Fila de contenido",
       "settings": {}
     },
-    "titulo_CUxfXV": {
-      "type": "titulo",
-      "name": "Título",
-      "settings": {
-        "titulo_seccion": "<h2>BESPOKE & CUSTOMISATION REQUESTS</h2><p>For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod <span style=\"text-decoration:underline\"><strong>visit this page.</strong></span></p>",
-        "ancho": "tres-quintos",
-        "alineacion_texto": "left",
-        "mostrar_borde": true
-      }
-    },
     "titulo_qqPPEk": {
       "type": "titulo",
       "name": "Título",
@@ -258,7 +248,6 @@
     "fila_contenido_kBNabE",
     "fila_contenido_GQ7bYq",
     "fila_contenido_fJinMe",
-    "titulo_CUxfXV",
     "titulo_qqPPEk"
   ]
 }
