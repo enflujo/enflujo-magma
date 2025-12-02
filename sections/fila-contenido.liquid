@@ -3,7 +3,12 @@
   con control de ancho individual (1, 1/2, 1/3, 1/4) que se muestran en línea.
 {% endcomment %}
 
-<div class='filaContenido'>
+<div class='filaContenido' {% if section.settings.imagen_flotante != blank %}data-sticky-container{% endif %}>
+  {% if section.settings.imagen_flotante != blank %}
+    <div class='imagenFlotante imagenFlotante--{{ section.settings.posicion_flotante | default: 'derecha' }} imagenFlotante--{{ section.settings.ancho_flotante | default: 'quinto' }}' data-sticky-image>
+      {% render 'imagen', image: section.settings.imagen_flotante, width: 600, class: 'imagenFlotanteImg' %}
+    </div>
+  {% endif %}
   {% for block in section.blocks %}
     {% assign ancho = block.settings.ancho | default: 'completo' %}
     {% assign alineacion = block.settings.alineacion | default: 'centro' %}
@@ -52,7 +57,36 @@
 {% schema %}
 {
   "name": "Fila de contenido",
-  "settings": [],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "imagen_flotante",
+      "label": "Imagen flotante (sticky)"
+    },
+    {
+      "type": "select",
+      "id": "posicion_flotante",
+      "label": "Posición de la imagen flotante",
+      "default": "derecha",
+      "options": [
+        { "value": "izquierda", "label": "Izquierda" },
+        { "value": "derecha", "label": "Derecha" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "ancho_flotante",
+      "label": "Ancho de la imagen flotante",
+      "default": "quinto",
+      "options": [
+        { "value": "quinto", "label": "Quinto (1/5)" },
+        { "value": "cuarto", "label": "Cuarto (1/4)" },
+        { "value": "tercio", "label": "Tercio (1/3)" },
+        { "value": "dos-quintos", "label": "Dos quintos (2/5)" },
+        { "value": "mitad", "label": "Mitad (1/2)" }
+      ]
+    }
+  ],
   "blocks": [
     {
       "type": "texto",
@@ -582,6 +616,63 @@
     margin-top: 0.5rem;
     font-size: 0.85rem;
     color: rgba(0, 0, 0, 0.7);
+  }
+
+  .filaContenido[data-sticky-container] {
+    position: relative;
+  }
+
+  .imagenFlotante {
+    position: sticky;
+    top: 2rem;
+    z-index: 10;
+  }
+
+  .imagenFlotante--izquierda {
+    float: left;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .imagenFlotante--derecha {
+    float: right;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .imagenFlotante--quinto {
+    width: 20%;
+  }
+
+  .imagenFlotante--cuarto {
+    width: 25%;
+  }
+
+  .imagenFlotante--tercio {
+    width: 33.333%;
+  }
+
+  .imagenFlotante--dos-quintos {
+    width: 40%;
+  }
+
+  .imagenFlotante--mitad {
+    width: 50%;
+  }
+
+  .imagenFlotanteImg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .imagenFlotante {
+      position: static;
+      float: none;
+      width: 100% !important;
+      margin: 0 0 1rem 0;
+    }
   }
 
   @media (max-width: 768px) {
