@@ -113,7 +113,7 @@
         "tamano_icono": 35,
         "texto_seccion": "<h2>CHARMS & PENDANTS</h2><p>Discover handcrafted silver and gold jewelry made for those who end here.</p><p></p>",
         "texto_boton": "SHOP FOR YOUR WRIST & NECK",
-        "enlace_boton": "shopify://pages/jewelry",
+        "enlace_boton": "shopify://collections/jewelry",
         "alt_imagen_extra": "",
         "ancho_imagen_extra": 100,
         "alineacion_imagen_extra": "center",
