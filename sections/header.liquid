@@ -133,10 +133,54 @@
   {% endif %}
 
   <div class='encabezadoMenu'>
-    {% for link in linklists['main-menu'].links %}
-      <a href='{{ link.url }}'>{{ link.title }}</a>
-    {% endfor %}
-    <!-- Iconos se mostrarán aquí en móvil -->
+    <!-- Menú de íconos en móvil -->
+    {% if icono_blocks.size > 0 %}
+      <nav class='encabezadoIconos encabezadoIconos--movil' aria-label='Categorías'>
+        {% for bloque in icono_blocks %}
+          {% assign titulo_icono = bloque.settings.titulo_icono %}
+          {% assign imagen_icono = bloque.settings.imagen_icono %}
+          {% assign anchor_home = bloque.settings.anchor_home %}
+          {% assign destino_url = bloque.settings.destino_url %}
+
+          {% if es_home != '' and anchor_home != blank %}
+            {% assign link_destino = '#' | append: anchor_home %}
+          {% else %}
+            {% assign link_destino = destino_url %}
+          {% endif %}
+
+          {% assign es_activo = false %}
+          {% if es_home == '' and destino_url != blank and pagina_actual != '' %}
+            {% assign url_partes = destino_url | split: '/' %}
+            {% for parte in url_partes %}
+              {% if parte == tipo_actual %}
+                {% assign idx = forloop.index %}
+                {% assign handle_url = url_partes[idx] %}
+                {% if handle_url == pagina_actual %}
+                  {% assign es_activo = true %}
+                  {% break %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          <a
+            href='{{ link_destino }}'
+            class='iconoCategoria iconoCategoria--movil{% if es_activo %} iconoCategoria--activo{% endif %}'
+            {% if es_home != '' and anchor_home != blank %}
+              data-scroll='true'
+            {% endif %}
+          >
+            {% if imagen_icono %}
+              {{ imagen_icono | image_url: width: 200 | image_tag: alt: titulo_icono | default: imagen_icono.alt }}
+            {% endif %}
+            {% if titulo_icono != blank %}
+              <span class='iconoCategoria__tituloMovil'>{{ titulo_icono }}</span>
+            {% endif %}
+          </a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+    <!-- Iconos de cuenta y carrito -->
     <div class='encabezadoIconos encabezadoIconos--menu'>
       {% if instagram != blank %}
         <div class='encabezadoSocial'>
@@ -218,11 +262,6 @@
       "info": "Opcional: altura específica para pantallas ≤768px. Si se deja vacío, se usa la altura de escritorio."
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    },
-    {
       "type": "range",
       "id": "altura_icono_categoria",
       "label": "Altura de íconos de categoría (px)",
@@ -274,12 +313,12 @@
     height: 5rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     position: fixed;
     z-index: 999;
     width: 100vw;
     left: 0;
-    padding: 0 100px;
+    padding: 0 2rem;
     transition:
       background-color 220ms ease,
       box-shadow 220ms ease,
@@ -360,6 +399,24 @@
     opacity: 1;
   }
 
+  .iconoCategoria--movil {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+  .iconoCategoria--movil img {
+    height: var(--icono-altura, 53px);
+    width: auto;
+    max-width: 60px;
+    object-fit: contain;
+  }
+  .iconoCategoria__tituloMovil {
+    font-size: 1rem;
+    color: var(--color-foreground);
+  }
+
   header .encabezadoMenu {
     display: flex;
     gap: 1rem;
@@ -378,11 +435,14 @@
     text-align: left;
     font-weight: bold;
     margin: 0;
+    flex-shrink: 0;
   }
 
   .logoLink img {
     height: var(--logo-altura, 33px);
     width: auto;
+    min-width: 80px;
+    object-fit: contain;
     display: block;
   }
 
@@ -440,11 +500,10 @@
       gap: 0;
     }
 
-    header .encabezadoMenu a {
-      padding: 1rem;
-      display: block;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-      text-align: center;
+    .encabezadoIconos--movil {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
     header .botonHamburguesa {
