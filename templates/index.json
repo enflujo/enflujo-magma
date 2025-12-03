@@ -484,7 +484,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
-        "anchor_seccion": "",
+        "anchor_seccion": "contact",
         "alineacion_elementos": "start"
       }
     }
