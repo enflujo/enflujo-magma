@@ -567,7 +567,7 @@
         "titulo": "",
         "tipo": "colecciones",
         "modo": "manual",
-        "limite": 8,
+        "limite": 5,
         "gap": 0,
         "ancho_completo": true,
         "estilo_vista": "mini-collage",
