@@ -68,11 +68,32 @@
         if (cargando) return;
         cargando = true;
         try {
+          // Guardar valores actuales de los inputs de precio antes de actualizar
+          var valoresPrecio = {};
+          var inputsPrecioActuales = form ? form.querySelectorAll('.inputPrecio') : [];
+          inputsPrecioActuales.forEach(function (input) {
+            var param = input.getAttribute('data-param');
+            if (param) {
+              valoresPrecio[param] = input.value;
+            }
+          });
+
           var data = await fetchSection(formData, page);
           if (data.filtros && filtrosContainer) {
             filtrosContainer.innerHTML = data.filtros;
             form = root.querySelector('#formFiltros');
+
+            // Restaurar valores de precio en los nuevos inputs
+            var inputsPrecioNuevos = form.querySelectorAll('.inputPrecio');
+            inputsPrecioNuevos.forEach(function (input) {
+              var param = input.getAttribute('data-param');
+              if (param && valoresPrecio[param]) {
+                input.value = valoresPrecio[param];
+              }
+            });
+
             bindFilterEvents();
+            bindRemoveFilterLinks();
           }
           if (data.productos) {
             if (replace) {
@@ -131,15 +152,69 @@
         });
       }
 
+      function bindRemoveFilterLinks() {
+        var filterLinks = root.querySelectorAll('.filtrosActivos a');
+        filterLinks.forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            var url = new URL(this.href);
+            // Convertir la URL a FormData
+            var formData = new FormData();
+            url.searchParams.forEach(function (value, key) {
+              formData.append(key, value);
+            });
+            actualizarSeccion(formData, /*replace*/ true);
+          });
+        });
+      }
+
+      function aplicarFiltrosPrecio() {
+        var inputsPrecio = form.querySelectorAll('.inputPrecio');
+
+        inputsPrecio.forEach(function (input) {
+          var paramName = input.getAttribute('data-param');
+          var hiddenInput = form.querySelector('input[name="' + paramName + '"].inputPrecioHidden');
+
+          if (hiddenInput) {
+            if (input.value && input.value.trim() !== '') {
+              var valorDecimal = parseFloat(input.value.replace(',', '.'));
+              if (!isNaN(valorDecimal)) {
+                hiddenInput.value = Math.round(valorDecimal);
+              } else {
+                hiddenInput.value = '';
+              }
+            } else {
+              hiddenInput.value = '';
+            }
+          }
+        });
+
+        onFormChange();
+      }
+
       function bindFilterEvents() {
         if (!form) return;
         var inputs = form.querySelectorAll('input, select');
         inputs.forEach(function (el) {
-          el.addEventListener('change', onFormChange);
+          if (!el.classList.contains('inputPrecio')) {
+            el.addEventListener('change', onFormChange);
+          } else {
+            // Para inputs de precio: aplicar al presionar Enter o al perder foco
+            el.addEventListener('keypress', function (e) {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                aplicarFiltrosPrecio();
+              }
+            });
+            el.addEventListener('blur', function () {
+              aplicarFiltrosPrecio();
+            });
+          }
         });
+
         form.addEventListener('submit', function (e) {
           e.preventDefault();
-          onFormChange(e);
+          aplicarFiltrosPrecio();
         });
 
         // Configurar menú de ordenamiento custom
@@ -253,11 +328,13 @@
         // Cargar vía AJAX (para cuadricula-productos)
         actualizarSeccion(null, true).then(function () {
           bindFilterEvents();
+          bindRemoveFilterLinks();
           prepareObserver();
         });
       } else {
         // Ya está renderizado (para collection)
         bindFilterEvents();
+        bindRemoveFilterLinks();
         prepareObserver();
       }
     },

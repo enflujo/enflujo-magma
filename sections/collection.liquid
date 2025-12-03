@@ -4,9 +4,7 @@
 
   https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
 {% endcomment %}
-<main>
-  <h1>{{ collection.title }}</h1>
-
+<div>
   <div class='coleccionContenedor' id='coleccion-{{ section.id }}' data-section-id='{{ section.id }}'>
     <aside class='contenedorFiltros'>
       {% comment %} Sort by selector con diseño custom {% endcomment %}
@@ -99,40 +97,47 @@
                 <summary>{{ filter.label }}</summary>
                 <div class='filtroPrecio'>
                   <div class='filtroPrecioCampo'>
-                    <label for='Filtro-{{ filter.min_value.param_name }}'>Mín</label>
+                    <label for='Filtro-{{ filter.min_value.param_name }}'>Min</label>
                     <input
-                      name='{{ filter.min_value.param_name }}'
-                      id='Filtro-{{ filter.min_value.param_name }}'
-                      type='number'
-                      inputmode='numeric'
-                      min='0'
+                      type='text'
+                      inputmode='decimal'
+                      class='inputPrecio'
+                      data-param='{{ filter.min_value.param_name }}'
                       {% if filter.min_value.value %}
-                        value='{{ filter.min_value.value | money_without_currency | replace: ",", "" }}'
+                        value='{{ filter.min_value.value }}'
                       {% endif %}
+                      placeholder='0'
+                    >
+                    <input
+                      type='hidden'
+                      name='{{ filter.min_value.param_name }}'
+                      class='inputPrecioHidden'
+                      value=''
                     >
                   </div>
                   <div class='filtroPrecioCampo'>
-                    <label for='Filtro-{{ filter.max_value.param_name }}'>Máx</label>
+                    <label for='Filtro-{{ filter.max_value.param_name }}'>Max</label>
                     <input
-                      name='{{ filter.max_value.param_name }}'
-                      id='Filtro-{{ filter.max_value.param_name }}'
-                      type='number'
-                      inputmode='numeric'
-                      min='0'
+                      type='text'
+                      inputmode='decimal'
+                      class='inputPrecio'
+                      data-param='{{ filter.max_value.param_name }}'
                       {% if filter.max_value.value %}
-                        value='{{ filter.max_value.value | money_without_currency | replace: ",", "" }}'
+                        value='{{ filter.max_value.value }}'
                       {% endif %}
+                      placeholder='No limit'
+                    >
+                    <input
+                      type='hidden'
+                      name='{{ filter.max_value.param_name }}'
+                      class='inputPrecioHidden'
+                      value=''
                     >
                   </div>
                 </div>
               </details>
           {% endcase %}
         {% endfor %}
-
-        <div class='filtrosAcciones'>
-          <a href='{{ collection.url }}' class='botonSecundario'>Limpiar</a>
-          <button type='submit' class='botonPrimario'>Aplicar</button>
-        </div>
       </form>
 
       {% assign hay_activos = false %}
@@ -149,7 +154,7 @@
 
       {% if hay_activos %}
         <div class='filtrosActivos'>
-          <p>Filtros activos:</p>
+          <p>Active filters:</p>
           <ul>
             {% for filter in collection.filters %}
               {% for value in filter.active_values %}
@@ -161,7 +166,7 @@
                 {% if filter.min_value.value or filter.max_value.value %}
                   <li>
                     <a href='{{ filter.url_to_remove }}'>
-                      Precio:
+                      Price:
                       {% if filter.min_value.value %}{{ filter.min_value.value | money }}{% else %}0{% endif %}
                       –
                       {% if filter.max_value.value -%}
@@ -192,7 +197,7 @@
       <div id='sentinel-{{ section.id }}' aria-hidden='true'></div>
     </div>
   </div>
-</main>
+</div>
 
 <style>
   .coleccionContenedor {
@@ -200,6 +205,11 @@
     grid-template-columns: 280px 1fr;
     gap: 1.5rem;
     align-items: start;
+  }
+
+  .botonPrimario {
+    font-weight: 100;
+    cursor: pointer;
   }
 
   .contenedorFiltros {
