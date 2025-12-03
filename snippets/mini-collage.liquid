@@ -1,12 +1,12 @@
 {% comment %}
-Snippet Mini Collage
-Parámetros:
-- layout: 'cuatro' | 'tres_izq_grande' | 'tres_der_grande' | 'dos' | 'cinco_T' | 'seis' | 'seis_grande'
-- img1..img6: objetos de imagen (image, product.image etc.)
-- alt1..alt6: strings alt para cada imagen
-- gap: px separation
-- radius: px border radius
-- ratio: relación de aspecto (como en sección collage)
+  Snippet Mini Collage
+  Parámetros:
+  - layout: 'cuatro' | 'tres_izq_grande' | 'tres_der_grande' | 'dos' | 'cinco_T' | 'seis' | 'seis_grande'
+  - img1..img6: objetos de imagen (image, product.image etc.)
+  - alt1..alt6: strings alt para cada imagen
+  - gap: px separation
+  - radius: px border radius
+  - ratio: relación de aspecto (como en sección collage)
 {% endcomment %}
 
 {% assign layout = layout | default: 'cuatro' %}
@@ -31,68 +31,172 @@ Parámetros:
   <div class='miniCollageGrid {{ layout }}'>
     {% assign imgs = 0 %}
     {% if img1 %}
-      <span class='miniCollageItem'><span class='miniRatioBox'>{{ img1 | image_url: width: 1000 | image_tag: alt: alt1, class: 'miniCollageImg', loading: 'lazy' }}</span></span>
+      <span class='miniCollageItem'
+        ><span class='miniRatioBox'>
+          {{- img1 | image_url: width: 1000 | image_tag: alt: alt1, class: 'miniCollageImg', loading: 'lazy' -}}
+        </span></span
+      >
       {% assign imgs = imgs | plus: 1 %}
     {% endif %}
     {% if img2 %}
-      <span class='miniCollageItem'><span class='miniRatioBox'>{{ img2 | image_url: width: 1000 | image_tag: alt: alt2, class: 'miniCollageImg', loading: 'lazy' }}</span></span>
+      <span class='miniCollageItem'
+        ><span class='miniRatioBox'>
+          {{- img2 | image_url: width: 1000 | image_tag: alt: alt2, class: 'miniCollageImg', loading: 'lazy' -}}
+        </span></span
+      >
       {% assign imgs = imgs | plus: 1 %}
     {% endif %}
     {% if img3 %}
-      <span class='miniCollageItem'><span class='miniRatioBox'>{{ img3 | image_url: width: 1000 | image_tag: alt: alt3, class: 'miniCollageImg', loading: 'lazy' }}</span></span>
+      <span class='miniCollageItem'
+        ><span class='miniRatioBox'>
+          {{- img3 | image_url: width: 1000 | image_tag: alt: alt3, class: 'miniCollageImg', loading: 'lazy' -}}
+        </span></span
+      >
       {% assign imgs = imgs | plus: 1 %}
     {% endif %}
     {% if img4 %}
-      <span class='miniCollageItem'><span class='miniRatioBox'>{{ img4 | image_url: width: 1000 | image_tag: alt: alt4, class: 'miniCollageImg', loading: 'lazy' }}</span></span>
+      <span class='miniCollageItem'
+        ><span class='miniRatioBox'>
+          {{- img4 | image_url: width: 1000 | image_tag: alt: alt4, class: 'miniCollageImg', loading: 'lazy' -}}
+        </span></span
+      >
       {% assign imgs = imgs | plus: 1 %}
     {% endif %}
     {% if img5 %}
-      <span class='miniCollageItem'><span class='miniRatioBox'>{{ img5 | image_url: width: 1000 | image_tag: alt: alt5, class: 'miniCollageImg', loading: 'lazy' }}</span></span>
+      <span class='miniCollageItem'
+        ><span class='miniRatioBox'>
+          {{- img5 | image_url: width: 1000 | image_tag: alt: alt5, class: 'miniCollageImg', loading: 'lazy' -}}
+        </span></span
+      >
       {% assign imgs = imgs | plus: 1 %}
     {% endif %}
     {% if img6 %}
-      <span class='miniCollageItem'><span class='miniRatioBox'>{{ img6 | image_url: width: 1000 | image_tag: alt: alt6, class: 'miniCollageImg', loading: 'lazy' }}</span></span>
+      <span class='miniCollageItem'
+        ><span class='miniRatioBox'>
+          {{- img6 | image_url: width: 1000 | image_tag: alt: alt6, class: 'miniCollageImg', loading: 'lazy' -}}
+        </span></span
+      >
       {% assign imgs = imgs | plus: 1 %}
     {% endif %}
   </div>
 </div>
 
 {% stylesheet %}
-  .miniCollageWrap { width: 100%; }
-  .miniCollageGrid { display: grid; gap: var(--gap); grid-auto-flow: dense; }
-  .miniCollageItem { display: block; border-radius: var(--radius); overflow: hidden; position: relative; }
-  .miniRatioBox { display: block; width: 100%; aspect-ratio: calc(1 / var(--ratio)); }
-  .miniCollageImg { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .miniCollageWrap {
+    width: 100%;
+  }
+  .miniCollageGrid {
+    display: grid;
+    gap: var(--gap);
+    grid-auto-flow: dense;
+  }
+  .miniCollageItem {
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  .miniRatioBox {
+    display: block;
+    width: 100%;
+    aspect-ratio: calc(1 / var(--ratio));
+  }
+  .miniCollageImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-  .miniCollageGrid.cuatro { grid-template-columns: repeat(4, 1fr); }
-  .miniCollageGrid.dos { grid-template-columns: repeat(2, 1fr); }
-  .miniCollageGrid.tres_izq_grande { grid-template-columns: 2fr 1fr; }
-  .miniCollageGrid.tres_der_grande { grid-template-columns: 1fr 2fr; }
+  .miniCollageGrid.cuatro {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .miniCollageGrid.dos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .miniCollageGrid.tres_izq_grande {
+    grid-template-columns: 2fr 1fr;
+  }
+  .miniCollageGrid.tres_der_grande {
+    grid-template-columns: 1fr 2fr;
+  }
 
-  .miniCollageGrid.tres_izq_grande .miniCollageItem:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
-  .miniCollageGrid.tres_izq_grande .miniCollageItem:nth-child(2) { grid-column: 2; grid-row: 1; }
-  .miniCollageGrid.tres_izq_grande .miniCollageItem:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .miniCollageGrid.tres_izq_grande .miniCollageItem:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .miniCollageGrid.tres_izq_grande .miniCollageItem:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .miniCollageGrid.tres_izq_grande .miniCollageItem:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
 
-  .miniCollageGrid.tres_der_grande .miniCollageItem:nth-child(2) { grid-column: 2; grid-row: 1 / span 2; }
-  .miniCollageGrid.tres_der_grande .miniCollageItem:nth-child(1) { grid-column: 1; grid-row: 1; }
-  .miniCollageGrid.tres_der_grande .miniCollageItem:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .miniCollageGrid.tres_der_grande .miniCollageItem:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .miniCollageGrid.tres_der_grande .miniCollageItem:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .miniCollageGrid.tres_der_grande .miniCollageItem:nth-child(3) {
+    grid-column: 1;
+    grid-row: 2;
+  }
 
-  .miniCollageGrid.seis { grid-template-columns: repeat(3, 1fr); }
-  .miniCollageGrid.seis_grande { grid-template-columns: repeat(3, 1fr); }
-  .miniCollageGrid.seis_grande .miniCollageItem:nth-child(1) { grid-column: span 2; }
+  .miniCollageGrid.seis {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .miniCollageGrid.seis_grande {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .miniCollageGrid.seis_grande .miniCollageItem:nth-child(1) {
+    grid-column: span 2;
+  }
 
-  .miniCollageGrid.cinco_T { grid-template-columns: repeat(3, 1fr); }
-  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(1) { grid-column: 1 / span 3; }
-  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(2) { grid-column: 1; grid-row: 2; }
-  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(3) { grid-column: 2; grid-row: 2; }
-  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(4) { grid-column: 3; grid-row: 2; }
-  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(5) { grid-column: 2; grid-row: 3; }
+  .miniCollageGrid.cinco_T {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(1) {
+    grid-column: 1 / span 3;
+  }
+  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  .miniCollageGrid.cinco_T .miniCollageItem:nth-child(5) {
+    grid-column: 2;
+    grid-row: 3;
+  }
 
   @media (max-width: 900px) {
-    .miniCollageGrid.cuatro { grid-template-columns: repeat(2, 1fr); }
-    .miniCollageGrid.seis { grid-template-columns: repeat(2, 1fr); }
-    .miniCollageGrid.seis_grande { grid-template-columns: repeat(2, 1fr); }
-    .miniCollageGrid.cinco_T { grid-template-columns: repeat(2, 1fr); }
+    .miniCollageGrid.cuatro {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .miniCollageGrid.seis {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .miniCollageGrid.seis_grande {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .miniCollageGrid.cinco_T {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  @media (max-width: 600px) { .miniCollageGrid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) {
+    .miniCollageGrid {
+      grid-template-columns: 1fr;
+    }
+  }
 {% endstylesheet %}

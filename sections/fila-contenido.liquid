@@ -8,7 +8,11 @@
   {% for block in section.blocks %}
     {% if block.type == 'imagen' and block.settings.sticky %}
       {% assign ancho_flotante = block.settings.ancho_flotante | default: 300 %}
-      <div class='contenidoImagen--wrapper contenidoImagen--wrapper-{{ block.settings.posicion_sticky | default: 'derecha' }}' style='--ancho-flotante: {{ ancho_flotante }}px;' {{ block.shopify_attributes }}>
+      <div
+        class='contenidoImagen--wrapper contenidoImagen--wrapper-{{ block.settings.posicion_sticky | default: 'derecha' }}'
+        style='--ancho-flotante: {{ ancho_flotante }}px;'
+        {{ block.shopify_attributes }}
+      >
         <div class='contenidoImagen contenidoImagen--flotante'>
           {% if block.settings.imagen != blank %}
             {% render 'imagen', image: block.settings.imagen, width: 400, class: 'imagenBloque' %}
@@ -38,7 +42,10 @@
           {% when 'texto' %}
             {% assign borde_posicion = block.settings.borde_posicion | default: 'ninguno' %}
             {% assign borde_grosor = block.settings.borde_grosor | default: 1 %}
-            <div class='contenidoTexto contenidoTexto--borde-{{ borde_posicion }}' style='--borde-grosor: {{ borde_grosor }}px;'>
+            <div
+              class='contenidoTexto contenidoTexto--borde-{{ borde_posicion }}'
+              style='--borde-grosor: {{ borde_grosor }}px;'
+            >
               {{ block.settings.texto }}
               {% if block.settings.enlace_boton != blank %}
                 <div class='enlaceTexto botonDestacado botonDestacado--{{ block.settings.estilo_boton | default: 'claro' }} alinear-{{ block.settings.alineacion | default: 'centro' }}'>
@@ -60,7 +67,10 @@
           {% when 'acordeon' %}
             <div class='contenidoAcordeon'>
               {% if block.settings.titulo_acordeon != blank %}
-                {% render 'acordeon', title: block.settings.titulo_acordeon, content: block.settings.contenido_acordeon %}
+                {% render 'acordeon',
+                  title: block.settings.titulo_acordeon,
+                  content: block.settings.contenido_acordeon
+                %}
               {% endif %}
             </div>
         {% endcase %}
