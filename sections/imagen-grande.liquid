@@ -1,6 +1,9 @@
 {% if section.settings.imagen_seccion %}
   <div
     class='contenedorImagenGrande full-width'
+    {% if section.settings.anchor_seccion != blank %}
+      id='{{ section.settings.anchor_seccion }}'
+    {% endif %}
     style='
       --desfaseY: {{ section.settings.desfase_vertical | default: 0 }}%;
       --desfaseYMovil: {% if section.settings.usar_desfase_escritorio_en_movil %}{{ section.settings.desfase_vertical | default: 0 }}{% else %}{{ section.settings.desfase_vertical_movil | default: 0 }}{% endif %}%;
@@ -104,6 +107,13 @@
 {
   "name": "Imágen grande",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_seccion",
+      "label": "ID de ancla (opcional)",
+      "info": "Define un ID para esta sección (ej: jewelry, prints). Permite navegación directa desde el menú de íconos.",
+      "placeholder": "jewelry"
+    },
     { "type": "header", "content": "Overlay de texto" },
     {
       "type": "image_picker",

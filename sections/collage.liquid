@@ -16,7 +16,13 @@
   {% endcase %}
 {% endcapture %}
 
-<div class='collageWrap' style='--gap: {{ gap }}px; --radius: {{ radius }}px; --ratio: {{ ratio_val | strip }};'>
+<div
+  class='collageWrap'
+  {% if section.settings.anchor_seccion != blank %}
+    id='{{ section.settings.anchor_seccion }}'
+  {% endif %}
+  style='--gap: {{ gap }}px; --radius: {{ radius }}px; --ratio: {{ ratio_val | strip }};'
+>
   <div class='collageGrid {{ layout_tipo }}'>
     {% for block in section.blocks %}
       {% assign url = '' %}
@@ -106,6 +112,13 @@
 {
   "name": "Collage de imágenes",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_seccion",
+      "label": "ID de ancla (opcional)",
+      "info": "Define un ID para esta sección (ej: jewelry, prints). Permite navegación directa desde el menú de íconos.",
+      "placeholder": "jewelry"
+    },
     {
       "type": "select",
       "id": "diseno",

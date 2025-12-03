@@ -7,7 +7,12 @@
 {% assign ratio = section.settings.ratio | default: '1:1' %}
 {% assign radius = section.settings.radius | default: 8 %}
 
-<div class='contenedorCarrusel{% if ancho_completo %} contenedorCarrusel--completo{% endif %}'>
+<div
+  class='contenedorCarrusel{% if ancho_completo %} contenedorCarrusel--completo{% endif %}'
+  {% if section.settings.anchor_seccion != blank %}
+    id='{{ section.settings.anchor_seccion }}'
+  {% endif %}
+>
   {% if section.settings.titulo != blank %}
     <h2 class='tituloCarrusel'>{{ section.settings.titulo }}</h2>
   {% endif %}
@@ -265,6 +270,13 @@
 {
   "name": "Carrusel",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_seccion",
+      "label": "ID de ancla (opcional)",
+      "info": "Define un ID para esta sección (ej: jewelry, prints). Permite navegación directa desde el menú de íconos.",
+      "placeholder": "jewelry"
+    },
     {
       "type": "text",
       "id": "titulo",

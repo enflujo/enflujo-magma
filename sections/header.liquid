@@ -16,7 +16,10 @@
   {% endif %}
 {% endif %}
 
-<header id='encabezado'>
+<header
+  id='encabezado'
+  style='--logo-altura: {% if section.settings.logo_altura_movil_px and request.design_mode %}{{ section.settings.logo_altura_px | default: 33 }}px{% else %}{{ section.settings.logo_altura_px | default: 33 }}px{% endif %}; --logo-altura-movil: {{ section.settings.logo_altura_movil_px | default: section.settings.logo_altura_px | default: 33 }}px; --icono-altura: {{ section.settings.altura_icono_categoria | default: 53 }}px;'
+>
   <!-- Botón hamburguesa visible en móvil -->
   <div id='botonHamburguesa' class='botonHamburguesa' aria-expanded='false' aria-label='Abrir menú'>
     <span class='barraHamburguesa'></span>
@@ -42,6 +45,60 @@
       {{ shop.name | link_to: routes.root_url }}
     {% endif %}
   </h2>
+
+  {% assign es_home = '' %}
+  {% if template.name == 'index' %}{% assign es_home = 'home' %}{% endif %}
+  {% assign icono_blocks = section.blocks | where: 'type', 'icono_menu' %}
+  {% if icono_blocks.size > 0 %}
+    {% assign hay_activo = '' %}
+    {% for bloque in icono_blocks %}
+      {% if bloque.settings.clave_activa != blank
+        and es_home == ''
+        and template.name contains bloque.settings.clave_activa
+      %}
+        {% assign hay_activo = 'si' %}
+      {% endif %}
+    {% endfor %}
+    <nav
+      class='encabezadoIconos encabezadoIconos--categorias{% if hay_activo != '' and es_home == '' %} categorias--conActivo{% endif %}'
+      aria-label='Categorías'
+    >
+      {% for bloque in icono_blocks %}
+        {% assign titulo_icono = bloque.settings.titulo_icono %}
+        {% assign imagen_icono = bloque.settings.imagen_icono %}
+        {% assign anchor_home = bloque.settings.anchor_home %}
+        {% assign destino_url = bloque.settings.destino_url %}
+        {% assign clave_activa = bloque.settings.clave_activa %}
+
+        {% if es_home != '' and anchor_home != blank %}
+          {% assign link_destino = '#' | append: anchor_home %}
+        {% else %}
+          {% assign link_destino = destino_url %}
+        {% endif %}
+
+        {% assign es_activo = false %}
+        {% if es_home == '' and clave_activa != blank and template.name contains clave_activa %}
+          {% assign es_activo = true %}
+        {% endif %}
+
+        <a
+          href='{{ link_destino }}'
+          class='iconoCategoria{% if es_activo %} iconoCategoria--activo{% endif %}'
+          {% if es_home != '' and anchor_home != blank %}
+            data-scroll='true'
+          {% endif %}
+          title='{{ titulo_icono }}'
+        >
+          {% if imagen_icono %}
+            {{ imagen_icono | image_url: width: 200 | image_tag: alt: titulo_icono | default: imagen_icono.alt }}
+          {% endif %}
+          {% if titulo_icono != blank %}
+            <span class='iconoCategoria__titulo'>{{ titulo_icono }}</span>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </nav>
+  {% endif %}
 
   <div class='encabezadoMenu'>
     {% for link in linklists['main-menu'].links %}
@@ -109,15 +166,78 @@
       "info": "Texto alternativo para el logo. Si se deja vacío, se usa el nombre de la tienda."
     },
     {
+      "type": "range",
+      "id": "logo_altura_px",
+      "label": "Altura del logo (px)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "default": 33,
+      "info": "Controla la altura del logo en píxeles. El ancho se ajusta proporcionalmente."
+    },
+    {
+      "type": "range",
+      "id": "logo_altura_movil_px",
+      "label": "Altura del logo en móvil (px)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "default": 33,
+      "info": "Opcional: altura específica para pantallas ≤768px. Si se deja vacío, se usa la altura de escritorio."
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "label": "t:labels.menu"
+    },
+    {
+      "type": "range",
+      "id": "altura_icono_categoria",
+      "label": "Altura de íconos de categoría (px)",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "default": 53,
+      "info": "Controla la altura de los íconos del menú de categorías. Por defecto es 2/3 de la altura del encabezado (53px para header de 80px)."
     },
     {
       "type": "text",
       "id": "instagram",
       "label": "Instagram (usuario o URL)",
       "info": "Introduce tu nombre de usuario o pega la URL completa."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icono_menu",
+      "name": "Ícono de categoría",
+      "settings": [
+        { "type": "image_picker", "id": "imagen_icono", "label": "Ícono" },
+        {
+          "type": "text",
+          "id": "titulo_icono",
+          "label": "Título del ícono",
+          "info": "Se muestra al pasar el cursor sobre el ícono."
+        },
+        {
+          "type": "text",
+          "id": "anchor_home",
+          "label": "ID de ancla en Home",
+          "info": "Ej: jewelry, prints. Debe existir un elemento con id='jewelry' en la sección destino."
+        },
+        {
+          "type": "url",
+          "id": "destino_url",
+          "label": "URL en otras páginas",
+          "info": "En páginas distintas al Home, este enlace se utiliza para navegar."
+        },
+        {
+          "type": "text",
+          "id": "clave_activa",
+          "label": "Clave para activar",
+          "info": "Texto que debe coincidir en template.name (p.ej. 'page.jewelry') para resaltar el ícono en su página."
+        }
+      ]
     }
   ]
 }
@@ -156,6 +276,60 @@
   header svg {
     width: 2rem;
   }
+  /* Menú de iconos de categorías */
+  .encabezadoIconos--categorias {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-left: 1.5rem;
+  }
+  .iconoCategoria {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--color-foreground);
+    opacity: 0.85;
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease;
+  }
+  .iconoCategoria img {
+    height: var(--icono-altura, 53px);
+    width: auto;
+    max-width: 100px;
+    object-fit: contain;
+    display: block;
+  }
+  .iconoCategoria__titulo {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+  .iconoCategoria:hover .iconoCategoria__titulo {
+    opacity: 1;
+  }
+  .iconoCategoria:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+  .iconoCategoria--activo {
+    opacity: 1;
+  }
+  .categorias--conActivo .iconoCategoria:not(.iconoCategoria--activo) {
+    opacity: 0.6;
+  }
 
   header .encabezadoMenu {
     display: flex;
@@ -178,8 +352,9 @@
   }
 
   .logoLink img {
-    height: 33px;
+    height: var(--logo-altura, 33px);
     width: auto;
+    display: block;
   }
 
   .botonHamburguesa {
@@ -210,6 +385,7 @@
   @media (max-width: 768px) {
     header {
       padding: 0 1rem;
+      --logo-altura: var(--logo-altura-movil, 33px);
     }
 
     header .encabezadoTitulo {
@@ -264,3 +440,36 @@
     }
   }
 {% endstylesheet %}
+
+<script>
+  (function () {
+    'use strict';
+
+    function initSmoothScroll() {
+      const linksConScroll = document.querySelectorAll('a[data-scroll="true"]');
+
+      linksConScroll.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              const header = document.querySelector('header');
+              const headerHeight = header ? header.offsetHeight : 80;
+              const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+              window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSmoothScroll);
+    } else {
+      initSmoothScroll();
+    }
+  })();
+</script>

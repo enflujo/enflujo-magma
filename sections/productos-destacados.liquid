@@ -1,4 +1,9 @@
-<div class='contenedorProductosDestacados alineacion-titulo-{{ section.settings.title_alignment | default: 'center' }} alineacion-items-{{ section.settings.items_alignment | default: 'center' }}'>
+<div
+  class='contenedorProductosDestacados alineacion-titulo-{{ section.settings.title_alignment | default: 'center' }} alineacion-items-{{ section.settings.items_alignment | default: 'center' }}'
+  {% if section.settings.anchor_seccion != blank %}
+    id='{{ section.settings.anchor_seccion }}'
+  {% endif %}
+>
   {% if section.settings.titulo_seccion != blank %}
     <h2 class='tituloSeccion'>{{ section.settings.titulo_seccion }}</h2>
   {% endif %}
@@ -51,6 +56,13 @@
 {
   "name": "Productos destacados",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_seccion",
+      "label": "ID de ancla (opcional)",
+      "info": "Define un ID para esta sección (ej: jewelry, prints). Permite navegación directa desde el menú de íconos.",
+      "placeholder": "jewelry"
+    },
     {
       "type": "text",
       "id": "titulo_seccion",

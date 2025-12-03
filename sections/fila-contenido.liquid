@@ -3,7 +3,12 @@
   con control de ancho individual (1, 1/2, 1/3, 1/4) que se muestran en línea.
 {% endcomment %}
 
-<div class='filaContenido filaContenido--{{ section.settings.alineacion_elementos | default: 'start' }}'>
+<div
+  class='filaContenido filaContenido--{{ section.settings.alineacion_elementos | default: 'start' }}'
+  {% if section.settings.anchor_seccion != blank %}
+    id='{{ section.settings.anchor_seccion }}'
+  {% endif %}
+>
   {% comment %} Renderizar imágenes flotantes primero, fuera del flujo {% endcomment %}
   {% for block in section.blocks %}
     {% if block.type == 'imagen' and block.settings.sticky %}
@@ -83,6 +88,13 @@
 {
   "name": "Fila de contenido",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_seccion",
+      "label": "ID de ancla (opcional)",
+      "info": "Define un ID para esta sección (ej: jewelry, prints). Permite navegación directa desde el menú de íconos.",
+      "placeholder": "jewelry"
+    },
     {
       "type": "select",
       "id": "alineacion_elementos",

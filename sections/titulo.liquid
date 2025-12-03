@@ -1,7 +1,12 @@
 {% assign ancho = section.settings.ancho | default: 'completo' %}
 {% assign alineacion = section.settings.alineacion_texto | default: 'center' %}
 {% assign mostrar_borde = section.settings.mostrar_borde %}
-<div class='contenedorTitulo contenedorTitulo--{{ ancho }}'>
+<div
+  class='contenedorTitulo contenedorTitulo--{{ ancho }}'
+  {% if section.settings.anchor_seccion != blank %}
+    id='{{ section.settings.anchor_seccion }}'
+  {% endif %}
+>
   <div class='textoTitulo {% if mostrar_borde %}textoTitulo--conBorde{% endif %}' style='text-align: {{ alineacion }};'>
     {{ section.settings.titulo_seccion }}
   </div>
@@ -11,6 +16,13 @@
 {
   "name": "Título",
   "settings": [
+    {
+      "type": "text",
+      "id": "anchor_seccion",
+      "label": "ID de ancla (opcional)",
+      "info": "Define un ID para esta sección (ej: jewelry, prints). Permite navegación directa desde el menú de íconos.",
+      "placeholder": "jewelry"
+    },
     {
       "type": "richtext",
       "id": "titulo_seccion",
