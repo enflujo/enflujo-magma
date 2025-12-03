@@ -33,51 +33,33 @@
     </div>
   {% endif %}
 
-  {% assign hay_texto = section.settings.video_texto %}
-  {% assign hay_boton = section.settings.video_enlace_boton %}
-  {% if hay_texto != blank or hay_boton != blank %}
-    <div
-      class='textoFlotante textoVideo {% case section.settings.posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
-      style='
-        color: {{ section.settings.color_texto | default: "#ffffff" }};
-        {% if section.settings.mostrar_fondo %} background: {{ section.settings.color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
-        max-width: {% if section.settings.max_ancho_ch %}{{ section.settings.max_ancho_ch }}ch{% else %}60ch{% endif %};
-        font-size: {% if section.settings.tamano_fuente %}{{ section.settings.tamano_fuente }}px{% else %}18px{% endif %};
-        text-align: {{ section.settings.alineacion_texto | default: 'center' }};
-        {% assign offx = section.settings.offset_x | default: 16 %}
-        {% assign offy = section.settings.offset_y | default: 16 %}
-        {% assign unidad = section.settings.unidad_offset | default: 'px' %}
-        {% case section.settings.posicion_texto | default: 'centro' %}
-          {% when 'supIzq' %} top: {{ offy }}{{ unidad }}; left: {{ offx }}{{ unidad }}; transform: none;
-          {% when 'supDer' %} top: {{ offy }}{{ unidad }}; right: {{ offx }}{{ unidad }}; transform: none;
-          {% when 'infIzq' %} bottom: {{ offy }}{{ unidad }}; left: {{ offx }}{{ unidad }}; transform: none;
-          {% when 'infDer' %} bottom: {{ offy }}{{ unidad }}; right: {{ offx }}{{ unidad }}; transform: none;
-          {% when 'supCentro' %} top: {{ offy }}{{ unidad }}; left: 50%; transform: translateX(-50%);
-          {% when 'infCentro' %} bottom: {{ offy }}{{ unidad }}; left: 50%; transform: translateX(-50%);
-          {% when 'centroDer' %} top: 50%; right: {{ offx }}{{ unidad }}; transform: translateY(-50%);
-          {% when 'centroIzq' %} top: 50%; left: {{ offx }}{{ unidad }}; transform: translateY(-50%);
-          {% else %} top: 50%; left: 50%; transform: translate(-50%, -50%);
-        {% endcase %}
-      '
-    >
-      {% if section.settings.video_texto != blank %}
-        {{ section.settings.video_texto }}
-      {% endif %}
-      {% if section.settings.video_enlace_boton != blank %}
-        <div class='enlaceVideo botonDestacado alinear-{{ section.settings.alineacion_texto | default: 'center' }}'>
-          <a href='{{ section.settings.video_enlace_boton }}' class='videoBoton'>
-            {{ section.settings.video_texto_boton | default: 'Ver más' }}
-          </a>
-        </div>
-      {% endif %}
-    </div>
-  {% endif %}
+  {% render 'texto-flotante',
+    posicion_texto: section.settings.posicion_texto,
+    alineacion_texto: section.settings.alineacion_texto,
+    color_texto: section.settings.color_texto,
+    mostrar_fondo: section.settings.mostrar_fondo,
+    color_fondo: section.settings.color_fondo,
+    max_ancho_ch: section.settings.max_ancho_ch,
+    tamano_fuente: section.settings.tamano_fuente,
+    unidad_offset: section.settings.unidad_offset,
+    offset_x: section.settings.offset_x,
+    offset_y: section.settings.offset_y,
+    texto_seccion: section.settings.video_texto,
+    enlace_boton: section.settings.video_enlace_boton,
+    texto_boton: section.settings.video_texto_boton,
+    imagen_extra: section.settings.imagen_extra,
+    alt_imagen_extra: section.settings.alt_imagen_extra,
+    ancho_imagen_extra: section.settings.ancho_imagen_extra,
+    alineacion_imagen_extra: section.settings.alineacion_imagen_extra,
+    espacio_imagen_extra: section.settings.espacio_imagen_extra
+  %}
 </div>
 
 {% schema %}
 {
   "name": "Video",
   "settings": [
+    { "type": "header", "content": "Overlay de texto" },
     {
       "type": "video",
       "id": "video_seccion",
@@ -124,6 +106,49 @@
       "type": "url",
       "id": "video_enlace_boton",
       "label": "Enlace del botón"
+    },
+    { "type": "header", "content": "Imagen adicional" },
+    {
+      "type": "image_picker",
+      "id": "imagen_extra",
+      "label": "Imagen debajo del botón (opcional)",
+      "info": "Se mostrará debajo del botón, ajustada al ancho del contenedor de texto."
+    },
+    {
+      "type": "text",
+      "id": "alt_imagen_extra",
+      "label": "Alt de imagen adicional (accesibilidad)",
+      "info": "Describe brevemente la imagen adicional."
+    },
+    {
+      "type": "range",
+      "id": "ancho_imagen_extra",
+      "label": "Ancho de la imagen adicional (%)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 100,
+      "info": "Porcentaje del ancho del contenedor de texto que ocupará la imagen adicional."
+    },
+    {
+      "type": "select",
+      "id": "alineacion_imagen_extra",
+      "label": "Alineación de la imagen",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "espacio_imagen_extra",
+      "label": "Espacio entre botón e imagen (px)",
+      "min": 0,
+      "max": 64,
+      "step": 1,
+      "default": 12
     },
     {
       "type": "select",
@@ -327,6 +352,11 @@
     color: #fff;
     background: rgba(0, 0, 0, 0.5);
     padding: 0.75rem 1rem;
+  }
+  .imagenExtra img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .textoFlotante.posCentro {

@@ -1,0 +1,82 @@
+{% comment %}
+  Snippet: texto-flotante
+  Renders overlay text block with optional button and optional image below the button.
+  Parameters expected:
+  - posicion_texto: one of centro, supIzq, supDer, infIzq, infDer, supCentro, infCentro, centroDer, centroIzq
+  - alineacion_texto: CSS text-align (left|center|right)
+  - color_texto: text color
+  - mostrar_fondo: boolean
+  - color_fondo: background color when mostrar_fondo
+  - max_ancho_ch: numeric ch width limit
+  - tamano_fuente: font size in px
+  - unidad_offset: 'px' or '%'
+  - offset_x, offset_y: numeric offsets
+  - texto_seccion: richtext
+  - enlace_boton: url
+  - texto_boton: string
+  - imagen_extra: image object (Shopify)
+  - alt_imagen_extra: string (optional)
+{% endcomment %}
+
+{% assign offx = offset_x | default: 16 %}
+{% assign offy = offset_y | default: 16 %}
+{% assign unidad = unidad_offset | default: 'px' %}
+
+<div
+  class='textoFlotante {% case posicion_texto | default: 'centro' %}{% when 'centro' %}posCentro{% when 'supIzq' %}posSupIzq{% when 'supDer' %}posSupDer{% when 'infIzq' %}posInfIzq{% when 'infDer' %}posInfDer{% when 'supCentro' %}posSupCentro{% when 'infCentro' %}posInfCentro{% when 'centroDer' %}posCentroDer{% when 'centroIzq' %}posCentroIzq{% endcase %}'
+  style='
+    color: {{ color_texto | default: "#ffffff" }};
+    {% if mostrar_fondo %} background: {{ color_fondo | default: "rgba(0,0,0,0.5)" }}; {% else %} background: transparent; {% endif %}
+    max-width: {% if max_ancho_ch %}{{ max_ancho_ch }}ch{% else %}60ch{% endif %};
+    font-size: {% if tamano_fuente %}{{ tamano_fuente }}px{% else %}18px{% endif %};
+    text-align: {{ alineacion_texto | default: 'center' }};
+    {% case posicion_texto | default: 'centro' %}
+      {% when 'supIzq' %} top: {{ offy }}{{ unidad }}; left: {{ offx }}{{ unidad }}; transform: none;
+      {% when 'supDer' %} top: {{ offy }}{{ unidad }}; right: {{ offx }}{{ unidad }}; transform: none;
+      {% when 'infIzq' %} bottom: {{ offy }}{{ unidad }}; left: {{ offx }}{{ unidad }}; transform: none;
+      {% when 'infDer' %} bottom: {{ offy }}{{ unidad }}; right: {{ offx }}{{ unidad }}; transform: none;
+      {% when 'supCentro' %} top: {{ offy }}{{ unidad }}; left: 50%; transform: translateX(-50%);
+      {% when 'infCentro' %} bottom: {{ offy }}{{ unidad }}; left: 50%; transform: translateX(-50%);
+      {% when 'centroDer' %} top: 50%; right: {{ offx }}{{ unidad }}; transform: translateY(-50%);
+      {% when 'centroIzq' %} top: 50%; left: {{ offx }}{{ unidad }}; transform: translateY(-50%);
+      {% else %} top: 50%; left: 50%; transform: translate(-50%, -50%);
+    {% endcase %}
+  '
+>
+  {% if texto_seccion != blank %}
+    {{ texto_seccion }}
+  {% endif %}
+
+  {% if enlace_boton != blank %}
+    <div class='enlaceImagen botonDestacado alinear-{{ alineacion_texto | default: 'center' }}'>
+      <a href='{{ enlace_boton }}' class='imagenBoton'>
+        {{ texto_boton | default: 'Ver más' }}
+      </a>
+    </div>
+  {% endif %}
+
+  {% if imagen_extra != blank %}
+    {% assign ancho_extra = ancho_imagen_extra | default: 100 %}
+    {% assign espacio_extra = espacio_imagen_extra | default: 12 %}
+    {% assign alineacion_extra = alineacion_imagen_extra | default: 'center' %}
+    {% case alineacion_extra %}
+      {% when 'left' %}
+        {% assign estilos_alineacion = 'margin-left: 0; margin-right: auto;' %}
+      {% when 'right' %}
+        {% assign estilos_alineacion = 'margin-left: auto; margin-right: 0;' %}
+      {% else %}
+        {% assign estilos_alineacion = 'margin-left: auto; margin-right: auto;' %}
+    {% endcase %}
+    <div
+      class='imagenExtra'
+      style='margin-top: {{ espacio_extra }}px; width: {{ ancho_extra }}%; max-width: 100%; {{ estilos_alineacion }}'
+    >
+      {{
+        imagen_extra
+        | image_url: width: 2000
+        | image_tag: alt: alt_imagen_extra, class: 'imagenExtraImg'
+        | default: imagen_extra.alt
+      }}
+    </div>
+  {% endif %}
+</div>
