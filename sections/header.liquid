@@ -25,7 +25,22 @@
   </div>
 
   <h2 class='encabezadoTitulo'>
-    {{ shop.name | link_to: routes.root_url }}
+    {% if section.settings.logo_header %}
+      <a
+        href='{{ routes.root_url }}'
+        class='logoLink'
+        aria-label='{{ section.settings.alt_logo | default: shop.name }}'
+      >
+        {{
+          section.settings.logo_header
+          | image_url: width: 600
+          | image_tag: alt: section.settings.alt_logo
+          | default: section.settings.logo_header.alt
+        }}
+      </a>
+    {% else %}
+      {{ shop.name | link_to: routes.root_url }}
+    {% endif %}
   </h2>
 
   <div class='encabezadoMenu'>
@@ -81,6 +96,18 @@
 {
   "name": "t:general.header",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_header",
+      "label": "Logo del encabezado (opcional)",
+      "info": "Si se define, se muestra en lugar del nombre de la tienda."
+    },
+    {
+      "type": "text",
+      "id": "alt_logo",
+      "label": "Alt del logo (accesibilidad)",
+      "info": "Texto alternativo para el logo. Si se deja vacío, se usa el nombre de la tienda."
+    },
     {
       "type": "link_list",
       "id": "menu",
@@ -147,6 +174,12 @@
   .encabezadoTitulo {
     text-align: left;
     font-weight: bold;
+    margin: 0;
+  }
+
+  .logoLink img {
+    height: 33px;
+    width: auto;
   }
 
   .botonHamburguesa {
