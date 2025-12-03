@@ -13,6 +13,7 @@
       "type": "video",
       "name": "Video",
       "settings": {
+        "anchor_seccion": "",
         "video_seccion": "shopify://files/videos/01 HERO_STRINGOUT_1.mp4",
         "titulo_superior": "",
         "tamano_icono": 60,
@@ -96,6 +97,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "the-brand",
         "alineacion_elementos": "start"
       }
     },
@@ -103,6 +105,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/lucky_bracelet_chain.jpg",
         "alt_texto": "",
         "titulo_superior": "JEWELRY",
@@ -161,6 +164,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "Featured Pieces",
         "title_alignment": "center",
         "items_alignment": "center",
@@ -172,6 +176,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/nail_ring3.jpg",
         "alt_texto": "",
         "titulo_superior": "",
@@ -229,6 +234,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "Featured Pieces",
         "title_alignment": "center",
         "items_alignment": "center",
@@ -240,6 +246,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/lucky_bracelet_chain.jpg",
         "alt_texto": "",
         "titulo_superior": "",
@@ -290,6 +297,7 @@
       ],
       "name": "Productos destacados",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "Featured Pieces",
         "title_alignment": "center",
         "items_alignment": "center",
@@ -301,6 +309,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/jewelry-and-print-2023.jpg",
         "alt_texto": "",
         "titulo_superior": "ILLUSTRATION",
@@ -334,6 +343,7 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
@@ -344,6 +354,7 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>LEARN SOMETHING WORKSHOP SOMETHING</h2><p>Explore the workshops and something else about learning and teaching and the boxes and the studio.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
@@ -354,6 +365,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/magma-banner-big_e99ca915-6b99-4423-8130-3fc5c1ab0bef.svg",
         "alt_texto": "",
         "titulo_superior": "WORKSHOPS",
@@ -387,6 +399,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/workshops-large-image.jpg",
         "alt_texto": "",
         "titulo_superior": "",
@@ -471,6 +484,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "start"
       }
     }

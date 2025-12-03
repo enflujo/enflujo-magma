@@ -13,10 +13,28 @@
   "sections": {
     "header": {
       "type": "header",
+      "blocks": {
+        "icono_menu_3LLLd9": {
+          "type": "icono_menu",
+          "settings": {
+            "imagen_icono": "shopify://shop_images/brand_icon_78fd0728-33bf-4dbc-a15b-ac79b456490d.svg",
+            "titulo_icono": "The Brand",
+            "anchor_home": "the-brand",
+            "destino_url": "shopify://pages/contact",
+            "clave_activa": "page.about"
+          }
+        }
+      },
+      "block_order": [
+        "icono_menu_3LLLd9"
+      ],
       "settings": {
         "logo_header": "shopify://shop_images/image.png",
         "alt_logo": "Mariana La Rotta",
+        "logo_altura_px": 33,
+        "logo_altura_movil_px": 33,
         "menu": "main-menu",
+        "altura_icono_categoria": 53,
         "instagram": "mlarotta_metal"
       }
     }
