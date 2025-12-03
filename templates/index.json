@@ -19,6 +19,11 @@
         "video_texto": "<h2>SCULPTURE AGAINST CONFORMITY</h2><p>Handcrafted Objects and Wax Carved Narrative Jewelry inspired in Nature to Carry Your Story</p>",
         "video_texto_boton": "ENTER THE ARCHIVE",
         "video_enlace_boton": "shopify://collections/all",
+        "imagen_extra": "shopify://shop_images/identidad.png",
+        "alt_imagen_extra": "Mariana La Rotta",
+        "ancho_imagen_extra": 60,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 35,
         "posicion_texto": "supDer",
         "alineacion_texto": "center",
         "color_texto": "#333333",
@@ -48,7 +53,10 @@
             "line_height": 1.2,
             "texto": "<h2>THE BRAND</h2><h6>RINGS<br/>CHARMS & PENDANTS<br/>NECKLACES & BRACELETS<br/>PRINTS<br/>WORKSHOPS<br/>DIY-SETS</h6>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_jmJGmk": {
@@ -61,7 +69,10 @@
             "line_height": 1.3,
             "texto": "<p>Mariana La Rotta is a Brand that makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "imagen_eKNMKt": {
@@ -71,7 +82,10 @@
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
             "imagen": "shopify://shop_images/brand_icon_78fd0728-33bf-4dbc-a15b-ac79b456490d.svg",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         }
       },
@@ -81,7 +95,9 @@
         "imagen_eKNMKt"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "alineacion_elementos": "start"
+      }
     },
     "imagen_grande_rcYX6X": {
       "type": "imagen-grande",
@@ -95,6 +111,10 @@
         "texto_seccion": "<h2>CHARMS & PENDANTS</h2><p>Discover handcrafted silver and gold jewelry made for those who end here.</p><p></p>",
         "texto_boton": "SHOP FOR YOUR WRIST & NECK",
         "enlace_boton": "shopify://pages/jewelry",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "infIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -159,6 +179,10 @@
         "texto_seccion": "<h2>RINGS</h2><p>Jewelry made for those who find meaning in what they wear and hold.</p>",
         "texto_boton": "SHOP FOR YOUR HAND",
         "enlace_boton": "shopify://pages/jewelry",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "centroIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -223,6 +247,10 @@
         "texto_seccion": "<h2>NECKLACES & BRACELETS</h2><p>Jewelry made for those who find meaning in what they wear and hold.</p>",
         "texto_boton": "SHOP FOR YOUR NECK",
         "enlace_boton": "shopify://pages/jewelry",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "infIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -281,6 +309,10 @@
         "texto_seccion": "<h2>PRINTS</h2><p>Don't miss the something about searching for other things or finding a treasure</p>",
         "texto_boton": "SHOP FOR THE WALLS",
         "enlace_boton": "shopify://pages/prints",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "centroIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -330,6 +362,10 @@
         "texto_seccion": "<h2>LEARN IN THE STUDIO</h2><p>Create your own piece while exploring the basics of jewellery making and linocut printing in small, guided workshops.</p>",
         "texto_boton": "RESERVE YOUR SPOT",
         "enlace_boton": "shopify://pages/workshop",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "infIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -358,11 +394,15 @@
         "texto_seccion": "<h2>LEARN IN THE STUDIO</h2><p>Create your own piece while exploring the basics of jewellery making and linocut printing in small, guided workshops.</p>",
         "texto_boton": "RESERVE YOUR SPOT",
         "enlace_boton": "shopify://pages/workshop",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "infIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": false,
         "max_ancho_ch": 38,
         "unidad_offset": "px",
@@ -385,7 +425,10 @@
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
             "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "texto_iWkwtQ": {
@@ -398,7 +441,10 @@
             "line_height": 1.5,
             "texto": "<h2>CONTACT</h2><h6>If you have any questions you can either fill out the contact form or write an E-Mail. Please ensure to provide as much information as possible in the body of your email including your full name and your location.</h6>",
             "texto_boton": "GET IN TOUCH",
-            "enlace_boton": "shopify://pages/contact-1"
+            "enlace_boton": "shopify://pages/contact-1",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_TWGce3": {
@@ -411,7 +457,10 @@
             "line_height": 1.5,
             "texto": "<h2>NEWSLETTER</h2><h6>Join to receive news about upcoming releases and occasional updates on products and culture.</h6>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         }
       },
@@ -421,7 +470,9 @@
         "texto_TWGce3"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "alineacion_elementos": "start"
+      }
     }
   },
   "order": [
