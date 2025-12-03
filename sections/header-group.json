@@ -23,10 +23,21 @@
             "destino_url": "shopify://pages/contact",
             "clave_activa": "page.about"
           }
+        },
+        "icono_menu_9AJbXB": {
+          "type": "icono_menu",
+          "settings": {
+            "imagen_icono": "shopify://shop_images/Fire_black.png",
+            "titulo_icono": "Jewelry",
+            "anchor_home": "jewelry",
+            "destino_url": "shopify://pages/jewelry",
+            "clave_activa": "page.jewelry"
+          }
         }
       },
       "block_order": [
-        "icono_menu_3LLLd9"
+        "icono_menu_3LLLd9",
+        "icono_menu_9AJbXB"
       ],
       "settings": {
         "logo_header": "shopify://shop_images/image.png",
