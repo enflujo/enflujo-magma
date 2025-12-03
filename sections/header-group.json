@@ -21,7 +21,7 @@
             "titulo_icono": "The Brand",
             "anchor_home": "the-brand",
             "destino_url": "shopify://pages/contact",
-            "clave_activa": "page.about"
+            "clave_activa": ""
           }
         },
         "icono_menu_9AJbXB": {
@@ -31,7 +31,7 @@
             "titulo_icono": "Jewelry",
             "anchor_home": "jewelry",
             "destino_url": "shopify://pages/jewelry",
-            "clave_activa": "page.jewelry"
+            "clave_activa": ""
           }
         },
         "icono_menu_ygtYAa": {
@@ -41,7 +41,7 @@
             "titulo_icono": "Illustration",
             "anchor_home": "illustration",
             "destino_url": "shopify://pages/prints",
-            "clave_activa": "page.prints"
+            "clave_activa": ""
           }
         },
         "icono_menu_4f3tkb": {
@@ -51,7 +51,7 @@
             "titulo_icono": "Workshops",
             "anchor_home": "workshops",
             "destino_url": "shopify://pages/workshop",
-            "clave_activa": "page.workshops"
+            "clave_activa": ""
           }
         },
         "icono_menu_dkRCWr": {
@@ -61,7 +61,7 @@
             "titulo_icono": "Contact",
             "anchor_home": "contact",
             "destino_url": "shopify://pages/contact-1",
-            "clave_activa": "page.contact"
+            "clave_activa": ""
           }
         }
       },
