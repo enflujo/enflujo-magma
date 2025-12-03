@@ -51,24 +51,46 @@
   {% assign icono_blocks = section.blocks | where: 'type', 'icono_menu' %}
   {% if icono_blocks.size > 0 %}
     {% assign hay_activo = '' %}
+    {% comment %}Determinar el identificador actual para comparación{% endcomment %}
+    {% assign pagina_actual = '' %}
+    {% assign tipo_actual = '' %}
+    {% if template.name == 'page' and page.handle %}
+      {% assign pagina_actual = page.handle %}
+      {% assign tipo_actual = 'pages' %}
+    {% elsif template.name == 'collection' and collection.handle %}
+      {% assign pagina_actual = collection.handle %}
+      {% assign tipo_actual = 'collections' %}
+    {% elsif template.name == 'product' and product.handle %}
+      {% assign pagina_actual = product.handle %}
+      {% assign tipo_actual = 'products' %}
+    {% endif %}
+
     {% for bloque in icono_blocks %}
-      {% if bloque.settings.clave_activa != blank
-        and es_home == ''
-        and template.name contains bloque.settings.clave_activa
-      %}
-        {% assign hay_activo = 'si' %}
+      {% if bloque.settings.destino_url != blank and es_home == '' and pagina_actual != '' %}
+        {% assign url_partes = bloque.settings.destino_url | split: '/' %}
+        {% for parte in url_partes %}
+          {% if parte == tipo_actual %}
+            {% assign idx = forloop.index %}
+            {% assign handle_url = url_partes[idx] %}
+            {% if handle_url == pagina_actual %}
+              {% assign hay_activo = 'si' %}
+              {% break %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
       {% endif %}
     {% endfor %}
     <nav
       class='encabezadoIconos encabezadoIconos--categorias{% if hay_activo != '' and es_home == '' %} categorias--conActivo{% endif %}'
       aria-label='Categorías'
+      data-template='{{ template.name }}'
+      data-page-handle='{{ page.handle }}'
     >
       {% for bloque in icono_blocks %}
         {% assign titulo_icono = bloque.settings.titulo_icono %}
         {% assign imagen_icono = bloque.settings.imagen_icono %}
         {% assign anchor_home = bloque.settings.anchor_home %}
         {% assign destino_url = bloque.settings.destino_url %}
-        {% assign clave_activa = bloque.settings.clave_activa %}
 
         {% if es_home != '' and anchor_home != blank %}
           {% assign link_destino = '#' | append: anchor_home %}
@@ -77,8 +99,18 @@
         {% endif %}
 
         {% assign es_activo = false %}
-        {% if es_home == '' and clave_activa != blank and template.name contains clave_activa %}
-          {% assign es_activo = true %}
+        {% if es_home == '' and destino_url != blank and pagina_actual != '' %}
+          {% assign url_partes = destino_url | split: '/' %}
+          {% for parte in url_partes %}
+            {% if parte == tipo_actual %}
+              {% assign idx = forloop.index %}
+              {% assign handle_url = url_partes[idx] %}
+              {% if handle_url == pagina_actual %}
+                {% assign es_activo = true %}
+                {% break %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         {% endif %}
 
         <a
@@ -229,13 +261,7 @@
           "type": "url",
           "id": "destino_url",
           "label": "URL en otras páginas",
-          "info": "En páginas distintas al Home, este enlace se utiliza para navegar."
-        },
-        {
-          "type": "text",
-          "id": "clave_activa",
-          "label": "Clave para activar",
-          "info": "Texto que debe coincidir en template.name (p.ej. 'page.jewelry') para resaltar el ícono en su página."
+          "info": "Ej: /pages/jewelry, /collections/rings. Se usa para navegación y para detectar automáticamente cuál ícono resaltar."
         }
       ]
     }
