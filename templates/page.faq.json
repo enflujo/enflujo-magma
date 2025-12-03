@@ -541,33 +541,36 @@
     "carrusel_GxnVnW": {
       "type": "carrusel",
       "blocks": {
-        "coleccion_NtAzy4": {
-          "type": "coleccion",
+        "mini_collage_Aex6bp": {
+          "type": "mini_collage",
           "settings": {
-            "coleccion": "mar"
-          }
-        },
-        "coleccion_Q8neWA": {
-          "type": "coleccion",
-          "settings": {
-            "coleccion": "frontpage"
+            "layout": "tres_der_grande",
+            "img1": "shopify://shop_images/mariana-la-rotta-sculptural-silver-ring-dark-folk-circus-horse-right.jpg",
+            "alt1": "",
+            "img2": "shopify://shop_images/mariana-la-rotta-handcarved-silver-good-luck-pendant-bird-foot-berlin-studio-side-back.jpg",
+            "alt2": "",
+            "img3": "shopify://shop_images/mariana-la-rotta-handcarved-silver-sandcasting-silver-ring-relics-face-fingers-front-berlin.jpg",
+            "alt3": "",
+            "alt4": "",
+            "alt5": "",
+            "alt6": ""
           }
         }
       },
       "block_order": [
-        "coleccion_NtAzy4",
-        "coleccion_Q8neWA"
+        "mini_collage_Aex6bp"
       ],
       "name": "Carrusel",
       "settings": {
         "titulo": "",
         "tipo": "colecciones",
-        "modo": "automatico",
+        "modo": "manual",
         "limite": 8,
+        "gap": 0,
         "ancho_completo": true,
-        "estilo_vista": "collage",
-        "ratio": "1:1",
-        "radius": 8
+        "estilo_vista": "mini-collage",
+        "ratio": "2:3",
+        "radius": 0
       }
     }
   },
