@@ -17,7 +17,22 @@
       {% comment %} Modo manual: usar bloques {% endcomment %}
       {% if section.settings.modo == 'manual' %}
         {% for block in section.blocks %}
-          {% if block.type == 'producto' %}
+          {% if estilo_vista == 'mini-collage' and block.type == 'mini_collage' %}
+            <div class='carruselItem'>
+              {% render 'mini-collage',
+                layout: block.settings.layout | default: 'cuatro',
+                img1: block.settings.img1, alt1: block.settings.alt1,
+                img2: block.settings.img2, alt2: block.settings.alt2,
+                img3: block.settings.img3, alt3: block.settings.alt3,
+                img4: block.settings.img4, alt4: block.settings.alt4,
+                img5: block.settings.img5, alt5: block.settings.alt5,
+                img6: block.settings.img6, alt6: block.settings.alt6,
+                gap: section.settings.gap | default: 12,
+                radius: radius,
+                ratio: ratio
+              %}
+            </div>
+          {% elsif block.type == 'producto' %}
             {% assign prod = all_products[block.settings.producto] %}
             {% if prod %}
               <div class='carruselItem'>
@@ -28,6 +43,7 @@
                   ratio: ratio,
                   radius: radius
                 %}
+                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
               </div>
             {% endif %}
           {% endif %}
@@ -82,6 +98,7 @@
                       ratio: ratio,
                       radius: radius
                     %}
+                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
                   </div>
                   {% assign contador = contador | plus: 1 %}
                   {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -94,19 +111,80 @@
 
     {% elsif section.settings.tipo == 'colecciones' %}
       {% for block in section.blocks %}
-        {% if block.type == 'coleccion' %}
-          {% assign col = collections[block.settings.coleccion] %}
-          {% if col %}
-            <div class='carruselItem'>
-              {% render 'tarjeta-collage',
-                item: col,
-                tipo: 'coleccion',
-                estilo: estilo_vista,
-                ratio: ratio,
-                radius: radius
-              %}
-            </div>
-          {% endif %}
+        {% if estilo_vista == 'mini-collage' and block.type == 'mini_collage' %}
+          <div class='carruselItem'>
+            {% render 'mini-collage',
+              layout: block.settings.layout | default: 'cuatro',
+              img1: block.settings.img1, alt1: block.settings.alt1,
+              img2: block.settings.img2, alt2: block.settings.alt2,
+              img3: block.settings.img3, alt3: block.settings.alt3,
+              img4: block.settings.img4, alt4: block.settings.alt4,
+              img5: block.settings.img5, alt5: block.settings.alt5,
+              img6: block.settings.img6, alt6: block.settings.alt6,
+              gap: section.settings.gap | default: 12,
+              radius: radius,
+              ratio: ratio
+            %}
+              {% if block.settings.titulo != blank %}
+                <h3 class='carruselItemTitulo'>{{ block.settings.titulo }}</h3>
+              {% endif %}
+          </div>
+        {% elsif block.type == 'coleccion' %}
+            {% assign col = collections[block.settings.coleccion] %}
+            {% if col %}
+              {% if estilo_vista == 'mini-collage' %}
+                {% assign img1 = col.image %}
+                {% assign alt1 = col.title %}
+                {% assign img2 = blank %}
+                {% assign img3 = blank %}
+                {% assign img4 = blank %}
+                {% assign img5 = blank %}
+                {% assign img6 = blank %}
+                {% comment %}Marcar uso de variables para el analizador{% endcomment %}
+                {% if img1 %}{% endif %}{% if alt1 %}{% endif %}
+
+                {% assign count_added = 0 %}
+                {% for p in col.products limit: 6 %}
+                  {% if p.featured_image and count_added < 5 %}
+                    {% assign count_added = count_added | plus: 1 %}
+                    {% case count_added %}
+                      {% when 1 %}{% assign img2 = p.featured_image %}{% assign alt2 = p.title %}{% if img2 %}{% endif %}{% if alt2 %}{% endif %}
+                      {% when 2 %}{% assign img3 = p.featured_image %}{% assign alt3 = p.title %}{% if img3 %}{% endif %}{% if alt3 %}{% endif %}
+                      {% when 3 %}{% assign img4 = p.featured_image %}{% assign alt4 = p.title %}{% if img4 %}{% endif %}{% if alt4 %}{% endif %}
+                      {% when 4 %}{% assign img5 = p.featured_image %}{% assign alt5 = p.title %}{% if img5 %}{% endif %}{% if alt5 %}{% endif %}
+                      {% when 5 %}{% assign img6 = p.featured_image %}{% assign alt6 = p.title %}{% if img6 %}{% endif %}{% if alt6 %}{% endif %}
+                    {% endcase %}
+                  {% endif %}
+                {% endfor %}
+
+                <div class='carruselItem'>
+                  {% render 'mini-collage',
+                    layout: 'cuatro',
+                    img1: img1, alt1: alt1,
+                    img2: img2, alt2: alt2,
+                    img3: img3, alt3: alt3,
+                    img4: img4, alt4: alt4,
+                    img5: img5, alt5: alt5,
+                    img6: img6, alt6: alt6,
+                    gap: section.settings.gap | default: 12,
+                    radius: radius,
+                    ratio: ratio
+                  %}
+                  <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+                </div>
+              {% else %}
+                <div class='carruselItem'>
+                  {% render 'tarjeta-collage',
+                    item: col,
+                    tipo: 'coleccion',
+                    estilo: estilo_vista,
+                    ratio: ratio,
+                    radius: radius
+                  %}
+                  <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+                </div>
+              {% endif %}
+            {% endif %}
         {% endif %}
       {% endfor %}
     {% endif %}
@@ -154,6 +232,15 @@
       "default": 8
     },
     {
+      "type": "range",
+      "id": "gap",
+      "label": "Separación mini-collage (px)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 12
+    },
+    {
       "type": "checkbox",
       "id": "ancho_completo",
       "label": "Ancho completo de pantalla",
@@ -167,7 +254,8 @@
       "default": "simple",
       "options": [
         { "value": "simple", "label": "Simple (imagen + info)" },
-        { "value": "collage", "label": "Collage (solo imagen)" }
+        { "value": "collage", "label": "Collage (solo imagen)" },
+        { "value": "mini-collage", "label": "Mini-collage (varias imágenes)" }
       ]
     },
     {
@@ -193,7 +281,7 @@
       "max": 32,
       "step": 1,
       "default": 8
-    }
+    },
   ],
   "blocks": [
     {
@@ -216,6 +304,33 @@
           "id": "coleccion",
           "label": "Seleccionar colección"
         }
+      ]
+    },
+    {
+      "type": "mini_collage",
+      "name": "Mini-collage",
+      "settings": [
+        { "type": "select", "id": "layout", "label": "Diseño", "default": "cuatro", "options": [
+          { "value": "cuatro", "label": "4 imágenes iguales" },
+          { "value": "tres_izq_grande", "label": "3 con grande a la izquierda" },
+          { "value": "tres_der_grande", "label": "3 con grande a la derecha" },
+          { "value": "dos", "label": "2 iguales" },
+          { "value": "cinco_T", "label": "5 en T" },
+          { "value": "seis", "label": "6 (3x2)" },
+          { "value": "seis_grande", "label": "6 con una grande" }
+        ]},
+        { "type": "image_picker", "id": "img1", "label": "Imagen 1" },
+        { "type": "text", "id": "alt1", "label": "Alt 1 (opcional)" },
+        { "type": "image_picker", "id": "img2", "label": "Imagen 2" },
+        { "type": "text", "id": "alt2", "label": "Alt 2 (opcional)" },
+        { "type": "image_picker", "id": "img3", "label": "Imagen 3" },
+        { "type": "text", "id": "alt3", "label": "Alt 3 (opcional)" },
+        { "type": "image_picker", "id": "img4", "label": "Imagen 4" },
+        { "type": "text", "id": "alt4", "label": "Alt 4 (opcional)" },
+        { "type": "image_picker", "id": "img5", "label": "Imagen 5" },
+        { "type": "text", "id": "alt5", "label": "Alt 5 (opcional)" },
+        { "type": "image_picker", "id": "img6", "label": "Imagen 6" },
+        { "type": "text", "id": "alt6", "label": "Alt 6 (opcional)" }
       ]
     }
   ],
@@ -265,6 +380,11 @@
     flex: 0 0 300px;
   }
 
+  /* Mini-collage: items más anchos para contener varias imágenes */
+  .carrusel--mini-collage .carruselItem {
+    flex: 0 0 360px;
+  }
+
   @media (max-width: 768px) {
     .carruselItem {
       flex: 0 0 160px;
@@ -272,6 +392,9 @@
     
     .carrusel--collage .carruselItem {
       flex: 0 0 240px;
+    }
+    .carrusel--mini-collage .carruselItem {
+      flex: 0 0 280px;
     }
   }
 {% endstylesheet %}
