@@ -309,7 +309,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
-        "anchor_seccion": "",
+        "anchor_seccion": "illustration",
         "imagen_seccion": "shopify://shop_images/jewelry-and-print-2023.jpg",
         "alt_texto": "",
         "titulo_superior": "ILLUSTRATION",
