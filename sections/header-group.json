@@ -33,11 +33,22 @@
             "destino_url": "shopify://pages/jewelry",
             "clave_activa": "page.jewelry"
           }
+        },
+        "icono_menu_ygtYAa": {
+          "type": "icono_menu",
+          "settings": {
+            "imagen_icono": "shopify://shop_images/grabado_negro.png",
+            "titulo_icono": "Illustration",
+            "anchor_home": "illustration",
+            "destino_url": "shopify://pages/prints",
+            "clave_activa": "page.prints"
+          }
         }
       },
       "block_order": [
         "icono_menu_3LLLd9",
-        "icono_menu_9AJbXB"
+        "icono_menu_9AJbXB",
+        "icono_menu_ygtYAa"
       ],
       "settings": {
         "logo_header": "shopify://shop_images/image.png",
