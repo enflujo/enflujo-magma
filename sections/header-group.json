@@ -43,12 +43,23 @@
             "destino_url": "shopify://pages/prints",
             "clave_activa": "page.prints"
           }
+        },
+        "icono_menu_4f3tkb": {
+          "type": "icono_menu",
+          "settings": {
+            "imagen_icono": "shopify://shop_images/workshops.svg",
+            "titulo_icono": "Workshops",
+            "anchor_home": "workshops",
+            "destino_url": "shopify://pages/workshop",
+            "clave_activa": "page.workshops"
+          }
         }
       },
       "block_order": [
         "icono_menu_3LLLd9",
         "icono_menu_9AJbXB",
-        "icono_menu_ygtYAa"
+        "icono_menu_ygtYAa",
+        "icono_menu_4f3tkb"
       ],
       "settings": {
         "logo_header": "shopify://shop_images/image.png",
