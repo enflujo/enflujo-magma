@@ -545,6 +545,8 @@
           "type": "mini_collage",
           "settings": {
             "layout": "tres_der_grande",
+            "titulo": "ANIMA",
+            "enlace": "shopify://collections/frontpage",
             "img1": "shopify://shop_images/mariana-la-rotta-sculptural-silver-ring-dark-folk-circus-horse-right.jpg",
             "alt1": "",
             "img2": "shopify://shop_images/mariana-la-rotta-handcarved-silver-good-luck-pendant-bird-foot-berlin-studio-side-back.jpg",
@@ -553,8 +555,7 @@
             "alt3": "",
             "alt4": "",
             "alt5": "",
-            "alt6": "",
-            "titulo": "ANIMA"
+            "alt6": ""
           }
         }
       },
