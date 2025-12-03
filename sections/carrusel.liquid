@@ -68,6 +68,7 @@
                   ratio: ratio,
                   radius: radius
                 %}
+                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
               </div>
               {% assign contador = contador | plus: 1 %}
               {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -330,7 +331,8 @@
         { "type": "image_picker", "id": "img5", "label": "Imagen 5" },
         { "type": "text", "id": "alt5", "label": "Alt 5 (opcional)" },
         { "type": "image_picker", "id": "img6", "label": "Imagen 6" },
-        { "type": "text", "id": "alt6", "label": "Alt 6 (opcional)" }
+        { "type": "text", "id": "alt6", "label": "Alt 6 (opcional)" },
+        { "type": "text", "id": "titulo", "label": "Título (opcional)", "info": "Texto que se mostrará debajo del mini-collage" }
       ]
     }
   ],
