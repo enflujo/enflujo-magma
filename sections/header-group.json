@@ -53,13 +53,24 @@
             "destino_url": "shopify://pages/workshop",
             "clave_activa": "page.workshops"
           }
+        },
+        "icono_menu_dkRCWr": {
+          "type": "icono_menu",
+          "settings": {
+            "imagen_icono": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
+            "titulo_icono": "Contact",
+            "anchor_home": "contact",
+            "destino_url": "shopify://pages/contact-1",
+            "clave_activa": "page.contact"
+          }
         }
       },
       "block_order": [
         "icono_menu_3LLLd9",
         "icono_menu_9AJbXB",
         "icono_menu_ygtYAa",
-        "icono_menu_4f3tkb"
+        "icono_menu_4f3tkb",
+        "icono_menu_dkRCWr"
       ],
       "settings": {
         "logo_header": "shopify://shop_images/image.png",
