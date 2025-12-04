@@ -56,15 +56,45 @@
         "anchor_seccion": "",
         "titulo": "Related",
         "tipo": "productos",
-        "limite": 8,
+        "modo": "automatico",
+        "gap_carrusel": 3.5,
         "ancho_completo": true,
         "ratio": "3:2",
-        "radius": 0
+        "altura_desktop": 300,
+        "altura_mobile": 200
+      }
+    },
+    "titulo_F4XYCh": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "anchor_seccion": "",
+        "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
+    },
+    "carrusel_XzPFR7": {
+      "type": "carrusel",
+      "name": "Carrusel",
+      "settings": {
+        "anchor_seccion": "",
+        "titulo": "Productos relacionados",
+        "tipo": "colecciones",
+        "modo": "automatico",
+        "gap_carrusel": 3.5,
+        "ancho_completo": true,
+        "ratio": "1:1",
+        "altura_desktop": 300,
+        "altura_mobile": 200
       }
     }
   },
   "order": [
     "main",
-    "carrusel_U4y7cw"
+    "carrusel_U4y7cw",
+    "titulo_F4XYCh",
+    "carrusel_XzPFR7"
   ]
 }
