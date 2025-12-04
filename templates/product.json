@@ -57,10 +57,10 @@
         "titulo": "Related",
         "tipo": "productos",
         "modo": "automatico",
-        "gap_carrusel": 3.5,
+        "gap_carrusel": 4.5,
         "ancho_completo": true,
         "ratio": "3:2",
-        "altura_desktop": 300,
+        "altura_desktop": 400,
         "altura_mobile": 200
       }
     },
