@@ -5,6 +5,7 @@
 {% assign ancho_completo = section.settings.ancho_completo | default: false %}
 {% assign ratio = section.settings.ratio | default: '1:1' %}
 {% assign radius = section.settings.radius | default: 8 %}
+{% comment %} Estilos disponibles: collage (image-only), simple (image + info) {% endcomment %}
 {% assign estilo_vista = 'collage' %}
 
 <div
@@ -37,13 +38,22 @@
           {% for prod in coleccion_principal.products limit: 20 %}
             {% if prod.id != producto_actual.id and contador < max_productos %}
               <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                {% render 'tarjeta-collage',
-                  item: prod,
-                  tipo: 'producto',
-                  estilo: estilo_vista,
-                  ratio: ratio,
-                  radius: radius
-                %}
+                {% if prod.images.size > 0 %}
+                  {% render 'mini-collage-auto',
+                    images: prod.images,
+                    ratio: ratio,
+                    radius: radius,
+                    gap: 12
+                  %}
+                {% else %}
+                  {% render 'tarjeta-collage',
+                    item: prod,
+                    tipo: 'producto',
+                    estilo: estilo_vista,
+                    ratio: ratio,
+                    radius: radius
+                  %}
+                {% endif %}
               </a>
               {% assign contador = contador | plus: 1 %}
               {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -67,13 +77,22 @@
 
                 {% if tiene_tag_comun %}
                   <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                    {% render 'tarjeta-collage',
-                      item: prod,
-                      tipo: 'producto',
-                      estilo: estilo_vista,
-                      ratio: ratio,
-                      radius: radius
-                    %}
+                    {% if prod.images.size > 0 %}
+                      {% render 'mini-collage-auto',
+                        images: prod.images,
+                        ratio: ratio,
+                        radius: radius,
+                        gap: 12
+                      %}
+                    {% else %}
+                      {% render 'tarjeta-collage',
+                        item: prod,
+                        tipo: 'producto',
+                        estilo: estilo_vista,
+                        ratio: ratio,
+                        radius: radius
+                      %}
+                    {% endif %}
                   </a>
                   {% assign contador = contador | plus: 1 %}
                   {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}

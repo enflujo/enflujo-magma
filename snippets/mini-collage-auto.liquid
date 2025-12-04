@@ -1,0 +1,78 @@
+{% comment %}
+  Mini-collage automático generado desde imágenes de un producto
+  Parámetros:
+  - images: Array de imágenes del producto
+  - ratio: Relación de aspecto (ej: 1:1, 4:3)
+  - radius: Radio de borde en px
+  - gap: Separación entre elementos en px
+{% endcomment %}
+
+{% if images and images.size > 0 %}
+  <div class='miniCollageAuto' style='display: grid; gap: {{ gap | default: 12 }}px; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; height: 100%; aspect-ratio: {{ ratio | default: "1:1" }};'>
+    {% comment %} Imagen pequeña superior izquierda {% endcomment %}
+    {% if images[0] %}
+      <div style='grid-column: 1 / 2; grid-row: 1 / 2; overflow: hidden; border-radius: {{ radius }}px;'>
+        <img
+          src='{{ images[0] | image_url: width: 300 }}'
+          alt='{{ images[0].alt | default: "Producto imagen" }}'
+          width='300'
+          height='300'
+          loading='lazy'
+          style='width: 100%; height: 100%; object-fit: cover;'
+        />
+      </div>
+    {% endif %}
+
+    {% comment %} Imagen pequeña inferior izquierda {% endcomment %}
+    {% if images[1] %}
+      <div style='grid-column: 1 / 2; grid-row: 2 / 3; overflow: hidden; border-radius: {{ radius }}px;'>
+        <img
+          src='{{ images[1] | image_url: width: 300 }}'
+          alt='{{ images[1].alt | default: "Producto imagen" }}'
+          width='300'
+          height='300'
+          loading='lazy'
+          style='width: 100%; height: 100%; object-fit: cover;'
+        />
+      </div>
+    {% endif %}
+
+    {% comment %} Imagen grande derecha (ocupa ambas filas) {% endcomment %}
+    {% if images[2] %}
+      <div style='grid-column: 2 / 4; grid-row: 1 / 3; overflow: hidden; border-radius: {{ radius }}px;'>
+        <img
+          src='{{ images[2] | image_url: width: 600 }}'
+          alt='{{ images[2].alt | default: "Producto imagen" }}'
+          width='600'
+          height='600'
+          loading='lazy'
+          style='width: 100%; height: 100%; object-fit: cover;'
+        />
+      </div>
+    {% elsif images[1] %}
+      {% comment %} Si no hay tercera imagen, repetir la segunda a la derecha {% endcomment %}
+      <div style='grid-column: 2 / 4; grid-row: 1 / 3; overflow: hidden; border-radius: {{ radius }}px;'>
+        <img
+          src='{{ images[1] | image_url: width: 600 }}'
+          alt='{{ images[1].alt | default: "Producto imagen" }}'
+          width='600'
+          height='600'
+          loading='lazy'
+          style='width: 100%; height: 100%; object-fit: cover;'
+        />
+      </div>
+    {% elsif images[0] %}
+      {% comment %} Si solo hay una imagen, usarla a la derecha también {% endcomment %}
+      <div style='grid-column: 2 / 4; grid-row: 1 / 3; overflow: hidden; border-radius: {{ radius }}px;'>
+        <img
+          src='{{ images[0] | image_url: width: 600 }}'
+          alt='{{ images[0].alt | default: "Producto imagen" }}'
+          width='600'
+          height='600'
+          loading='lazy'
+          style='width: 100%; height: 100%; object-fit: cover;'
+        />
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
