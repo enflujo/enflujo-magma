@@ -7,8 +7,9 @@
 {% assign gap_carrusel = section.settings.gap_carrusel | default: 1.5 %}
 {% assign altura_desktop = section.settings.altura_desktop | default: 300 %}
 {% assign altura_mobile = section.settings.altura_mobile | default: 200 %}
+{% assign vista_tipo = section.settings.vista | default: 'collage' %}
 {% comment %} Estilos disponibles: collage (image-only), simple (image + info) {% endcomment %}
-{% assign estilo_vista = 'collage' %}
+{% assign estilo_vista = vista_tipo %}
 
 {% comment %} Convertir ratio a CSS aspect-ratio {% endcomment %}
 {% if ratio == '1:1' %}
@@ -59,10 +60,16 @@
               {% if prod %}
                 <div class='carruselItemWrapper'>
                   <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                    {% if prod.images.size > 0 %}
+                    {% if vista_tipo == 'collage' and prod.images.size > 0 %}
                       {% render 'mini-collage-auto', images: prod.images, ratio: ratio %}
-                    {% else %}
-                      {% render 'tarjeta-collage', item: prod, tipo: 'producto', estilo: estilo_vista, ratio: ratio %}
+                    {% elsif prod.featured_image %}
+                      <img
+                        src='{{ prod.featured_image | image_url: width: 800 }}'
+                        alt='{{ prod.title }}'
+                        width='800'
+                        height='800'
+                        style='width: 100%; height: 100%; object-fit: cover;'
+                      >
                     {% endif %}
                   </a>
                   {% if prod.title %}
@@ -86,10 +93,16 @@
               {% if prod.id != producto_actual.id %}
                 <div class='carruselItemWrapper'>
                   <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                    {% if prod.images.size > 0 %}
+                    {% if vista_tipo == 'collage' and prod.images.size > 0 %}
                       {% render 'mini-collage-auto', images: prod.images, ratio: ratio %}
-                    {% else %}
-                      {% render 'tarjeta-collage', item: prod, tipo: 'producto', estilo: estilo_vista, ratio: ratio %}
+                    {% elsif prod.featured_image %}
+                      <img
+                        src='{{ prod.featured_image | image_url: width: 800 }}'
+                        alt='{{ prod.title }}'
+                        width='800'
+                        height='800'
+                        style='width: 100%; height: 100%; object-fit: cover;'
+                      >
                     {% endif %}
                   </a>
                   {% if prod.title %}
@@ -120,15 +133,16 @@
                   {% if tiene_tag_comun %}
                     <div class='carruselItemWrapper'>
                       <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                        {% if prod.images.size > 0 %}
+                        {% if vista_tipo == 'collage' and prod.images.size > 0 %}
                           {% render 'mini-collage-auto', images: prod.images, ratio: ratio %}
-                        {% else %}
-                          {% render 'tarjeta-collage',
-                            item: prod,
-                            tipo: 'producto',
-                            estilo: estilo_vista,
-                            ratio: ratio
-                          %}
+                        {% elsif prod.featured_image %}
+                          <img
+                            src='{{ prod.featured_image | image_url: width: 800 }}'
+                            alt='{{ prod.title }}'
+                            width='800'
+                            height='800'
+                            style='width: 100%; height: 100%; object-fit: cover;'
+                          >
                         {% endif %}
                       </a>
                       {% if prod.title %}
@@ -171,8 +185,17 @@
               {% if col.metafields.custom.show_in_related == true %}
                 <div class='carruselItemWrapper'>
                   <a href='{{ col.url }}' class='carruselItem carruselItem--link'>
-                    {% if col.products.first %}
+                    {% if vista_tipo == 'collage' and col.products.first %}
                       {% render 'mini-collage-auto', images: col.products.first.images, ratio: ratio %}
+                    {% elsif col.products.first %}
+                      {% assign featured = col.products.first.featured_image %}
+                      <img
+                        src='{{ featured | image_url: width: 800 }}'
+                        alt='{{ col.title }}'
+                        width='800'
+                        height='800'
+                        style='width: 100%; height: 100%; object-fit: cover;'
+                      >
                     {% else %}
                       <img
                         src='{{ col.image | image_url: width: 800 }}'
@@ -236,6 +259,17 @@
       "options": [
         { "value": "automatico", "label": "Automático (relacionados)" },
         { "value": "manual", "label": "Manual (bloques)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "vista",
+      "label": "Tipo de vista",
+      "default": "collage",
+      "info": "Collage: 3 imágenes. Simple: 1 imagen.",
+      "options": [
+        { "value": "collage", "label": "Collage (3 imágenes)" },
+        { "value": "simple", "label": "Simple (1 imagen)" }
       ]
     },
     {
