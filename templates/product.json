@@ -58,7 +58,7 @@
         "tipo": "productos",
         "limite": 8,
         "ancho_completo": true,
-        "ratio": "1:1",
+        "ratio": "3:2",
         "radius": 0
       }
     }
