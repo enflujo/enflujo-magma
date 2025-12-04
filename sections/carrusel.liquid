@@ -164,6 +164,34 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+        {% else %}
+          {% comment %} Modo automático: mostrar colecciones que tengan el metacampo show_in_related activado {% endcomment %}
+          {% for col in collections %}
+            {% unless col.handle == 'all' %}
+              {% if col.metafields.custom.show_in_related == true %}
+                <div class='carruselItemWrapper'>
+                  <a href='{{ col.url }}' class='carruselItem carruselItem--link'>
+                    {% if col.products.first %}
+                      {% render 'mini-collage-auto', images: col.products.first.images, ratio: ratio %}
+                    {% else %}
+                      <img
+                        src='{{ col.image | image_url: width: 800 }}'
+                        alt='{{ col.title }}'
+                        width='800'
+                        height='800'
+                        style='width: 100%; height: 100%; object-fit: cover;'
+                      >
+                    {% endif %}
+                  </a>
+                  {% if col.title %}
+                    <a href='{{ col.url }}' class='carruselItemTituloLink'>
+                      <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
         {% endif %}
       {% endif %}
     </div>
