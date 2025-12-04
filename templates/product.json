@@ -53,10 +53,13 @@
       "type": "carrusel",
       "name": "Carrusel",
       "settings": {
+        "anchor_seccion": "",
         "titulo": "Related",
         "tipo": "productos",
-        "modo": "automatico",
-        "limite": 8
+        "limite": 8,
+        "ancho_completo": true,
+        "ratio": "1:1",
+        "radius": 0
       }
     }
   },
