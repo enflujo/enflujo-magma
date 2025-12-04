@@ -4,9 +4,30 @@
 
 {% assign ancho_completo = section.settings.ancho_completo | default: false %}
 {% assign ratio = section.settings.ratio | default: '1:1' %}
-{% assign radius = section.settings.radius | default: 8 %}
+{% assign gap_carrusel = section.settings.gap_carrusel | default: 12 %}
+{% assign altura_desktop = section.settings.altura_desktop | default: 300 %}
+{% assign altura_mobile = section.settings.altura_mobile | default: 200 %}
 {% comment %} Estilos disponibles: collage (image-only), simple (image + info) {% endcomment %}
 {% assign estilo_vista = 'collage' %}
+
+{% comment %} Convertir ratio a CSS aspect-ratio {% endcomment %}
+{% if ratio == '1:1' %}
+  {% assign ratio_css = '1 / 1' %}
+{% elsif ratio == '4:3' %}
+  {% assign ratio_css = '4 / 3' %}
+{% elsif ratio == '3:2' %}
+  {% assign ratio_css = '3 / 2' %}
+{% elsif ratio == '16:9' %}
+  {% assign ratio_css = '16 / 9' %}
+{% elsif ratio == '2:3' %}
+  {% assign ratio_css = '2 / 3' %}
+{% elsif ratio == '3:4' %}
+  {% assign ratio_css = '3 / 4' %}
+{% elsif ratio == '9:16' %}
+  {% assign ratio_css = '9 / 16' %}
+{% else %}
+  {% assign ratio_css = '1 / 1' %}
+{% endif %}
 
 <div
   class='contenedorCarrusel{% if ancho_completo %} contenedorCarrusel--completo{% endif %}'
@@ -24,91 +45,118 @@
       ‹
     </button>
 
-    <div class='carrusel carrusel--{{ estilo_vista }}' data-carrusel>
+    <div
+      class='carrusel carrusel--{{ estilo_vista }}'
+      data-carrusel
+      style='gap: {{ gap_carrusel }}px; --carrusel-ratio: {{ ratio_css }}; --altura-desktop: {{ altura_desktop }}px; --altura-mobile: {{ altura_mobile }}px;'
+    >
       {% if section.settings.tipo == 'productos' %}
-        {% comment %} Productos automáticos: relacionados de la misma colección o tags {% endcomment %}
-        {% assign max_productos = section.settings.limite | default: 8 %}
-        {% assign producto_actual = product %}
-        {% assign contador = 0 %}
-        {% assign ids_mostrados = '' %}
-
-        {% comment %} 1. Primero buscar en la misma colección {% endcomment %}
-        {% if producto_actual.collections.first %}
-          {% assign coleccion_principal = producto_actual.collections.first %}
-          {% for prod in coleccion_principal.products limit: 20 %}
-            {% if prod.id != producto_actual.id and contador < max_productos %}
-              <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                {% if prod.images.size > 0 %}
-                  {% render 'mini-collage-auto', images: prod.images, ratio: ratio, radius: radius, gap: 12 %}
-                {% else %}
-                  {% render 'tarjeta-collage',
-                    item: prod,
-                    tipo: 'producto',
-                    estilo: estilo_vista,
-                    ratio: ratio,
-                    radius: radius
-                  %}
-                {% endif %}
-              </a>
-              {% assign contador = contador | plus: 1 %}
-              {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-
-        {% comment %} 2. Si no hay suficientes, completar con productos que comparten tags {% endcomment %}
-        {% if contador < max_productos and producto_actual.tags.size > 0 %}
-          {% for prod in collections.all.products limit: 50 %}
-            {% if prod.id != producto_actual.id and contador < max_productos %}
-              {% assign id_str = prod.id | append: ',' %}
-              {% unless ids_mostrados contains id_str %}
-                {% assign tiene_tag_comun = false %}
-                {% for tag in prod.tags %}
-                  {% if producto_actual.tags contains tag %}
-                    {% assign tiene_tag_comun = true %}
-                    {% break %}
-                  {% endif %}
-                {% endfor %}
-
-                {% if tiene_tag_comun %}
+        {% if section.settings.modo == 'manual' %}
+          {% comment %} Modo manual: mostrar bloques seleccionados {% endcomment %}
+          {% for block in section.blocks %}
+            {% if block.type == 'producto' %}
+              {% assign prod = all_products[block.settings.producto] %}
+              {% if prod %}
+                <div class='carruselItemWrapper'>
                   <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
                     {% if prod.images.size > 0 %}
-                      {% render 'mini-collage-auto', images: prod.images, ratio: ratio, radius: radius, gap: 12 %}
+                      {% render 'mini-collage-auto', images: prod.images, ratio: ratio %}
                     {% else %}
-                      {% render 'tarjeta-collage',
-                        item: prod,
-                        tipo: 'producto',
-                        estilo: estilo_vista,
-                        ratio: ratio,
-                        radius: radius
-                      %}
+                      {% render 'tarjeta-collage', item: prod, tipo: 'producto', estilo: estilo_vista, ratio: ratio %}
                     {% endif %}
                   </a>
-                  {% assign contador = contador | plus: 1 %}
-                  {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
-                {% endif %}
-              {% endunless %}
+                  {% if prod.title %}
+                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                  {% endif %}
+                </div>
+              {% endif %}
             {% endif %}
           {% endfor %}
+        {% else %}
+          {% comment %} Modo automático: productos relacionados {% endcomment %}
+          {% assign producto_actual = product %}
+          {% assign ids_mostrados = '' %}
+
+          {% comment %} 1. Primero buscar en la misma colección {% endcomment %}
+          {% if producto_actual.collections.first %}
+            {% assign coleccion_principal = producto_actual.collections.first %}
+            {% for prod in coleccion_principal.products %}
+              {% if prod.id != producto_actual.id %}
+                <div class='carruselItemWrapper'>
+                  <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
+                    {% if prod.images.size > 0 %}
+                      {% render 'mini-collage-auto', images: prod.images, ratio: ratio %}
+                    {% else %}
+                      {% render 'tarjeta-collage', item: prod, tipo: 'producto', estilo: estilo_vista, ratio: ratio %}
+                    {% endif %}
+                  </a>
+                  {% if prod.title %}
+                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                  {% endif %}
+                </div>
+                {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          {% comment %} 2. Complementar con productos que comparten tags {% endcomment %}
+          {% if producto_actual.tags.size > 0 %}
+            {% for prod in collections.all.products limit: 100 %}
+              {% if prod.id != producto_actual.id %}
+                {% assign id_str = prod.id | append: ',' %}
+                {% unless ids_mostrados contains id_str %}
+                  {% assign tiene_tag_comun = false %}
+                  {% for tag in prod.tags %}
+                    {% if producto_actual.tags contains tag %}
+                      {% assign tiene_tag_comun = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {% if tiene_tag_comun %}
+                    <div class='carruselItemWrapper'>
+                      <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
+                        {% if prod.images.size > 0 %}
+                          {% render 'mini-collage-auto', images: prod.images, ratio: ratio %}
+                        {% else %}
+                          {% render 'tarjeta-collage',
+                            item: prod,
+                            tipo: 'producto',
+                            estilo: estilo_vista,
+                            ratio: ratio
+                          %}
+                        {% endif %}
+                      </a>
+                      {% if prod.title %}
+                        <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                      {% endif %}
+                    </div>
+                    {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
+                  {% endif %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         {% endif %}
 
       {% elsif section.settings.tipo == 'colecciones' %}
-        {% for block in section.blocks %}
-          {% if block.type == 'coleccion' %}
-            {% assign col = collections[block.settings.coleccion] %}
-            {% if col %}
-              <a href='{{ col.url }}' class='carruselItem carruselItem--link'>
-                {% render 'tarjeta-collage',
-                  item: col,
-                  tipo: 'coleccion',
-                  estilo: estilo_vista,
-                  ratio: ratio,
-                  radius: radius
-                %}
-              </a>
+        {% if section.settings.modo == 'manual' %}
+          {% for block in section.blocks %}
+            {% if block.type == 'coleccion' %}
+              {% assign col = collections[block.settings.coleccion] %}
+              {% if col %}
+                <div class='carruselItemWrapper'>
+                  <a href='{{ col.url }}' class='carruselItem carruselItem--link'>
+                    {% render 'tarjeta-collage', item: col, tipo: 'coleccion', estilo: estilo_vista, ratio: ratio %}
+                  </a>
+                  {% if col.title %}
+                    <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+                  {% endif %}
+                </div>
+              {% endif %}
             {% endif %}
-          {% endif %}
-        {% endfor %}
+          {% endfor %}
+        {% endif %}
       {% endif %}
     </div>
 
@@ -144,13 +192,24 @@
       ]
     },
     {
+      "type": "select",
+      "id": "modo",
+      "label": "Modo de selección",
+      "default": "automatico",
+      "info": "Automático: productos relacionados. Manual: selecciona bloques específicos.",
+      "options": [
+        { "value": "automatico", "label": "Automático (relacionados)" },
+        { "value": "manual", "label": "Manual (bloques)" }
+      ]
+    },
+    {
       "type": "range",
-      "id": "limite",
-      "label": "Cantidad máxima de productos (modo automático)",
-      "min": 4,
-      "max": 12,
+      "id": "gap_carrusel",
+      "label": "Separación entre items (px)",
+      "min": 0,
+      "max": 500,
       "step": 1,
-      "default": 8
+      "default": 12
     },
     {
       "type": "checkbox",
@@ -176,12 +235,21 @@
     },
     {
       "type": "range",
-      "id": "radius",
-      "label": "Radio de borde (px)",
-      "min": 0,
-      "max": 32,
-      "step": 1,
-      "default": 8
+      "id": "altura_desktop",
+      "label": "Alto del carrusel en desktop (px)",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "altura_mobile",
+      "label": "Alto del carrusel en móvil (px)",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "default": 200
     }
   ],
   "blocks": [
@@ -291,21 +359,14 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     padding: 0 1rem 1rem;
     flex: 1 1 auto;
   }
 
-  /* Ocultar scrollbar por defecto */
+  /* Ocultar scrollbar completamente */
   .carrusel::-webkit-scrollbar {
-    height: 4px;
-  }
-  .carrusel::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .carrusel::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
+    display: none;
   }
 
   .carruselNav {
@@ -337,9 +398,22 @@
     right: 0;
   }
 
-  .carruselItem {
-    flex: 0 0 200px;
+  .carruselItemWrapper {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
     scroll-snap-align: start;
+    height: var(--altura-desktop, 300px);
+    aspect-ratio: var(--carrusel-ratio, 1 / 1);
+    gap: 0.5rem;
+  }
+
+  .carruselItem {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
   }
 
   .carruselItem--link {
@@ -352,20 +426,9 @@
     font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
-    margin: 1rem auto 0 auto;
-    border: 2px solid;
-    padding: 0.5rem;
-    display: table;
-  }
-
-  /* Estilo collage: imágenes más grandes */
-  .carrusel--collage .carruselItem {
-    flex: 0 0 300px;
-  }
-
-  /* Mini-collage: items más anchos para contener varias imágenes */
-  .carrusel--mini-collage .carruselItem {
-    flex: 0 0 360px;
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+    flex-shrink: 0;
   }
 
   @media (max-width: 768px) {
@@ -374,15 +437,8 @@
       padding: 0.35rem 0.5rem;
     }
 
-    .carruselItem {
-      flex: 0 0 160px;
-    }
-
-    .carrusel--collage .carruselItem {
-      flex: 0 0 240px;
-    }
-    .carrusel--mini-collage .carruselItem {
-      flex: 0 0 280px;
+    .carruselItemWrapper {
+      height: var(--altura-mobile, 200px);
     }
   }
 {% endstylesheet %}
