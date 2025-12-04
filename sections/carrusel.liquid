@@ -4,7 +4,7 @@
 
 {% assign ancho_completo = section.settings.ancho_completo | default: false %}
 {% assign ratio = section.settings.ratio | default: '1:1' %}
-{% assign gap_carrusel = section.settings.gap_carrusel | default: 12 %}
+{% assign gap_carrusel = section.settings.gap_carrusel | default: 1.5 %}
 {% assign altura_desktop = section.settings.altura_desktop | default: 300 %}
 {% assign altura_mobile = section.settings.altura_mobile | default: 200 %}
 {% comment %} Estilos disponibles: collage (image-only), simple (image + info) {% endcomment %}
@@ -48,7 +48,7 @@
     <div
       class='carrusel carrusel--{{ estilo_vista }}'
       data-carrusel
-      style='gap: {{ gap_carrusel }}px; --carrusel-ratio: {{ ratio_css }}; --altura-desktop: {{ altura_desktop }}px; --altura-mobile: {{ altura_mobile }}px;'
+      style='gap: {{ gap_carrusel }}vw; --carrusel-ratio: {{ ratio_css }}; --altura-desktop: {{ altura_desktop }}px; --altura-mobile: {{ altura_mobile }}px;'
     >
       {% if section.settings.tipo == 'productos' %}
         {% if section.settings.modo == 'manual' %}
@@ -205,11 +205,12 @@
     {
       "type": "range",
       "id": "gap_carrusel",
-      "label": "Separación entre items (px)",
+      "label": "Separación entre items (%)",
       "min": 0,
-      "max": 500,
-      "step": 1,
-      "default": 12
+      "max": 10,
+      "step": 0.5,
+      "default": 3.5,
+      "info": "Porcentaje del ancho del viewport"
     },
     {
       "type": "checkbox",
@@ -332,14 +333,23 @@
 {% stylesheet %}
   .contenedorCarrusel {
     padding: 2rem 0;
+    box-sizing: border-box;
+  }
+
+  .contenedorCarrusel * {
+    box-sizing: border-box;
   }
 
   .contenedorCarrusel--completo {
-    max-width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding-left: 0;
+    padding-right: 0;
   }
-
   .tituloCarrusel {
     text-align: center;
     margin-bottom: 2rem;
@@ -351,6 +361,9 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
   }
 
   .carrusel {
@@ -360,8 +373,9 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 0 1rem 1rem;
+    padding: 0 0 1rem 0;
     flex: 1 1 auto;
+    margin: 0;
   }
 
   /* Ocultar scrollbar completamente */
@@ -391,11 +405,11 @@
   }
 
   .carruselNav--prev {
-    left: 0;
+    left: 0.5rem;
   }
 
   .carruselNav--next {
-    right: 0;
+    right: 0.5rem;
   }
 
   .carruselItemWrapper {
@@ -426,9 +440,11 @@
     font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
-    margin: 0.5rem 0 0 0;
-    padding: 0;
+    margin: 0.5rem auto;
+    padding: 0.8em;
     flex-shrink: 0;
+    border: 1px solid;
+    width: fit-content;
   }
 
   @media (max-width: 768px) {
@@ -465,10 +481,10 @@
 
         // Navegar con botones
         function scroll(direction) {
-          var itemWidth = carousel.querySelector('.carruselItem')
-            ? carousel.querySelector('.carruselItem').offsetWidth
-            : 200;
-          var gap = 24; // 1.5rem = 24px
+          var itemWrapper = carousel.querySelector('.carruselItemWrapper');
+          var itemWidth = itemWrapper ? itemWrapper.offsetWidth : 200;
+          var computedStyle = window.getComputedStyle(carousel);
+          var gap = parseFloat(computedStyle.gap) || 0;
           var scrollAmount = itemWidth + gap;
 
           if (direction === 'prev') {
