@@ -66,7 +66,9 @@
                     {% endif %}
                   </a>
                   {% if prod.title %}
-                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                    <a href='{{ prod.url }}' class='carruselItemTituloLink'>
+                      <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                    </a>
                   {% endif %}
                 </div>
               {% endif %}
@@ -91,7 +93,9 @@
                     {% endif %}
                   </a>
                   {% if prod.title %}
-                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                    <a href='{{ prod.url }}' class='carruselItemTituloLink'>
+                      <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                    </a>
                   {% endif %}
                 </div>
                 {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -128,7 +132,9 @@
                         {% endif %}
                       </a>
                       {% if prod.title %}
-                        <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                        <a href='{{ prod.url }}' class='carruselItemTituloLink'>
+                          <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
+                        </a>
                       {% endif %}
                     </div>
                     {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -150,7 +156,9 @@
                     {% render 'tarjeta-collage', item: col, tipo: 'coleccion', estilo: estilo_vista, ratio: ratio %}
                   </a>
                   {% if col.title %}
-                    <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+                    <a href='{{ col.url }}' class='carruselItemTituloLink'>
+                      <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
+                    </a>
                   {% endif %}
                 </div>
               {% endif %}
@@ -430,21 +438,38 @@
     object-fit: cover;
   }
 
+  .carruselItem:hover {
+    opacity: 0.8;
+  }
+
   .carruselItem--link {
     text-decoration: none;
     color: inherit;
     display: block;
   }
 
+  .carruselItemTituloLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
   .carruselItemTitulo {
     font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
-    margin: 0.5rem auto;
+    margin-top: 1rem;
     padding: 0.8em;
     flex-shrink: 0;
-    border: 1px solid;
+    border: 2px solid;
     width: fit-content;
+    transition: opacity 0.2s ease;
+  }
+
+  .carruselItemTituloLink:hover .carruselItemTitulo {
+    opacity: 0.7;
   }
 
   @media (max-width: 768px) {
