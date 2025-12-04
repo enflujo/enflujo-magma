@@ -57,11 +57,48 @@
         "titulo": "Related",
         "tipo": "productos",
         "modo": "automatico",
+        "vista": "simple",
         "gap_carrusel": 4.5,
         "ancho_completo": true,
         "ratio": "3:2",
         "altura_desktop": 400,
         "altura_mobile": 200
+      }
+    },
+    "fila_contenido_BqG4HF": {
+      "type": "fila-contenido",
+      "blocks": {
+        "boton_QxhCxx": {
+          "type": "boton",
+          "settings": {
+            "ancho": "dos-quintos",
+            "alineacion_horizontal": "center",
+            "alto_caja": 200,
+            "texto_boton": "SHOP ALL JEWELRY",
+            "enlace_boton": "shopify://collections/jewelry",
+            "estilo_boton": "oscuro"
+          }
+        },
+        "boton_ab4RjV": {
+          "type": "boton",
+          "settings": {
+            "ancho": "dos-quintos",
+            "alineacion_horizontal": "center",
+            "alto_caja": 200,
+            "texto_boton": "ILLUSTRATION",
+            "enlace_boton": "shopify://collections/jewelry",
+            "estilo_boton": "oscuro"
+          }
+        }
+      },
+      "block_order": [
+        "boton_QxhCxx",
+        "boton_ab4RjV"
+      ],
+      "name": "Fila de contenido",
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "center"
       }
     },
     "titulo_F4XYCh": {
@@ -83,6 +120,7 @@
         "titulo": "",
         "tipo": "colecciones",
         "modo": "automatico",
+        "vista": "collage",
         "gap_carrusel": 3.5,
         "ancho_completo": true,
         "ratio": "1:1",
@@ -94,6 +132,7 @@
   "order": [
     "main",
     "carrusel_U4y7cw",
+    "fila_contenido_BqG4HF",
     "titulo_F4XYCh",
     "carrusel_XzPFR7"
   ]
