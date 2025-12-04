@@ -80,13 +80,13 @@
       "name": "Carrusel",
       "settings": {
         "anchor_seccion": "",
-        "titulo": "Productos relacionados",
+        "titulo": "",
         "tipo": "colecciones",
         "modo": "automatico",
         "gap_carrusel": 3.5,
         "ancho_completo": true,
         "ratio": "1:1",
-        "altura_desktop": 300,
+        "altura_desktop": 500,
         "altura_mobile": 200
       }
     }
