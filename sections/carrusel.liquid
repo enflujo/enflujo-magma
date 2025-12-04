@@ -3,83 +3,29 @@
 {% endcomment %}
 
 {% assign ancho_completo = section.settings.ancho_completo | default: false %}
-{% assign estilo_vista = section.settings.estilo_vista | default: 'simple' %}
 {% assign ratio = section.settings.ratio | default: '1:1' %}
 {% assign radius = section.settings.radius | default: 8 %}
+{% assign estilo_vista = 'collage' %}
 
 <div
   class='contenedorCarrusel{% if ancho_completo %} contenedorCarrusel--completo{% endif %}'
   {% if section.settings.anchor_seccion != blank %}
     id='{{ section.settings.anchor_seccion }}'
   {% endif %}
+  data-carrusel-container
 >
   {% if section.settings.titulo != blank %}
     <h2 class='tituloCarrusel'>{{ section.settings.titulo }}</h2>
   {% endif %}
 
-  <div class='carrusel carrusel--{{ estilo_vista }}' data-carrusel>
-    {% if section.settings.tipo == 'productos' %}
-      {% comment %} Modo manual: usar bloques {% endcomment %}
-      {% if section.settings.modo == 'manual' %}
-        {% for block in section.blocks %}
-          {% if estilo_vista == 'mini-collage' and block.type == 'mini_collage' %}
-            {% if block.settings.enlace != blank %}
-              <a href='{{ block.settings.enlace }}' class='carruselItem carruselItem--link'>
-                {%
-                  render 'mini-collage',
-                  layout: block.settings.layout | default: 'cuatro',
-                  img1: block.settings.img1, alt1: block.settings.alt1,
-                  img2: block.settings.img2, alt2: block.settings.alt2,
-                  img3: block.settings.img3, alt3: block.settings.alt3,
-                  img4: block.settings.img4, alt4: block.settings.alt4,
-                  img5: block.settings.img5, alt5: block.settings.alt5,
-                  img6: block.settings.img6, alt6: block.settings.alt6,
-                  gap: section.settings.gap | default: 12,
-                  radius: radius,
-                  ratio: ratio
-                %}
-                {% if block.settings.titulo != blank %}
-                  <h3 class='carruselItemTitulo'>{{ block.settings.titulo }}</h3>
-                {% endif %}
-              </a>
-            {% else %}
-              <div class='carruselItem'>
-                {%
-                  render 'mini-collage',
-                  layout: block.settings.layout | default: 'cuatro',
-                  img1: block.settings.img1, alt1: block.settings.alt1,
-                  img2: block.settings.img2, alt2: block.settings.alt2,
-                  img3: block.settings.img3, alt3: block.settings.alt3,
-                  img4: block.settings.img4, alt4: block.settings.alt4,
-                  img5: block.settings.img5, alt5: block.settings.alt5,
-                  img6: block.settings.img6, alt6: block.settings.alt6,
-                  gap: section.settings.gap | default: 12,
-                  radius: radius,
-                  ratio: ratio
-                %}
-                {% if block.settings.titulo != blank %}
-                  <h3 class='carruselItemTitulo'>{{ block.settings.titulo }}</h3>
-                {% endif %}
-              </div>
-            {% endif %}
-          {% elsif block.type == 'producto' %}
-            {% assign prod = all_products[block.settings.producto] %}
-            {% if prod %}
-              <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
-                {% render 'tarjeta-collage',
-                  item: prod,
-                  tipo: 'producto',
-                  estilo: estilo_vista,
-                  ratio: ratio,
-                  radius: radius
-                %}
-                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
-              </a>
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-      {% else %}
-        {% comment %} Modo automático: productos relacionados {% endcomment %}
+  <div class='carruselWrapper'>
+    <button class='carruselNav carruselNav--prev' data-carrusel-prev aria-label='Previous' style='display: none;'>
+      ‹
+    </button>
+
+    <div class='carrusel carrusel--{{ estilo_vista }}' data-carrusel>
+      {% if section.settings.tipo == 'productos' %}
+        {% comment %} Productos automáticos: relacionados de la misma colección o tags {% endcomment %}
         {% assign max_productos = section.settings.limite | default: 8 %}
         {% assign producto_actual = product %}
         {% assign contador = 0 %}
@@ -98,7 +44,6 @@
                   ratio: ratio,
                   radius: radius
                 %}
-                <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
               </a>
               {% assign contador = contador | plus: 1 %}
               {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -138,116 +83,12 @@
             {% endif %}
           {% endfor %}
         {% endif %}
-      {% endif %}
 
-    {% elsif section.settings.tipo == 'colecciones' %}
-      {% for block in section.blocks %}
-        {% if estilo_vista == 'mini-collage' and block.type == 'mini_collage' %}
-          {% if block.settings.enlace != blank %}
-            <a href='{{ block.settings.enlace }}' class='carruselItem carruselItem--link'>
-              {%
-                render 'mini-collage',
-                layout: block.settings.layout | default: 'cuatro',
-                img1: block.settings.img1, alt1: block.settings.alt1,
-                img2: block.settings.img2, alt2: block.settings.alt2,
-                img3: block.settings.img3, alt3: block.settings.alt3,
-                img4: block.settings.img4, alt4: block.settings.alt4,
-                img5: block.settings.img5, alt5: block.settings.alt5,
-                img6: block.settings.img6, alt6: block.settings.alt6,
-                gap: section.settings.gap | default: 12,
-                radius: radius,
-                ratio: ratio
-              %}
-              {% if block.settings.titulo != blank %}
-                <h3 class='carruselItemTitulo'>{{ block.settings.titulo }}</h3>
-              {% endif %}
-            </a>
-          {% else %}
-            <div class='carruselItem'>
-              {%
-                render 'mini-collage',
-                layout: block.settings.layout | default: 'cuatro',
-                img1: block.settings.img1, alt1: block.settings.alt1,
-                img2: block.settings.img2, alt2: block.settings.alt2,
-                img3: block.settings.img3, alt3: block.settings.alt3,
-                img4: block.settings.img4, alt4: block.settings.alt4,
-                img5: block.settings.img5, alt5: block.settings.alt5,
-                img6: block.settings.img6, alt6: block.settings.alt6,
-                gap: section.settings.gap | default: 12,
-                radius: radius,
-                ratio: ratio
-              %}
-              {% if block.settings.titulo != blank %}
-                <h3 class='carruselItemTitulo'>{{ block.settings.titulo }}</h3>
-              {% endif %}
-            </div>
-          {% endif %}
-        {% elsif block.type == 'coleccion' %}
-          {% assign col = collections[block.settings.coleccion] %}
-          {% if col %}
-            {% if estilo_vista == 'mini-collage' %}
-              {% assign img1 = col.image %}
-              {% assign alt1 = col.title %}
-              {% assign img2 = blank %}
-              {% assign img3 = blank %}
-              {% assign img4 = blank %}
-              {% assign img5 = blank %}
-              {% assign img6 = blank %}
-              {% comment %}Marcar uso de variables para el analizador{% endcomment %}
-              {% if img1 %}{% endif -%}
-              {%- if alt1 %}{% endif %}
-
-              {% assign count_added = 0 %}
-              {% for p in col.products limit: 6 %}
-                {% if p.featured_image and count_added < 5 %}
-                  {% assign count_added = count_added | plus: 1 %}
-                  {% case count_added %}
-                    {% when 1 -%}
-                      {%- assign img2 = p.featured_image -%}
-                      {%- assign alt2 = p.title -%}
-                      {%- if img2 %}{% endif -%}
-                      {%- if alt2 %}{% endif %}
-                    {% when 2 -%}
-                      {%- assign img3 = p.featured_image -%}
-                      {%- assign alt3 = p.title -%}
-                      {%- if img3 %}{% endif -%}
-                      {%- if alt3 %}{% endif %}
-                    {% when 3 -%}
-                      {%- assign img4 = p.featured_image -%}
-                      {%- assign alt4 = p.title -%}
-                      {%- if img4 %}{% endif -%}
-                      {%- if alt4 %}{% endif %}
-                    {% when 4 -%}
-                      {%- assign img5 = p.featured_image -%}
-                      {%- assign alt5 = p.title -%}
-                      {%- if img5 %}{% endif -%}
-                      {%- if alt5 %}{% endif %}
-                    {% when 5 -%}
-                      {%- assign img6 = p.featured_image -%}
-                      {%- assign alt6 = p.title -%}
-                      {%- if img6 %}{% endif -%}
-                      {%- if alt6 %}{% endif %}
-                  {% endcase %}
-                {% endif %}
-              {% endfor %}
-
-              <a href='{{ col.url }}' class='carruselItem carruselItem--link'>
-                {%
-                  render 'mini-collage',
-                  layout: 'cuatro',
-                  img1: img1, alt1: alt1,
-                  img2: img2, alt2: alt2,
-                  img3: img3, alt3: alt3,
-                  img4: img4, alt4: alt4,
-                  img5: img5, alt5: alt5,
-                  img6: img6, alt6: alt6,
-                  gap: section.settings.gap | default: 12,
-                  radius: radius,
-                  ratio: ratio
-                %}
-                <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
-              </a>
-            {% else %}
+      {% elsif section.settings.tipo == 'colecciones' %}
+        {% for block in section.blocks %}
+          {% if block.type == 'coleccion' %}
+            {% assign col = collections[block.settings.coleccion] %}
+            {% if col %}
               <a href='{{ col.url }}' class='carruselItem carruselItem--link'>
                 {% render 'tarjeta-collage',
                   item: col,
@@ -260,9 +101,11 @@
               </a>
             {% endif %}
           {% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <button class='carruselNav carruselNav--next' data-carrusel-next aria-label='Next' style='display: none;'>›</button>
   </div>
 </div>
 
@@ -294,17 +137,6 @@
       ]
     },
     {
-      "type": "select",
-      "id": "modo",
-      "label": "Modo de selección",
-      "default": "automatico",
-      "info": "Automático: muestra productos relacionados de la misma colección o con tags similares. Manual: selecciona productos específicos.",
-      "options": [
-        { "value": "automatico", "label": "Automático (relacionados)" },
-        { "value": "manual", "label": "Manual (bloques)" }
-      ]
-    },
-    {
       "type": "range",
       "id": "limite",
       "label": "Cantidad máxima de productos (modo automático)",
@@ -312,15 +144,6 @@
       "max": 12,
       "step": 1,
       "default": 8
-    },
-    {
-      "type": "range",
-      "id": "gap",
-      "label": "Separación mini-collage (px)",
-      "min": 0,
-      "max": 32,
-      "step": 1,
-      "default": 12
     },
     {
       "type": "checkbox",
@@ -331,19 +154,8 @@
     },
     {
       "type": "select",
-      "id": "estilo_vista",
-      "label": "Estilo de vista",
-      "default": "simple",
-      "options": [
-        { "value": "simple", "label": "Simple (imagen + info)" },
-        { "value": "collage", "label": "Collage (solo imagen)" },
-        { "value": "mini-collage", "label": "Mini-collage (varias imágenes)" }
-      ]
-    },
-    {
-      "type": "select",
       "id": "ratio",
-      "label": "Relación de aspecto (solo collage)",
+      "label": "Relación de aspecto",
       "default": "1:1",
       "options": [
         { "value": "1:1", "label": "1:1" },
@@ -358,7 +170,7 @@
     {
       "type": "range",
       "id": "radius",
-      "label": "Radio de borde (px, solo collage)",
+      "label": "Radio de borde (px)",
       "min": 0,
       "max": 32,
       "step": 1,
@@ -434,7 +246,6 @@
       ]
     }
   ],
-  "max_blocks": 20,
   "presets": [
     {
       "name": "Carrusel"
@@ -460,6 +271,13 @@
     font-size: 1.5rem;
   }
 
+  .carruselWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .carrusel {
     display: flex;
     gap: 1.5rem;
@@ -468,6 +286,48 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     padding: 0 1rem 1rem;
+    flex: 1 1 auto;
+  }
+
+  /* Ocultar scrollbar por defecto */
+  .carrusel::-webkit-scrollbar {
+    height: 4px;
+  }
+  .carrusel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .carrusel::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+  }
+
+  .carruselNav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    line-height: 1;
+  }
+
+  .carruselNav:hover {
+    opacity: 1;
+  }
+
+  .carruselNav--prev {
+    left: 0;
+  }
+
+  .carruselNav--next {
+    right: 0;
   }
 
   .carruselItem {
@@ -502,6 +362,11 @@
   }
 
   @media (max-width: 768px) {
+    .carruselNav {
+      font-size: 1.5rem;
+      padding: 0.35rem 0.5rem;
+    }
+
     .carruselItem {
       flex: 0 0 160px;
     }
@@ -514,3 +379,91 @@
     }
   }
 {% endstylesheet %}
+
+<script>
+  (function () {
+    function initCarrusel(root) {
+      root = root || document;
+      var containers = root.querySelectorAll('[data-carrusel-container]');
+
+      containers.forEach(function (container) {
+        var carousel = container.querySelector('[data-carrusel]');
+        var prevBtn = container.querySelector('[data-carrusel-prev]');
+        var nextBtn = container.querySelector('[data-carrusel-next]');
+
+        if (!carousel || !prevBtn || !nextBtn) return;
+
+        // Detectar si hay overflow
+        function checkOverflow() {
+          var hasScroll = carousel.scrollWidth > carousel.clientWidth;
+          prevBtn.style.display = hasScroll ? 'block' : 'none';
+          nextBtn.style.display = hasScroll ? 'block' : 'none';
+        }
+
+        // Navegar con botones
+        function scroll(direction) {
+          var itemWidth = carousel.querySelector('.carruselItem')
+            ? carousel.querySelector('.carruselItem').offsetWidth
+            : 200;
+          var gap = 24; // 1.5rem = 24px
+          var scrollAmount = itemWidth + gap;
+
+          if (direction === 'prev') {
+            carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+          } else {
+            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          }
+        }
+
+        prevBtn.addEventListener('click', function () {
+          scroll('prev');
+        });
+
+        nextBtn.addEventListener('click', function () {
+          scroll('next');
+        });
+
+        // Swipe support
+        var touchStartX = 0;
+        carousel.addEventListener('touchstart', function (e) {
+          touchStartX = e.touches[0].clientX;
+        });
+
+        carousel.addEventListener('touchend', function (e) {
+          var touchEndX = e.changedTouches[0].clientX;
+          var diff = touchStartX - touchEndX;
+
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+              scroll('next');
+            } else {
+              scroll('prev');
+            }
+          }
+        });
+
+        // Check overflow on load and resize
+        checkOverflow();
+        window.addEventListener('resize', function () {
+          checkOverflow();
+        });
+
+        // Observe for dynamic content changes
+        if (window.ResizeObserver) {
+          var observer = new ResizeObserver(function () {
+            checkOverflow();
+          });
+          observer.observe(carousel);
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      initCarrusel(document);
+    });
+
+    document.addEventListener('shopify:section:load', function (e) {
+      initCarrusel(e.target);
+    });
+  })();
+</script>
