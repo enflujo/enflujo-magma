@@ -39,12 +39,7 @@
             {% if prod.id != producto_actual.id and contador < max_productos %}
               <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
                 {% if prod.images.size > 0 %}
-                  {% render 'mini-collage-auto',
-                    images: prod.images,
-                    ratio: ratio,
-                    radius: radius,
-                    gap: 12
-                  %}
+                  {% render 'mini-collage-auto', images: prod.images, ratio: ratio, radius: radius, gap: 12 %}
                 {% else %}
                   {% render 'tarjeta-collage',
                     item: prod,
@@ -78,12 +73,7 @@
                 {% if tiene_tag_comun %}
                   <a href='{{ prod.url }}' class='carruselItem carruselItem--link'>
                     {% if prod.images.size > 0 %}
-                      {% render 'mini-collage-auto',
-                        images: prod.images,
-                        ratio: ratio,
-                        radius: radius,
-                        gap: 12
-                      %}
+                      {% render 'mini-collage-auto', images: prod.images, ratio: ratio, radius: radius, gap: 12 %}
                     {% else %}
                       {% render 'tarjeta-collage',
                         item: prod,
