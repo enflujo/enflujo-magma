@@ -74,7 +74,6 @@
                       ratio: ratio,
                       radius: radius
                     %}
-                    <h3 class='carruselItemTitulo'>{{ prod.title }}</h3>
                   </a>
                   {% assign contador = contador | plus: 1 %}
                   {% assign ids_mostrados = ids_mostrados | append: prod.id | append: ',' %}
@@ -97,7 +96,6 @@
                   ratio: ratio,
                   radius: radius
                 %}
-                <h3 class='carruselItemTitulo'>{{ col.title }}</h3>
               </a>
             {% endif %}
           {% endif %}
