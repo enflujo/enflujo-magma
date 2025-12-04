@@ -86,7 +86,7 @@
             "alineacion_horizontal": "center",
             "alto_caja": 200,
             "texto_boton": "ILLUSTRATION",
-            "enlace_boton": "shopify://collections/jewelry",
+            "enlace_boton": "",
             "estilo_boton": "oscuro"
           }
         }
