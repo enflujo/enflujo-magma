@@ -73,6 +73,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "start"
       }
     },
@@ -170,6 +171,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "center"
       }
     },
@@ -220,6 +222,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "center"
       }
     },
@@ -350,6 +353,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "center"
       }
     },
@@ -469,6 +473,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "center"
       }
     },
@@ -497,6 +502,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "center"
       }
     },
@@ -525,6 +531,7 @@
       ],
       "name": "Fila de contenido",
       "settings": {
+        "anchor_seccion": "",
         "alineacion_elementos": "center"
       }
     },
@@ -532,47 +539,27 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2><strong>DISCOVER THE COLLECTIONS</strong></h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
     },
-    "carrusel_GxnVnW": {
+    "carrusel_YmJknm": {
       "type": "carrusel",
-      "blocks": {
-        "mini_collage_Aex6bp": {
-          "type": "mini_collage",
-          "settings": {
-            "layout": "tres_der_grande",
-            "titulo": "ANIMA",
-            "enlace": "shopify://collections/frontpage",
-            "img1": "shopify://shop_images/mariana-la-rotta-sculptural-silver-ring-dark-folk-circus-horse-right.jpg",
-            "alt1": "",
-            "img2": "shopify://shop_images/mariana-la-rotta-handcarved-silver-good-luck-pendant-bird-foot-berlin-studio-side-back.jpg",
-            "alt2": "",
-            "img3": "shopify://shop_images/mariana-la-rotta-handcarved-silver-sandcasting-silver-ring-relics-face-fingers-front-berlin.jpg",
-            "alt3": "",
-            "alt4": "",
-            "alt5": "",
-            "alt6": ""
-          }
-        }
-      },
-      "block_order": [
-        "mini_collage_Aex6bp"
-      ],
       "name": "Carrusel",
       "settings": {
+        "anchor_seccion": "",
         "titulo": "",
         "tipo": "colecciones",
-        "modo": "manual",
-        "limite": 5,
-        "gap": 0,
-        "ancho_completo": true,
-        "estilo_vista": "mini-collage",
-        "ratio": "2:3",
-        "radius": 0
+        "modo": "automatico",
+        "vista": "collage",
+        "gap_carrusel": 3.5,
+        "ancho_completo": false,
+        "ratio": "1:1",
+        "altura_desktop": 450,
+        "altura_mobile": 200
       }
     }
   },
@@ -586,6 +573,6 @@
     "fila_contenido_GQ7bYq",
     "fila_contenido_fJinMe",
     "titulo_qqPPEk",
-    "carrusel_GxnVnW"
+    "carrusel_YmJknm"
   ]
 }
