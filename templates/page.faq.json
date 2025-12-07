@@ -556,7 +556,7 @@
         "modo": "automatico",
         "vista": "collage",
         "gap_carrusel": 3.5,
-        "ancho_completo": false,
+        "ancho_completo": true,
         "ratio": "1:1",
         "altura_desktop": 450,
         "altura_mobile": 200
