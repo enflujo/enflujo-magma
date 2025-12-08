@@ -22,7 +22,10 @@
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "texto_gxL8WD": {
@@ -35,7 +38,10 @@
             "line_height": 1.5,
             "texto": "<h2>CHAINS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_bPtwFn": {
@@ -48,7 +54,10 @@
             "line_height": 1.5,
             "texto": "<h6>SIZE GUIDE</h6><h6>CARE GUIDE</h6><h6>SHIPPING & PROCESSING TIMES</h6>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         }
       },
@@ -58,7 +67,10 @@
         "texto_bPtwFn"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "cuadricula_productos_HYwWbb": {
       "type": "cuadricula-productos",
@@ -71,6 +83,7 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>DISCOVER SOMETHING MORE JEWELRY RINGS</h2><p>Explore the workshops and something else about learning and teaching and the boxes and the studio.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
@@ -81,6 +94,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/nail_ring3.jpg",
         "alt_texto": "",
         "titulo_superior": "",
@@ -88,6 +102,10 @@
         "texto_seccion": "<h2>RINGS</h2><p>Jewelry made for those who find meaning in what they wear and hold.</p>",
         "texto_boton": "SHOP FOR YOUR HAND",
         "enlace_boton": "shopify://products/cabezas-dobles",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "centroIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -109,59 +127,12 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
-    },
-    "fila_contenido_FmdbWg": {
-      "type": "fila-contenido",
-      "blocks": {
-        "imagen_CFVkFT": {
-          "type": "imagen",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "imagen": "shopify://shop_images/contact.svg",
-            "leyenda": ""
-          }
-        },
-        "texto_JGxq3m": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        },
-        "texto_dJxCin": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>CONTACT</h2><h6>LOCATED IN BERLIN</h6><h6>SOMETHING ELSE</h6>",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        }
-      },
-      "block_order": [
-        "imagen_CFVkFT",
-        "texto_JGxq3m",
-        "texto_dJxCin"
-      ],
-      "name": "Fila de contenido",
-      "settings": {}
     }
   },
   "order": [
@@ -170,7 +141,6 @@
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
-    "titulo_mhebpG",
-    "fila_contenido_FmdbWg"
+    "titulo_mhebpG"
   ]
 }
