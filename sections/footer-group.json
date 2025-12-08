@@ -11,6 +11,49 @@
   "type": "footer",
   "name": "t:general.footer",
   "sections": {
+    "fila_contenido_XnPYcJ": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_rKQXXL": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "dos-quintos",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
+          }
+        },
+        "texto_UBAJi6": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>CONTACT</h2><h6>If you have any questions you can either fill out the contact form or write an E-Mail. Please ensure to provide as much information as possible in the body of your email including your full name and your location.</h6>",
+            "texto_boton": "GET IN TOUCH",
+            "enlace_boton": "shopify://pages/contact-1",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
+        }
+      },
+      "block_order": [
+        "imagen_rKQXXL",
+        "texto_UBAJi6"
+      ],
+      "name": "Fila de contenido",
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
+    },
     "footer": {
       "type": "footer",
       "settings": {
@@ -20,6 +63,7 @@
     }
   },
   "order": [
+    "fila_contenido_XnPYcJ",
     "footer"
   ]
 }
