@@ -17,6 +17,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/lucky_bracelet_chain.jpg",
         "alt_texto": "",
         "titulo_superior": "NECKLACES & BRACELETS",
@@ -25,6 +26,10 @@
         "texto_seccion": "",
         "texto_boton": "Ver más",
         "enlace_boton": "",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "infIzq",
         "alineacion_texto": "center",
         "enlace_destino": "",
@@ -46,6 +51,7 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>NECKLACES & BRACELETS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
@@ -63,6 +69,7 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>DISCOVER SOMETHING MORE JEWELRY RINGS</h2><p>Explore the workshops and something else about learning and teaching and the boxes and the studio.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
@@ -73,6 +80,7 @@
       "type": "imagen-grande",
       "name": "Imágen grande",
       "settings": {
+        "anchor_seccion": "",
         "imagen_seccion": "shopify://shop_images/nail_ring3.jpg",
         "alt_texto": "",
         "titulo_superior": "",
@@ -80,6 +88,10 @@
         "texto_seccion": "<h2>RINGS</h2><p>Jewelry made for those who find meaning in what they wear and hold.</p>",
         "texto_boton": "SHOP FOR YOUR HAND",
         "enlace_boton": "shopify://products/cabezas-dobles",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
         "posicion_texto": "centroIzq",
         "alineacion_texto": "left",
         "enlace_destino": "",
@@ -101,59 +113,12 @@
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
-    },
-    "fila_contenido_VdzqK8": {
-      "type": "fila-contenido",
-      "blocks": {
-        "imagen_fXmmYN": {
-          "type": "imagen",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "imagen": "shopify://shop_images/contact.svg",
-            "leyenda": ""
-          }
-        },
-        "texto_cFhJAr": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<p>Write something about contact that sounds open, not too long, people should get in touch in touch if they want to have something different or are not sure of something etc.</p>",
-            "texto_boton": "GET IN TOUCH",
-            "enlace_boton": "shopify://pages/contact-1"
-          }
-        },
-        "texto_JNKLKh": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h3>CONTACT</h3><h6>LOCATED IN BERLIN</h6><h6>SOMETHING ELSE</h6>",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        }
-      },
-      "block_order": [
-        "imagen_fXmmYN",
-        "texto_cFhJAr",
-        "texto_JNKLKh"
-      ],
-      "name": "Fila de contenido",
-      "settings": {}
     }
   },
   "order": [
@@ -163,7 +128,6 @@
     "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
-    "titulo_mhebpG",
-    "fila_contenido_VdzqK8"
+    "titulo_mhebpG"
   ]
 }
