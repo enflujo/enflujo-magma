@@ -1,4 +1,4 @@
-<footer>
+<div class='fin'>
   <div class='footer__copyright'>
     &copy;
     {{ 'now' | date: '%Y' }}
@@ -13,20 +13,20 @@
 
   <div class='footer__payment'>
     {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
+      {% for payment_type in shop.enabled_payment_types %}
+        {{ payment_type | payment_type_svg_tag }}
       {% endfor %}
     {% endif %}
   </div>
-</footer>
+</div>
 
 {% stylesheet %}
-  footer {
+  .fin {
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
   }
-  footer a {
+  
+  .fin a {
     text-decoration: none;
     color: var(--color-foreground);
   }
