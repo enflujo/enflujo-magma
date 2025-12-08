@@ -42,11 +42,28 @@
             "borde_posicion": "ninguno",
             "borde_grosor": 1
           }
+        },
+        "texto_nREKYX": {
+          "type": "texto",
+          "settings": {
+            "ancho": "dos-quintos",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>NEWSLETTER</h2><h6>Join to receive news about upcoming releases and occasional updates on products and culture.</h6>",
+            "texto_boton": "",
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
         }
       },
       "block_order": [
         "imagen_rKQXXL",
-        "texto_UBAJi6"
+        "texto_UBAJi6",
+        "texto_nREKYX"
       ],
       "name": "Fila de contenido",
       "settings": {
