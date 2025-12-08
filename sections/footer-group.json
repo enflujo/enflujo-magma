@@ -17,7 +17,7 @@
         "imagen_rKQXXL": {
           "type": "imagen",
           "settings": {
-            "ancho": "dos-quintos",
+            "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
             "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
@@ -46,7 +46,7 @@
         "texto_nREKYX": {
           "type": "texto",
           "settings": {
-            "ancho": "dos-quintos",
+            "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,

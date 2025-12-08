@@ -427,66 +427,6 @@
         "desfase_vertical_movil": 0,
         "z_index": 0
       }
-    },
-    "fila_contenido_KVjP3f": {
-      "type": "fila-contenido",
-      "blocks": {
-        "imagen_JWaJRa": {
-          "type": "imagen",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "imagen": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
-            "leyenda": "",
-            "sticky": false,
-            "posicion_sticky": "derecha",
-            "ancho_flotante": 300
-          }
-        },
-        "texto_iWkwtQ": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>CONTACT</h2><h6>If you have any questions you can either fill out the contact form or write an E-Mail. Please ensure to provide as much information as possible in the body of your email including your full name and your location.</h6>",
-            "texto_boton": "GET IN TOUCH",
-            "enlace_boton": "shopify://pages/contact-1",
-            "estilo_boton": "claro",
-            "borde_posicion": "ninguno",
-            "borde_grosor": 1
-          }
-        },
-        "texto_TWGce3": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>NEWSLETTER</h2><h6>Join to receive news about upcoming releases and occasional updates on products and culture.</h6>",
-            "texto_boton": "",
-            "enlace_boton": "",
-            "estilo_boton": "claro",
-            "borde_posicion": "ninguno",
-            "borde_grosor": 1
-          }
-        }
-      },
-      "block_order": [
-        "imagen_JWaJRa",
-        "texto_iWkwtQ",
-        "texto_TWGce3"
-      ],
-      "name": "Fila de contenido",
-      "settings": {
-        "anchor_seccion": "contact",
-        "alineacion_elementos": "start"
-      }
     }
   },
   "order": [
@@ -502,7 +442,6 @@
     "titulo_DtLgA8",
     "titulo_gVPYEj",
     "imagen_grande_w8U9xY",
-    "imagen_grande_BmixVY",
-    "fila_contenido_KVjP3f"
+    "imagen_grande_BmixVY"
   ]
 }
