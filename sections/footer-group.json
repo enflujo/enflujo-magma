@@ -47,7 +47,7 @@
           "type": "texto",
           "settings": {
             "ancho": "quinto",
-            "alineacion": "centro",
+            "alineacion": "izquierda",
             "alineacion_vertical": "arriba",
             "espaciado_parrafos": 1,
             "line_height": 1.5,
