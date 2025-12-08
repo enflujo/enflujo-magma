@@ -1,37 +1,582 @@
-{% comment %}
-  This section is used in the cart template to render /cart page with an
-  overview of the items in customer's cart.
+<div class='contenedorCarrito' id='cart-container'>
+  {% if cart.item_count > 0 %}
+    <div class='carritoContenido'>
+      <div class='carritoItems'>
+        <div class='carritoHeader'>
+          <h1>Your Cart</h1>
+          <p class='cantidadItems'>{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</p>
+        </div>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/cart
-{% endcomment %}
+        <form action='{{ routes.cart_url }}' method='post' id='cart-form'>
+          <div class='listaItems' data-cart-items>
+            {% for item in cart.items %}
+              <div class='itemCarrito' data-cart-item data-key='{{ item.key }}'>
+                <div class='itemImagen'>
+                  {% if item.image %}
+                    <a href='{{ item.url }}'>
+                      <img 
+                        src='{{ item.image | image_url: width: 200 }}' 
+                        alt='{{ item.image.alt | escape }}'
+                        loading='lazy'
+                        width='120'
+                        height='120'
+                      >
+                    </a>
+                  {% endif %}
+                </div>
 
-<h1>{{ 'cart.title' | t }}</h1>
+                <div class='itemDetalles'>
+                  <div class='itemInfo'>
+                    <h3 class='itemTitulo'>
+                      <a href='{{ item.url }}'>{{ item.product.title }}</a>
+                    </h3>
+                    {% if item.variant.title != 'Default Title' %}
+                      <p class='itemVariante'>{{ item.variant.title }}</p>
+                    {% endif %}
+                    {% if item.properties %}
+                      <div class='itemPropiedades'>
+                        {% for property in item.properties %}
+                          {% unless property.last == blank %}
+                            <p><strong>{{ property.first }}:</strong> {{ property.last }}</p>
+                          {% endunless %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
 
-<form action='{{ routes.cart_url }}' method='post'>
-  <table>
-    {% for item in cart.items %}
-      <tr>
-        <td>
-          {% render 'imagen', image: item.image, url: item.url %}
-        </td>
-        <td>
-          <p>{{ item.product.title }}</p>
-          {{ 'cart.remove' | t | link_to: item.url_to_remove }}
-        </td>
-        <td>
-          <input type='text' name='updates[]' value='{{ item.quantity }}'>
-          <input type='submit' value='{{ 'cart.update' | t }}'>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+                  <div class='itemAcciones'>
+                    <div class='itemPrecio' data-item-price>
+                      <span class='precioUnitario'>{{ item.original_price | money }}</span>
+                      {% if item.original_price != item.final_price %}
+                        <span class='precioDescuento'>{{ item.final_price | money }}</span>
+                      {% endif %}
+                    </div>
 
-  <input type='submit' name='checkout' value='{{ 'cart.checkout' | t }}'>
-</form>
+                    <div class='itemCantidad'>
+                      <button 
+                        type='button' 
+                        class='btnCantidad btnMenos' 
+                        data-qty-change='-1'
+                        aria-label='Decrease quantity'
+                      >
+                        −
+                      </button>
+                      <input 
+                        type='number' 
+                        name='updates[]' 
+                        value='{{ item.quantity }}' 
+                        min='0'
+                        data-qty-input
+                        aria-label='Quantity'
+                      >
+                      <button 
+                        type='button' 
+                        class='btnCantidad btnMas' 
+                        data-qty-change='1'
+                        aria-label='Increase quantity'
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <div class='itemSubtotal' data-item-subtotal>
+                      {{ item.final_line_price | money }}
+                    </div>
+
+                    <button 
+                      type='button' 
+                      class='btnEliminar' 
+                      data-remove-item
+                      aria-label='Remove item'
+                      title='Remove'
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          {% if section.settings.mostrar_nota %}
+            <div class='carritoNota'>
+              <label for='cart-note'>Special instructions</label>
+              <textarea 
+                id='cart-note' 
+                name='note' 
+                placeholder='Any special instructions for your order?'
+              >{{ cart.note }}</textarea>
+            </div>
+          {% endif %}
+        </form>
+      </div>
+
+      <div class='carritoResumen'>
+        <div class='resumenContenido'>
+          <h2>Order Summary</h2>
+
+          <div class='resumenLinea'>
+            <span>Subtotal</span>
+            <span data-cart-subtotal>{{ cart.total_price | money }}</span>
+          </div>
+
+          {% if cart.cart_level_discount_applications.size > 0 %}
+            <div class='resumenDescuentos'>
+              {% for discount in cart.cart_level_discount_applications %}
+                <div class='resumenLinea descuento'>
+                  <span>{{ discount.title }}</span>
+                  <span>-{{ discount.total_allocated_amount | money }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class='resumenLinea envio'>
+            <span>Shipping</span>
+            <span>Calculated at checkout</span>
+          </div>
+
+          <div class='resumenTotal'>
+            <span>Total</span>
+            <span data-cart-total>{{ cart.total_price | money }}</span>
+          </div>
+
+          <button 
+            type='submit' 
+            name='checkout' 
+            class='botonDestacado botonDestacado--oscuro btnCheckout'
+            {% if cart.item_count == 0 %}disabled{% endif %}
+          >
+            Proceed to Checkout
+          </button>
+
+          <div class='resumenInfo'>
+            <p>Taxes and shipping calculated at checkout</p>
+            {% if shop.enabled_payment_types.size > 0 %}
+              <div class='metodosPago'>
+                {{ shop.enabled_payment_types | payment_type_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+
+          <a href='{{ routes.all_products_collection_url }}' class='botonDestacado botonDestacado--claro btnSeguirComprando'>
+            ← Continue Shopping
+          </a>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class='carritoVacio'>
+      <h1>Your cart is empty</h1>
+      <p>You haven't added any items to your cart yet.</p>
+      <a href='{{ routes.all_products_collection_url }}' class='btnPrimario'>
+        Explore Products
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .contenedorCarrito {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .carritoContenido {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .carritoHeader {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .carritoHeader h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2rem;
+  }
+
+  .cantidadItems {
+    color: #666;
+    margin: 0;
+  }
+
+  .listaItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .itemCarrito {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #fafafa;
+    border-radius: 8px;
+    transition: box-shadow 0.2s;
+  }
+
+  .itemCarrito:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .itemImagen img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .itemDetalles {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .itemTitulo {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .itemTitulo a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .itemTitulo a:hover {
+    text-decoration: underline;
+  }
+
+  .itemVariante {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .itemPropiedades {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .itemPropiedades p {
+    margin: 0.25rem 0;
+  }
+
+  .itemAcciones {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto;
+  }
+
+  .itemPrecio {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .precioUnitario {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .precioDescuento {
+    font-weight: 600;
+    color: #c33;
+  }
+
+  .itemCantidad {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .btnCantidad {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.2s;
+  }
+
+  .btnCantidad:hover {
+    background: #f5f5f5;
+  }
+
+  .itemCantidad input {
+    width: 50px;
+    height: 32px;
+    border: none;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .itemCantidad input::-webkit-outer-spin-button,
+  .itemCantidad input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .itemSubtotal {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-left: auto;
+  }
+
+  .btnEliminar {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .btnEliminar:hover {
+    color: #c33;
+  }
+
+  .carritoNota {
+    margin-top: 2rem;
+  }
+
+  .carritoNota label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .carritoNota textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    resize: vertical;
+  }
+
+  .carritoResumen {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .resumenContenido {
+    background: #fafafa;
+    padding: 2rem;
+    border-radius: 8px;
+  }
+
+  .resumenContenido h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+  }
+
+  .resumenLinea {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .resumenLinea.descuento {
+    color: #c33;
+  }
+
+  .resumenLinea.envio {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .resumenTotal {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-top: 2px solid #333;
+  }
+
+
+  .resumenInfo {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .resumenInfo p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0.5rem 0;
+  }
+
+  .metodosPago {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .metodosPago svg {
+    height: 24px;
+    width: auto;
+  }
+
+  .carritoVacio {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .carritoVacio h1 {
+    margin: 0 0 1rem 0;
+  }
+
+  .carritoVacio p {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .btnCheckout, .btnSeguirComprando {
+    width: 100%;
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 100;
+    transition: background 0.2s;
+  }
+
+  .btnPrimario {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #000;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .btnPrimario:hover {
+    background: #333;
+  }
+
+  @media (max-width: 1024px) {
+    .carritoContenido {
+      grid-template-columns: 1fr;
+    }
+
+    .carritoResumen {
+      position: static;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .itemCarrito {
+      grid-template-columns: 80px 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .itemImagen img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .itemAcciones {
+      flex-wrap: wrap;
+    }
+
+    .itemSubtotal {
+      width: 100%;
+      text-align: right;
+      margin-left: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cartForm = document.getElementById('cart-form');
+    const cartItems = document.querySelectorAll('[data-cart-item]');
+
+    // Actualizar cantidad
+    cartItems.forEach(item => {
+      const qtyInput = item.querySelector('[data-qty-input]');
+      const btnMenos = item.querySelector('[data-qty-change="-1"]');
+      const btnMas = item.querySelector('[data-qty-change="1"]');
+      const btnEliminar = item.querySelector('[data-remove-item]');
+      const key = item.dataset.key;
+
+      btnMenos?.addEventListener('click', () => updateQuantity(key, parseInt(qtyInput.value) - 1));
+      btnMas?.addEventListener('click', () => updateQuantity(key, parseInt(qtyInput.value) + 1));
+      qtyInput?.addEventListener('change', (e) => updateQuantity(key, parseInt(e.target.value)));
+      btnEliminar?.addEventListener('click', () => updateQuantity(key, 0));
+    });
+
+    async function updateQuantity(key, quantity) {
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: key, quantity: Math.max(0, quantity) })
+        });
+
+        if (response.ok) {
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error('Error updating cart:', error);
+      }
+    }
+
+    // Actualizar nota del carrito
+    const noteTextarea = document.getElementById('cart-note');
+    if (noteTextarea) {
+      noteTextarea.addEventListener('blur', async function() {
+        try {
+          await fetch('/cart/update.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ note: this.value })
+          });
+        } catch (error) {
+          console.error('Error saving note:', error);
+        }
+      });
+    }
+
+    // Manejar checkout
+    const btnCheckout = document.querySelector('.btnCheckout');
+    if (btnCheckout) {
+      btnCheckout.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = '/checkout';
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {
-  "name": "t:general.cart",
-  "settings": []
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "mostrar_nota",
+      "label": "Show order notes field",
+      "default": true
+    }
+  ]
 }
 {% endschema %}
