@@ -26,7 +26,10 @@
             "line_height": 1.5,
             "texto": "",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_NT7RWN": {
@@ -39,7 +42,10 @@
             "line_height": 1.5,
             "texto": "<h2>SIZE GUIDES</h2><p>Fll the form below For bespoke and customisation requests, please visit the page sum dolor sit amet, consectetuer adipiscing elity nibh euismo.</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "imagen_jCjzWh": {
@@ -49,7 +55,10 @@
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
             "imagen": "shopify://shop_images/sparkle.png",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         }
       },
@@ -59,12 +68,16 @@
         "imagen_jCjzWh"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "titulo_ntGU3q": {
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "",
         "ancho": "tres-quintos",
         "alineacion_texto": "center",
@@ -73,9 +86,9 @@
     },
     "texto_aGGmw6": {
       "type": "texto",
-      "disabled": true,
       "name": "Bloque de texto",
       "settings": {
+        "anchor_seccion": "",
         "texto": "<h3>1. General</h3><p>The following “Terms & Conditions”,duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate.</p><h4>Fers feugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p><h4>Fers feugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p><h3>2. Create an account</h3><p>The following “Terms & Conditions”,duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam non</p><h3>3. Payment</h3><p>The following “Terms & Conditions”,duis dolore te feugait nulla facilisi.Lorem ipsum dolor sit amet, cons ectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam non</p><h4>Rfeugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p><h4>Fers feugait ne</h4><p>my nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate vel</p>",
         "texto_boton": "Ver más",
         "enlace_boton": ""
@@ -90,7 +103,10 @@
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "texto_WhF9Cq": {
@@ -103,7 +119,10 @@
             "line_height": 1.5,
             "texto": "<h2>INTERNATIONAL RING SIZE CHART</h2><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit </p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "imagen_z7bLP3": {
@@ -112,7 +131,10 @@
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         }
       },
@@ -122,7 +144,10 @@
         "imagen_z7bLP3"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "fila_contenido_BWAPRN": {
       "type": "fila-contenido",
@@ -133,7 +158,10 @@
             "ancho": "mitad",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         }
       },
@@ -141,12 +169,16 @@
         "imagen_PQ8jmh"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "titulo_ac9p9t": {
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "",
         "ancho": "tres-quintos",
         "alineacion_texto": "center",
@@ -166,7 +198,10 @@
             "line_height": 1.5,
             "texto": "",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_t6LHtC": {
@@ -179,7 +214,10 @@
             "line_height": 1.5,
             "texto": "<h2>NECKLACES</h2><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobo.</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_4TNJm6": {
@@ -192,7 +230,10 @@
             "line_height": 1.5,
             "texto": "",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         }
       },
@@ -202,7 +243,10 @@
         "texto_4TNJm6"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "fila_contenido_LQE8Nx": {
       "type": "fila-contenido",
@@ -213,7 +257,10 @@
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "imagen_8gRtRQ": {
@@ -222,7 +269,10 @@
             "ancho": "tres-quintos",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "imagen_yYhE9i": {
@@ -231,7 +281,10 @@
             "ancho": "quinto",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         }
       },
@@ -241,12 +294,16 @@
         "imagen_yYhE9i"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "titulo_33iQzT": {
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "",
         "ancho": "tres-quintos",
         "alineacion_texto": "center",
@@ -266,7 +323,10 @@
             "line_height": 1.5,
             "texto": "",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_7xFni7": {
@@ -279,7 +339,10 @@
             "line_height": 1.5,
             "texto": "<h2>BRACELETS</h2><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl u</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "texto_UxfHNF": {
@@ -292,7 +355,10 @@
             "line_height": 1.5,
             "texto": "",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         }
       },
@@ -302,7 +368,10 @@
         "texto_UxfHNF"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "fila_contenido_pnTqbG": {
       "type": "fila-contenido",
@@ -317,7 +386,10 @@
             "line_height": 1.5,
             "texto": "",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         },
         "imagen_J7gzJM": {
@@ -326,7 +398,10 @@
             "ancho": "tres-quintos",
             "alineacion": "centro",
             "alineacion_vertical": "arriba",
-            "leyenda": ""
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
           }
         },
         "texto_j3j77n": {
@@ -339,7 +414,10 @@
             "line_height": 1.5,
             "texto": "<h4>HOW TO MEASURE YOUR WRIST?</h4><p>Prem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tinciduntut laoreet dolo.</p>",
             "texto_boton": "",
-            "enlace_boton": ""
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
           }
         }
       },
@@ -349,65 +427,21 @@
         "texto_j3j77n"
       ],
       "name": "Fila de contenido",
-      "settings": {}
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
     },
     "titulo_RUnymL": {
       "type": "titulo",
       "name": "Título",
       "settings": {
+        "anchor_seccion": "",
         "titulo_seccion": "",
         "ancho": "tres-quintos",
         "alineacion_texto": "center",
         "mostrar_borde": true
       }
-    },
-    "fila_contenido_ibg3CF": {
-      "type": "fila-contenido",
-      "blocks": {
-        "imagen_CXhFB9": {
-          "type": "imagen",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "centro",
-            "alineacion_vertical": "arriba",
-            "imagen": "shopify://shop_images/contact.svg",
-            "leyenda": ""
-          }
-        },
-        "texto_GbbtbY": {
-          "type": "texto",
-          "settings": {
-            "ancho": "tres-quintos",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<p>Write something about contact that sounds open, not too <br/>long, people should get in touch in touch if they want to have something<br/> different or are not sure of something etc.</p>",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        },
-        "texto_cDDh6b": {
-          "type": "texto",
-          "settings": {
-            "ancho": "quinto",
-            "alineacion": "izquierda",
-            "alineacion_vertical": "arriba",
-            "espaciado_parrafos": 1,
-            "line_height": 1.5,
-            "texto": "<h2>CONTACT</h2><h6>LOCATED IN BERLIN</h6><h6>SOMETHING ELSE</h6>",
-            "texto_boton": "",
-            "enlace_boton": ""
-          }
-        }
-      },
-      "block_order": [
-        "imagen_CXhFB9",
-        "texto_GbbtbY",
-        "texto_cDDh6b"
-      ],
-      "name": "Fila de contenido",
-      "settings": {}
     }
   },
   "order": [
@@ -423,7 +457,6 @@
     "titulo_33iQzT",
     "fila_contenido_hzzFDq",
     "fila_contenido_pnTqbG",
-    "titulo_RUnymL",
-    "fila_contenido_ibg3CF"
+    "titulo_RUnymL"
   ]
 }
