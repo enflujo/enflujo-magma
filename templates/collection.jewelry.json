@@ -30,7 +30,7 @@
         "alineacion_texto": "center",
         "enlace_destino": "",
         "color_texto": "#ffffff",
-        "color_fondo": "rgba(0,0,0,0.5)",
+        "color_fondo": "#00000080",
         "mostrar_fondo": true,
         "max_ancho_ch": 60,
         "unidad_offset": "px",
