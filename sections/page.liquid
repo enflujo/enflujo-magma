@@ -1,14 +1,143 @@
-{{ page.content }}
+{% assign ancho = section.settings.ancho | default: 'completo' %}
+{% assign alineacion = section.settings.alineacion_texto | default: 'left' %}
+{% assign margen_superior = section.settings.margen_superior | default: 2 %}
+{% assign margen_inferior = section.settings.margen_inferior | default: 2 %}
+{% assign padding_horizontal = section.settings.padding_horizontal | default: 1 %}
+
+<main
+  class='paginaContenido paginaContenido--{{ ancho }}'
+  style='text-align: {{ alineacion }}; margin-top: {{ margen_superior }}rem; margin-bottom: {{ margen_inferior }}rem; padding-left: {{ padding_horizontal }}rem; padding-right: {{ padding_horizontal }}rem;'
+>
+  {{ page.content }}
+</main>
 
 {% schema %}
 {
   "name": "t:general.page",
-  "settings": []
+  "settings": [
+    {
+      "type": "select",
+      "id": "ancho",
+      "label": "Ancho sección",
+      "options": [
+        { "value": "completo", "label": "Completo (1)" },
+        { "value": "mitad", "label": "Mitad (1/2)" },
+        { "value": "tercio", "label": "Tercio (1/3)" },
+        { "value": "dos-tercios", "label": "Dos tercios (2/3)" },
+        { "value": "cuarto", "label": "Cuarto (1/4)" },
+        { "value": "tres-cuartos", "label": "Tres cuartos (3/4)" },
+        { "value": "quinto", "label": "Quinto (1/5)" },
+        { "value": "dos-quintos", "label": "Dos quintos (2/5)" },
+        { "value": "tres-quintos", "label": "Tres quintos (3/5)" },
+        { "value": "cuatro-quintos", "label": "Cuatro quintos (4/5)" }
+      ],
+      "default": "completo",
+      "info": "Controla el ancho máximo de la página. Siempre se centrará horizontalmente."
+    },
+    {
+      "type": "select",
+      "id": "alineacion_texto",
+      "label": "Alineación del contenido",
+      "options": [
+        { "value": "left", "label": "Izquierda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Derecha" },
+        { "value": "justify", "label": "Justificado" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "margen_superior",
+      "label": "Margen superior (rem)",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 2,
+      "info": "Espacio arriba de la página"
+    },
+    {
+      "type": "range",
+      "id": "margen_inferior",
+      "label": "Margen inferior (rem)",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 2,
+      "info": "Espacio abajo de la página"
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Padding horizontal (rem)",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 1,
+      "info": "Espacio interno izquierda y derecha"
+    }
+  ]
 }
 {% endschema %}
 
 {% stylesheet %}
   main {
     padding-top: 5em;
+  }
+
+  .paginaContenido {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .paginaContenido--completo {
+    max-width: 100%;
+  }
+
+  .paginaContenido--mitad {
+    max-width: 50%;
+  }
+
+  .paginaContenido--tercio {
+    max-width: 33.33%;
+  }
+
+  .paginaContenido--dos-tercios {
+    max-width: 66.66%;
+  }
+
+  .paginaContenido--cuarto {
+    max-width: 25%;
+  }
+
+  .paginaContenido--tres-cuartos {
+    max-width: 75%;
+  }
+
+  .paginaContenido--quinto {
+    max-width: 20%;
+  }
+
+  .paginaContenido--dos-quintos {
+    max-width: 40%;
+  }
+
+  .paginaContenido--tres-quintos {
+    max-width: 60%;
+  }
+
+  .paginaContenido--cuatro-quintos {
+    max-width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    .paginaContenido {
+      max-width: 100% !important;
+    }
   }
 {% endstylesheet %}
