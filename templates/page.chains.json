@@ -11,7 +11,13 @@
   "sections": {
     "main": {
       "type": "page",
-      "settings": {}
+      "settings": {
+        "ancho": "completo",
+        "alineacion_texto": "left",
+        "margen_superior": 2,
+        "margen_inferior": 2,
+        "padding_horizontal": 1
+      }
     },
     "fila_contenido_xxHXgY": {
       "type": "fila-contenido",
@@ -70,13 +76,6 @@
       "settings": {
         "anchor_seccion": "",
         "alineacion_elementos": "start"
-      }
-    },
-    "cuadricula_productos_HYwWbb": {
-      "type": "cuadricula-productos",
-      "name": "Cuadrícula de productos",
-      "settings": {
-        "coleccion": "chains"
       }
     },
     "titulo_8xNpkz": {
@@ -138,7 +137,6 @@
   "order": [
     "main",
     "fila_contenido_xxHXgY",
-    "cuadricula_productos_HYwWbb",
     "titulo_8xNpkz",
     "imagen_grande_XMLgNF",
     "titulo_mhebpG"
