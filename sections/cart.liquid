@@ -4,7 +4,10 @@
       <div class='carritoItems'>
         <div class='carritoHeader'>
           <h1>Your Cart</h1>
-          <p class='cantidadItems'>{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</p>
+          <p class='cantidadItems'>
+            {{ cart.item_count }}
+            {% if cart.item_count == 1 %}item{% else %}items{% endif %}
+          </p>
         </div>
 
         <form action='{{ routes.cart_url }}' method='post' id='cart-form'>
@@ -14,8 +17,8 @@
                 <div class='itemImagen'>
                   {% if item.image %}
                     <a href='{{ item.url }}'>
-                      <img 
-                        src='{{ item.image | image_url: width: 200 }}' 
+                      <img
+                        src='{{ item.image | image_url: width: 200 }}'
                         alt='{{ item.image.alt | escape }}'
                         loading='lazy'
                         width='120'
@@ -37,7 +40,9 @@
                       <div class='itemPropiedades'>
                         {% for property in item.properties %}
                           {% unless property.last == blank %}
-                            <p><strong>{{ property.first }}:</strong> {{ property.last }}</p>
+                            <p>
+                              <strong>{{ property.first }}:</strong> {{ property.last }}
+                            </p>
                           {% endunless %}
                         {% endfor %}
                       </div>
@@ -53,25 +58,25 @@
                     </div>
 
                     <div class='itemCantidad'>
-                      <button 
-                        type='button' 
-                        class='btnCantidad btnMenos' 
+                      <button
+                        type='button'
+                        class='btnCantidad btnMenos'
                         data-qty-change='-1'
                         aria-label='Decrease quantity'
                       >
                         −
                       </button>
-                      <input 
-                        type='number' 
-                        name='updates[]' 
-                        value='{{ item.quantity }}' 
+                      <input
+                        type='number'
+                        name='updates[]'
+                        value='{{ item.quantity }}'
                         min='0'
                         data-qty-input
                         aria-label='Quantity'
                       >
-                      <button 
-                        type='button' 
-                        class='btnCantidad btnMas' 
+                      <button
+                        type='button'
+                        class='btnCantidad btnMas'
                         data-qty-change='1'
                         aria-label='Increase quantity'
                       >
@@ -83,9 +88,9 @@
                       {{ item.final_line_price | money }}
                     </div>
 
-                    <button 
-                      type='button' 
-                      class='btnEliminar' 
+                    <button
+                      type='button'
+                      class='btnEliminar'
                       data-remove-item
                       aria-label='Remove item'
                       title='Remove'
@@ -101,9 +106,9 @@
           {% if section.settings.mostrar_nota %}
             <div class='carritoNota'>
               <label for='cart-note'>Special instructions</label>
-              <textarea 
-                id='cart-note' 
-                name='note' 
+              <textarea
+                id='cart-note'
+                name='note'
                 placeholder='Any special instructions for your order?'
               >{{ cart.note }}</textarea>
             </div>
@@ -141,11 +146,13 @@
             <span data-cart-total>{{ cart.total_price | money }}</span>
           </div>
 
-          <button 
-            type='submit' 
-            name='checkout' 
+          <button
+            type='submit'
+            name='checkout'
             class='botonDestacado botonDestacado--oscuro btnCheckout'
-            {% if cart.item_count == 0 %}disabled{% endif %}
+            {% if cart.item_count == 0 %}
+              disabled
+            {% endif %}
           >
             Proceed to Checkout
           </button>
@@ -159,7 +166,10 @@
             {% endif %}
           </div>
 
-          <a href='{{ routes.all_products_collection_url }}' class='botonDestacado botonDestacado--claro btnSeguirComprando'>
+          <a
+            href='{{ routes.all_products_collection_url }}'
+            class='botonDestacado botonDestacado--claro btnSeguirComprando'
+          >
             ← Continue Shopping
           </a>
         </div>
@@ -223,7 +233,7 @@
   }
 
   .itemCarrito:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .itemImagen img {
@@ -409,7 +419,6 @@
     border-top: 2px solid #333;
   }
 
-
   .resumenInfo {
     text-align: center;
     margin: 1rem 0;
@@ -447,7 +456,8 @@
     margin-bottom: 2rem;
   }
 
-  .btnCheckout, .btnSeguirComprando {
+  .btnCheckout,
+  .btnSeguirComprando {
     width: 100%;
     cursor: pointer;
     padding: 0.75rem 1.5rem;
@@ -503,12 +513,12 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const cartForm = document.getElementById('cart-form');
     const cartItems = document.querySelectorAll('[data-cart-item]');
 
     // Actualizar cantidad
-    cartItems.forEach(item => {
+    cartItems.forEach((item) => {
       const qtyInput = item.querySelector('[data-qty-input]');
       const btnMenos = item.querySelector('[data-qty-change="-1"]');
       const btnMas = item.querySelector('[data-qty-change="1"]');
@@ -526,7 +536,7 @@
         const response = await fetch('/cart/change.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: key, quantity: Math.max(0, quantity) })
+          body: JSON.stringify({ id: key, quantity: Math.max(0, quantity) }),
         });
 
         if (response.ok) {
@@ -540,12 +550,12 @@
     // Actualizar nota del carrito
     const noteTextarea = document.getElementById('cart-note');
     if (noteTextarea) {
-      noteTextarea.addEventListener('blur', async function() {
+      noteTextarea.addEventListener('blur', async function () {
         try {
           await fetch('/cart/update.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ note: this.value })
+            body: JSON.stringify({ note: this.value }),
           });
         } catch (error) {
           console.error('Error saving note:', error);
@@ -556,7 +566,7 @@
     // Manejar checkout
     const btnCheckout = document.querySelector('.btnCheckout');
     if (btnCheckout) {
-      btnCheckout.addEventListener('click', function(e) {
+      btnCheckout.addEventListener('click', function (e) {
         e.preventDefault();
         window.location.href = '/checkout';
       });

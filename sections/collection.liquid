@@ -195,7 +195,7 @@
         <div id='pagination-data' data-next='{{ paginate.next.url | default: '' }}' hidden></div>
       {% endpaginate %}
     </div>
-    
+
     {% comment %} Sentinel para scroll infinito - FUERA del grid {% endcomment %}
     <div id='sentinel-{{ section.id }}' aria-hidden='true' style='height: 0; overflow: hidden;'></div>
   </div>
