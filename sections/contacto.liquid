@@ -89,14 +89,14 @@
 
         {% if section.settings.telefono_display %}
           <div class='infoBloque'>
-            <h3>Teléfono</h3>
+            <h3>Phone</h3>
             <p>{{ section.settings.telefono_display }}</p>
           </div>
         {% endif %}
 
         {% if section.settings.ubicacion %}
           <div class='infoBloque'>
-            <h3>Ubicación</h3>
+            <h3>Location</h3>
             <p>{{ section.settings.ubicacion }}</p>
           </div>
         {% endif %}
@@ -108,8 +108,21 @@
 <style>
   .contenedorContacto {
     padding: 2rem 1rem;
-    max-width: 600px;
+    width: 60%;
     margin: 0 auto;
+  }
+
+  @media (max-width: 1200px) {
+    .contenedorContacto {
+      width: 75%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contenedorContacto {
+      width: 90%;
+      padding: 1.5rem 1rem;
+    }
   }
 
   .contactoContenido {
@@ -211,10 +224,6 @@
   }
 
   @media (max-width: 768px) {
-    .contenedorContacto {
-      padding: 1.5rem 1rem;
-    }
-
     .contactoTitulo {
       font-size: 2rem;
     }
@@ -227,114 +236,114 @@
 
 {% schema %}
 {
-  "name": "Contacto",
+  "name": "Contact",
   "settings": [
     {
       "type": "text",
       "id": "titulo",
-      "label": "Título",
-      "default": "Contáctanos"
+      "label": "Title",
+      "default": "Contact Us"
     },
     {
       "type": "richtext",
       "id": "descripcion",
-      "label": "Descripción",
-      "default": "<p>Nos encantaría escucharte. Completa el formulario y nos pondremos en contacto pronto.</p>"
+      "label": "Description",
+      "default": "<p>We'd love to hear from you. Fill out the form and we'll get back to you soon.</p>"
     },
     {
       "type": "text",
       "id": "label_nombre",
-      "label": "Etiqueta - Nombre",
-      "default": "Nombre"
+      "label": "Name Label",
+      "default": "Name"
     },
     {
       "type": "text",
       "id": "placeholder_nombre",
-      "label": "Placeholder - Nombre",
-      "default": "Tu nombre completo"
+      "label": "Name Placeholder",
+      "default": "Your full name"
     },
     {
       "type": "text",
       "id": "label_email",
-      "label": "Etiqueta - Email",
+      "label": "Email Label",
       "default": "Email"
     },
     {
       "type": "text",
       "id": "placeholder_email",
-      "label": "Placeholder - Email",
-      "default": "tu@email.com"
+      "label": "Email Placeholder",
+      "default": "your@email.com"
     },
     {
       "type": "text",
       "id": "label_telefono",
-      "label": "Etiqueta - Teléfono",
-      "default": "Teléfono (opcional)"
+      "label": "Phone Label",
+      "default": "Phone (optional)"
     },
     {
       "type": "text",
       "id": "placeholder_telefono",
-      "label": "Placeholder - Teléfono",
+      "label": "Phone Placeholder",
       "default": "+1 (555) 123-4567"
     },
     {
       "type": "text",
       "id": "label_asunto",
-      "label": "Etiqueta - Asunto",
-      "default": "Asunto"
+      "label": "Subject Label",
+      "default": "Subject"
     },
     {
       "type": "text",
       "id": "placeholder_asunto",
-      "label": "Placeholder - Asunto",
-      "default": "¿En qué te podemos ayudar?"
+      "label": "Subject Placeholder",
+      "default": "How can we help?"
     },
     {
       "type": "text",
       "id": "label_mensaje",
-      "label": "Etiqueta - Mensaje",
-      "default": "Mensaje"
+      "label": "Message Label",
+      "default": "Message"
     },
     {
       "type": "text",
       "id": "placeholder_mensaje",
-      "label": "Placeholder - Mensaje",
-      "default": "Cuéntanos tu mensaje..."
+      "label": "Message Placeholder",
+      "default": "Tell us your message..."
     },
     {
       "type": "text",
       "id": "boton_texto",
-      "label": "Texto del botón",
-      "default": "Enviar mensaje"
+      "label": "Button Text",
+      "default": "Send Message"
     },
     {
       "type": "checkbox",
       "id": "mostrar_info",
-      "label": "Mostrar información de contacto",
+      "label": "Show Contact Information",
       "default": true
     },
     {
       "type": "text",
       "id": "email_display",
-      "label": "Email para mostrar",
-      "default": "contacto@tutienda.com"
+      "label": "Email to Display",
+      "default": "contact@yourstore.com"
     },
     {
       "type": "text",
       "id": "telefono_display",
-      "label": "Teléfono para mostrar",
+      "label": "Phone to Display",
       "default": "+1 (555) 123-4567"
     },
     {
       "type": "text",
       "id": "ubicacion",
-      "label": "Ubicación",
-      "default": "Tu ciudad, País"
+      "label": "Location",
+      "default": "Your City, Country"
     }
   ],
   "presets": [
     {
-      "name": "Formulario de contacto"
+      "name": "Contact Form"
     }
   ]
 }
