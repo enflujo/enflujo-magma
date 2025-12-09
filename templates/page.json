@@ -11,7 +11,13 @@
   "sections": {
     "main": {
       "type": "page",
-      "settings": {}
+      "settings": {
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "margen_superior": 4,
+        "margen_inferior": 0,
+        "padding_horizontal": 1
+      }
     }
   },
   "order": [
