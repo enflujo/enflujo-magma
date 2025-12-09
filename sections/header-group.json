@@ -47,7 +47,7 @@
             "imagen_icono": "shopify://shop_images/workshops.svg",
             "titulo_icono": "Workshops",
             "anchor_home": "workshops",
-            "destino_url": "shopify://pages/workshop"
+            "destino_url": "shopify://collections/workshops"
           }
         },
         "icono_menu_dkRCWr": {
@@ -56,7 +56,7 @@
             "imagen_icono": "shopify://shop_images/contact_icon_0660d4b2-d849-40db-a9f3-90539d07c400.svg",
             "titulo_icono": "Contact",
             "anchor_home": "contact",
-            "destino_url": "shopify://pages/contact-1"
+            "destino_url": "shopify://pages/contact"
           }
         }
       },
