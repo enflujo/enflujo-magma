@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "ancho": "tres-quintos",
         "alineacion_texto": "left",
@@ -18,9 +19,33 @@
         "margen_inferior": 0,
         "padding_horizontal": 1
       }
+    },
+    "contacto_cjHBTY": {
+      "type": "contacto",
+      "name": "Formulario de contacto",
+      "settings": {
+        "titulo": "Get in touch",
+        "descripcion": "",
+        "label_nombre": "Name",
+        "placeholder_nombre": "Your full name",
+        "label_email": "Email",
+        "placeholder_email": "your@email.com",
+        "label_telefono": "Phone (optional)",
+        "placeholder_telefono": "+1 (555) 123-4567",
+        "label_asunto": "Subject",
+        "placeholder_asunto": "...",
+        "label_mensaje": "Message",
+        "placeholder_mensaje": "...",
+        "boton_texto": "Send",
+        "mostrar_info": true,
+        "email_display": "contacto@tutienda.com",
+        "telefono_display": "+1 (555) 123-4567",
+        "ubicacion": "Berlin, Germany"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "contacto_cjHBTY"
   ]
 }
