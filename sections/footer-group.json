@@ -65,6 +65,7 @@
         "texto_UBAJi6",
         "texto_nREKYX"
       ],
+      "disabled": true,
       "name": "Fila de contenido",
       "settings": {
         "anchor_seccion": "contact",
