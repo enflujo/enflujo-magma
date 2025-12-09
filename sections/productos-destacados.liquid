@@ -15,38 +15,7 @@
     {% for block in section.blocks %}
       {% assign prod = all_products[block.settings.product] %}
       {% if prod %}
-        <article class='productoTarjeta'>
-          <a class='productoImagen' href='{{ prod.url }}'>
-            {% if prod.featured_image %}
-              <img
-                src='{{ prod.featured_image | image_url: width: 400, height: 400, crop: 'center' }}'
-                alt='{{ prod.title }}'
-                width='400'
-                height='400'
-              >
-            {% endif %}
-          </a>
-          <div class='productoContenido'>
-            <h3 class='productoTitulo'>
-              <a href='{{ prod.url }}'>{{ prod.title }}</a>
-            </h3>
-            <div class='productoPrecio'>{{ prod.price | money }}</div>
-            {% comment %} Si el producto tiene exactamente una variante, permitir agregar rápido al carrito; de lo contrario, enlazar a la página del producto {% endcomment %}
-            {% if prod.variants.size == 1 %}
-              {% assign v = prod.variants.first %}
-              {% if v.available %}
-                <form method='post' action='{{ routes.cart_add_url }}' class='form-agregar-carrito'>
-                  <input type='hidden' name='id' value='{{ v.id }}'>
-                  <button type='submit' class='botonAgregar'>Add to cart</button>
-                </form>
-              {% else %}
-                <button class='agotado' disabled>Out of stock</button>
-              {% endif %}
-            {% else %}
-              <a class='verProducto botonAgregar' href='{{ prod.url }}'>View product</a>
-            {% endif %}
-          </div>
-        </article>
+        {% render 'tarjeta-producto-carrito', producto: prod %}
       {% endif %}
     {% endfor %}
   </div>

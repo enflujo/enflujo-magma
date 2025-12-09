@@ -1,0 +1,74 @@
+{% comment %}
+  Snippet reutilizable para mostrar una tarjeta de producto con precio y botón de agregar al carrito
+  Parámetros:
+  - producto: objeto producto de Shopify
+  - es_carrusel: boolean (opcional) - Si es true, usa clases de carrusel
+{% endcomment %}
+
+{% if es_carrusel %}
+  <div class='carruselItemWrapper carruselItemWrapper--producto'>
+    <a class='carruselItem carruselItem--link' href='{{ producto.url }}'>
+      {% if producto.featured_image %}
+        <img
+          src='{{ producto.featured_image | image_url: width: 800 }}'
+          alt='{{ producto.title }}'
+          width='800'
+          height='800'
+          style='width: 100%; height: 100%; object-fit: cover;'
+        >
+      {% endif %}
+    </a>
+    <div class='carruselProductoInfo'>
+      <h3 class='productoTitulo'>
+        <a href='{{ producto.url }}'>{{ producto.title }}</a>
+      </h3>
+      <div class='productoPrecio'>{{ producto.price | money }}</div>
+      {% if producto.variants.size == 1 %}
+        {% assign v = producto.variants.first %}
+        {% if v.available %}
+          <form method='post' action='{{ routes.cart_add_url }}' class='form-agregar-carrito'>
+            <input type='hidden' name='id' value='{{ v.id }}'>
+            <button type='submit' class='botonAgregar'>Add to cart</button>
+          </form>
+        {% else %}
+          <button class='agotado' disabled>Out of stock</button>
+        {% endif %}
+      {% else %}
+        <a class='verProducto botonAgregar' href='{{ producto.url }}'>View product</a>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <article class='productoTarjeta'>
+    <a class='productoImagen' href='{{ producto.url }}'>
+      {% if producto.featured_image %}
+        <img
+          src='{{ producto.featured_image | image_url: width: 400, height: 400, crop: 'center' }}'
+          alt='{{ producto.title }}'
+          width='400'
+          height='400'
+          loading='lazy'
+        >
+      {% endif %}
+    </a>
+    <div class='productoContenido'>
+      <h3 class='productoTitulo'>
+        <a href='{{ producto.url }}'>{{ producto.title }}</a>
+      </h3>
+      <div class='productoPrecio'>{{ producto.price | money }}</div>
+      {% if producto.variants.size == 1 %}
+        {% assign v = producto.variants.first %}
+        {% if v.available %}
+          <form method='post' action='{{ routes.cart_add_url }}' class='form-agregar-carrito'>
+            <input type='hidden' name='id' value='{{ v.id }}'>
+            <button type='submit' class='botonAgregar'>Add to cart</button>
+          </form>
+        {% else %}
+          <button class='agotado' disabled>Out of stock</button>
+        {% endif %}
+      {% else %}
+        <a class='verProducto botonAgregar' href='{{ producto.url }}'>View product</a>
+      {% endif %}
+    </div>
+  </article>
+{% endif %}

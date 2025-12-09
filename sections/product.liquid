@@ -60,9 +60,16 @@
         </p>
       {% endif %}
 
-      {% if product.collections.first %}
-        <a href='{{ product.collections.first.url }}' class='boton-coleccion'>
-          {{ product.collections.first.title }}
+      {% assign coleccion_visible = null %}
+      {% for col in product.collections %}
+        {% if col.metafields.custom.show_in_related != false %}
+          {% assign coleccion_visible = col %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      {% if coleccion_visible %}
+        <a href='{{ coleccion_visible.url }}' class='boton-coleccion'>
+          {{ coleccion_visible.title }}
         </a>
       {% endif %}
 
