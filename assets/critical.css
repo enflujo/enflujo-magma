@@ -70,10 +70,10 @@ a:visited {
   text-decoration: none;
   font-weight: normal;
 
-  &:hover,
+  /* &:hover,
   &:focus {
     text-decoration: underline;
-  }
+  } */
 }
 
 /** Theme styles below */
