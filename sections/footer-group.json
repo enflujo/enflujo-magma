@@ -37,7 +37,7 @@
             "line_height": 1.5,
             "texto": "<h2>CONTACT</h2><h6>If you have any questions you can either fill out the contact form or write an E-Mail. Please ensure to provide as much information as possible in the body of your email including your full name and your location.</h6>",
             "texto_boton": "GET IN TOUCH",
-            "enlace_boton": "shopify://pages/contact-1",
+            "enlace_boton": "shopify://pages/contact",
             "estilo_boton": "claro",
             "borde_posicion": "ninguno",
             "borde_grosor": 1
