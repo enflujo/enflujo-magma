@@ -129,6 +129,10 @@
         "alineacion_texto": "left",
         "mostrar_borde": true
       }
+    },
+    "main": {
+      "type": "collection",
+      "settings": {}
     }
   },
   "order": [
