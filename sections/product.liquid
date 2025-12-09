@@ -1,7 +1,7 @@
 {% comment %}
   https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
-<main class='contenedorProducto'>
+<div class='contenedorProducto'>
   <div class='imagenesProducto'>
     {% if product.images.size > 0 %}
       {% assign imagen_inicial = product.featured_image | default: product.images.first %}
@@ -148,7 +148,12 @@
         {% if product.metafields.custom.add_chain %}
           {% assign nota = shop.metafields.custom.add_chain | metafield_tag %}
           <div class='textoCadenas'>{{ nota }}</div>
-          <input type='button' class='agregarCadenaBtn botonOscuro' data-chain-page='/pages/chains' value='Add Chain'>
+          <input
+            type='button'
+            class='agregarCadenaBtn botonOscuro'
+            data-chain-page='/collections/chains'
+            value='Add Chain'
+          >
         {% endif %}
       {% endform %}
 
@@ -168,7 +173,7 @@
       {% endif %}
     </div>
   </div>
-</main>
+</div>
 
 <div class='lightbox' data-lightbox style='display:none;'>
   <button type='button' class='lightbox-close' data-lightbox-close aria-label='Close'>×</button>
