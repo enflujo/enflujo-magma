@@ -9,12 +9,24 @@
  */
 {
   "sections": {
+    "titulo_A3kjrB": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "anchor_seccion": "",
+        "titulo_seccion": "<h2>CHAINS</h2><p><br/>You can choose a chain to go with your pendant or charm or simply as an extra all ssterling silver available in standard sizes. The chain is measured open.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": false
+      }
+    },
     "main": {
       "type": "collection",
       "settings": {}
     }
   },
   "order": [
+    "titulo_A3kjrB",
     "main"
   ]
 }
