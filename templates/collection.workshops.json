@@ -106,6 +106,17 @@
         "alineacion_elementos": "start"
       }
     },
+    "titulo_BzPcWR": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "anchor_seccion": "",
+        "titulo_seccion": "<h2>WAX CARVING PROJECTS</h2><p>Follow at your own pace and everything you need included and text this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
+    },
     "main": {
       "type": "collection",
       "settings": {}
@@ -114,6 +125,7 @@
   "order": [
     "imagen_grande_cciXan",
     "fila_contenido_zp4wBE",
+    "titulo_BzPcWR",
     "main"
   ]
 }
