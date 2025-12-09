@@ -4,12 +4,18 @@
 {% assign margen_inferior = section.settings.margen_inferior | default: 2 %}
 {% assign padding_horizontal = section.settings.padding_horizontal | default: 1 %}
 
-<main
-  class='paginaContenido paginaContenido--{{ ancho }}'
-  style='text-align: {{ alineacion }}; margin-top: {{ margen_superior }}rem; margin-bottom: {{ margen_inferior }}rem; padding-left: {{ padding_horizontal }}rem; padding-right: {{ padding_horizontal }}rem;'
+<div
+  class='paginaContenedor paginaContenedor--{{ ancho }}'
+  style='margin-top: {{ margen_superior }}rem; margin-bottom: {{ margen_inferior }}rem; padding-left: {{ padding_horizontal }}rem; padding-right: {{ padding_horizontal }}rem;'
 >
-  {{ page.content }}
-</main>
+  {% if page.title %}
+    <h1 class='paginaTitulo' style='text-align: {{ alineacion }};'>{{ page.title }}</h1>
+  {% endif %}
+
+  <div class='paginaContenido' style='text-align: {{ alineacion }};'>
+    {{ page.content }}
+  </div>
+</div>
 
 {% schema %}
 {
@@ -84,59 +90,60 @@
 {% endschema %}
 
 {% stylesheet %}
-  main {
-    padding-top: 5em;
-  }
-
-  .paginaContenido {
+  .paginaContenedor {
     max-width: 100%;
     margin: 0 auto;
-    padding: 0 1rem;
     box-sizing: border-box;
   }
 
-  .paginaContenido--completo {
+  .paginaContenedor--completo {
     max-width: 100%;
   }
 
-  .paginaContenido--mitad {
+  .paginaContenedor--mitad {
     max-width: 50%;
   }
 
-  .paginaContenido--tercio {
+  .paginaContenedor--tercio {
     max-width: 33.33%;
   }
 
-  .paginaContenido--dos-tercios {
+  .paginaContenedor--dos-tercios {
     max-width: 66.66%;
   }
 
-  .paginaContenido--cuarto {
+  .paginaContenedor--cuarto {
     max-width: 25%;
   }
 
-  .paginaContenido--tres-cuartos {
+  .paginaContenedor--tres-cuartos {
     max-width: 75%;
   }
 
-  .paginaContenido--quinto {
+  .paginaContenedor--quinto {
     max-width: 20%;
   }
 
-  .paginaContenido--dos-quintos {
+  .paginaContenedor--dos-quintos {
     max-width: 40%;
   }
 
-  .paginaContenido--tres-quintos {
+  .paginaContenedor--tres-quintos {
     max-width: 60%;
   }
 
-  .paginaContenido--cuatro-quintos {
+  .paginaContenedor--cuatro-quintos {
     max-width: 80%;
   }
 
+  .paginaTitulo {
+    margin: 5rem 0 2rem 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
   @media (max-width: 768px) {
-    .paginaContenido {
+    .paginaContenedor {
       max-width: 100% !important;
     }
   }
