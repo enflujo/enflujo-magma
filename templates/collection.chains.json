@@ -1,0 +1,142 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "fila_contenido_xxHXgY": {
+      "type": "fila-contenido",
+      "blocks": {
+        "imagen_WqKk4F": {
+          "type": "imagen",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "centro",
+            "alineacion_vertical": "arriba",
+            "leyenda": "",
+            "sticky": false,
+            "posicion_sticky": "derecha",
+            "ancho_flotante": 300
+          }
+        },
+        "texto_gxL8WD": {
+          "type": "texto",
+          "settings": {
+            "ancho": "tres-quintos",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "arriba",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h2>CHAINS</h2><p>Text shop at makes this and that and follows this and the values are these, because there is a reason, not too long, but enough to fill three lines in this space and fill it with keywords.</p><p>Makes this and that and follows this and the values are these, shop here for chains.</p>",
+            "texto_boton": "",
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
+        },
+        "texto_bPtwFn": {
+          "type": "texto",
+          "settings": {
+            "ancho": "quinto",
+            "alineacion": "izquierda",
+            "alineacion_vertical": "centro",
+            "espaciado_parrafos": 1,
+            "line_height": 1.5,
+            "texto": "<h6>SIZE GUIDE</h6><h6>CARE GUIDE</h6><h6>SHIPPING & PROCESSING TIMES</h6>",
+            "texto_boton": "",
+            "enlace_boton": "",
+            "estilo_boton": "claro",
+            "borde_posicion": "ninguno",
+            "borde_grosor": 1
+          }
+        }
+      },
+      "block_order": [
+        "imagen_WqKk4F",
+        "texto_gxL8WD",
+        "texto_bPtwFn"
+      ],
+      "name": "Fila de contenido",
+      "settings": {
+        "anchor_seccion": "",
+        "alineacion_elementos": "start"
+      }
+    },
+    "cuadricula_productos_HYwWbb": {
+      "type": "cuadricula-productos",
+      "name": "Cuadrícula de productos",
+      "settings": {
+        "coleccion": "chains"
+      }
+    },
+    "titulo_8xNpkz": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "anchor_seccion": "",
+        "titulo_seccion": "<h2>DISCOVER SOMETHING MORE JEWELRY RINGS</h2><p>Explore the workshops and something else about learning and teaching and the boxes and the studio.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
+    },
+    "imagen_grande_XMLgNF": {
+      "type": "imagen-grande",
+      "name": "Imágen grande",
+      "settings": {
+        "anchor_seccion": "",
+        "imagen_seccion": "shopify://shop_images/nail_ring3.jpg",
+        "alt_texto": "",
+        "titulo_superior": "",
+        "tamano_icono": 60,
+        "texto_seccion": "<h2>RINGS</h2><p>Jewelry made for those who find meaning in what they wear and hold.</p>",
+        "texto_boton": "SHOP FOR YOUR HAND",
+        "enlace_boton": "shopify://products/cabezas-dobles",
+        "alt_imagen_extra": "",
+        "ancho_imagen_extra": 100,
+        "alineacion_imagen_extra": "center",
+        "espacio_imagen_extra": 12,
+        "posicion_texto": "centroIzq",
+        "alineacion_texto": "left",
+        "enlace_destino": "",
+        "color_texto": "#ffffff",
+        "color_fondo": "#00000080",
+        "mostrar_fondo": false,
+        "max_ancho_ch": 33,
+        "unidad_offset": "px",
+        "offset_x": 56,
+        "offset_y": 16,
+        "tamano_fuente": 18,
+        "usar_desfase_escritorio_en_movil": true,
+        "desfase_vertical": 0,
+        "desfase_vertical_movil": 0,
+        "z_index": 0
+      }
+    },
+    "titulo_mhebpG": {
+      "type": "titulo",
+      "name": "Título",
+      "settings": {
+        "anchor_seccion": "",
+        "titulo_seccion": "<h2>DISCOVER THE COLLECTIONS</h2><p>Discover the prints and something about everything that goes together in one place pairings etc.</p>",
+        "ancho": "tres-quintos",
+        "alineacion_texto": "left",
+        "mostrar_borde": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "fila_contenido_xxHXgY",
+    "cuadricula_productos_HYwWbb",
+    "titulo_8xNpkz",
+    "imagen_grande_XMLgNF",
+    "titulo_mhebpG"
+  ]
+}

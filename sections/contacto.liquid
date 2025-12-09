@@ -1,0 +1,336 @@
+{% comment %}
+  Sección de contacto con formulario que envía mensajes al dueño de la tienda
+  Los mensajes se guardan en los "Nuevo contactos" de Shopify
+{% endcomment %}
+
+<div class='contenedorContacto'>
+  <div class='contactoContenido'>
+    {% if section.settings.titulo %}
+      <h1 class='contactoTitulo'>{{ section.settings.titulo }}</h1>
+    {% endif %}
+
+    {% if section.settings.descripcion %}
+      <p class='contactoDescripcion'>{{ section.settings.descripcion }}</p>
+    {% endif %}
+
+    <form method='POST' action='/contact' class='formularioContacto' accept-charset='UTF-8' novalidate>
+      <input type='hidden' name='form_type' value='contact'>
+      <input type='hidden' name='utf8' value='✓'>
+
+      <div class='campoFormulario'>
+        <label for='nombre'>{{ section.settings.label_nombre }}</label>
+        <input
+          type='text'
+          id='nombre'
+          name='contact[nombre]'
+          placeholder='{{ section.settings.placeholder_nombre }}'
+          required
+          class='inputFormulario'
+        >
+      </div>
+
+      <div class='campoFormulario'>
+        <label for='email'>{{ section.settings.label_email }}</label>
+        <input
+          type='email'
+          id='email'
+          name='contact[email]'
+          placeholder='{{ section.settings.placeholder_email }}'
+          required
+          class='inputFormulario'
+        >
+      </div>
+
+      <div class='campoFormulario'>
+        <label for='telefono'>{{ section.settings.label_telefono }}</label>
+        <input
+          type='tel'
+          id='telefono'
+          name='contact[telefono]'
+          placeholder='{{ section.settings.placeholder_telefono }}'
+          class='inputFormulario'
+        >
+      </div>
+
+      <div class='campoFormulario'>
+        <label for='asunto'>{{ section.settings.label_asunto }}</label>
+        <input
+          type='text'
+          id='asunto'
+          name='contact[asunto]'
+          placeholder='{{ section.settings.placeholder_asunto }}'
+          class='inputFormulario'
+        >
+      </div>
+
+      <div class='campoFormulario'>
+        <label for='mensaje'>{{ section.settings.label_mensaje }}</label>
+        <textarea
+          id='mensaje'
+          name='contact[body]'
+          placeholder='{{ section.settings.placeholder_mensaje }}'
+          required
+          rows='6'
+          class='inputFormulario'
+        ></textarea>
+      </div>
+
+      <button type='submit' class='botonEnviar'>{{ section.settings.boton_texto }}</button>
+    </form>
+
+    {% if section.settings.mostrar_info %}
+      <div class='contactoInfo'>
+        {% if section.settings.email_display %}
+          <div class='infoBloque'>
+            <h3>Email</h3>
+            <p>{{ section.settings.email_display }}</p>
+          </div>
+        {% endif %}
+
+        {% if section.settings.telefono_display %}
+          <div class='infoBloque'>
+            <h3>Teléfono</h3>
+            <p>{{ section.settings.telefono_display }}</p>
+          </div>
+        {% endif %}
+
+        {% if section.settings.ubicacion %}
+          <div class='infoBloque'>
+            <h3>Ubicación</h3>
+            <p>{{ section.settings.ubicacion }}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .contenedorContacto {
+    padding: 2rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contactoContenido {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .contactoTitulo {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .contactoDescripcion {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+
+  .formularioContacto {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .campoFormulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .campoFormulario label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .inputFormulario {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .inputFormulario:focus {
+    outline: none;
+    border-color: #000;
+  }
+
+  .inputFormulario:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+  }
+
+  .botonEnviar {
+    padding: 0.875rem 1.5rem;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-top: 0.5rem;
+  }
+
+  .botonEnviar:hover {
+    background: #333;
+  }
+
+  .botonEnviar:active {
+    transform: scale(0.98);
+  }
+
+  .contactoInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+
+  .infoBloque h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .infoBloque p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .contenedorContacto {
+      padding: 1.5rem 1rem;
+    }
+
+    .contactoTitulo {
+      font-size: 2rem;
+    }
+
+    .contactoInfo {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contacto",
+  "settings": [
+    {
+      "type": "text",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Contáctanos"
+    },
+    {
+      "type": "richtext",
+      "id": "descripcion",
+      "label": "Descripción",
+      "default": "<p>Nos encantaría escucharte. Completa el formulario y nos pondremos en contacto pronto.</p>"
+    },
+    {
+      "type": "text",
+      "id": "label_nombre",
+      "label": "Etiqueta - Nombre",
+      "default": "Nombre"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_nombre",
+      "label": "Placeholder - Nombre",
+      "default": "Tu nombre completo"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Etiqueta - Email",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Placeholder - Email",
+      "default": "tu@email.com"
+    },
+    {
+      "type": "text",
+      "id": "label_telefono",
+      "label": "Etiqueta - Teléfono",
+      "default": "Teléfono (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_telefono",
+      "label": "Placeholder - Teléfono",
+      "default": "+1 (555) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "label_asunto",
+      "label": "Etiqueta - Asunto",
+      "default": "Asunto"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_asunto",
+      "label": "Placeholder - Asunto",
+      "default": "¿En qué te podemos ayudar?"
+    },
+    {
+      "type": "text",
+      "id": "label_mensaje",
+      "label": "Etiqueta - Mensaje",
+      "default": "Mensaje"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_mensaje",
+      "label": "Placeholder - Mensaje",
+      "default": "Cuéntanos tu mensaje..."
+    },
+    {
+      "type": "text",
+      "id": "boton_texto",
+      "label": "Texto del botón",
+      "default": "Enviar mensaje"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_info",
+      "label": "Mostrar información de contacto",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email_display",
+      "label": "Email para mostrar",
+      "default": "contacto@tutienda.com"
+    },
+    {
+      "type": "text",
+      "id": "telefono_display",
+      "label": "Teléfono para mostrar",
+      "default": "+1 (555) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "ubicacion",
+      "label": "Ubicación",
+      "default": "Tu ciudad, País"
+    }
+  ]
+}
+{% endschema %}
